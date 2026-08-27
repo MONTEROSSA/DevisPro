@@ -28,9 +28,10 @@ jobs:
         
     - name: Install Tesseract (Windows)
       run: |
-        choco install tesseract --version=5.3.3 -y
+        choco install tesseract -y --no-progress
         echo "C:\Program Files\Tesseract-OCR" >> $GITHUB_PATH
         echo "TESSDATA_PREFIX=C:\Program Files\Tesseract-OCR\tessdata" >> $GITHUB_ENV
+        tesseract --version
         
     - name: Prepare source
       run: |
