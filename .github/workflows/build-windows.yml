@@ -37,13 +37,9 @@ jobs:
       run: |
         python -c "import sys; sys.path.insert(0, '.'); from devispro import app_gui; print('app_gui import OK')"
 
-    - name: Simple PyInstaller test (no hidden imports)
+    - name: PyInstaller simple (single line command)
       run: |
-        pyinstaller --clean --noconfirm ^
-          --name DevisPro ^
-          --windowed ^
-          --log-level=DEBUG ^
-          devispro/main_windows.py 2>&1 | tee pyinstaller_simple.log
+        pyinstaller --clean --noconfirm --name DevisPro --windowed --log-level=DEBUG devispro/main_windows.py 2>&1 | tee pyinstaller_simple.log
       continue-on-error: true
 
     - name: Debug dist folder
@@ -63,31 +59,9 @@ jobs:
         path: pyinstaller_simple.log
         retention-days: 30
 
-    - name: Full PyInstaller build (with all imports)
+    - name: PyInstaller full (single line command)
       run: |
-        pyinstaller --clean --noconfirm ^
-          --name DevisPro ^
-          --windowed ^
-          --icon=devispro/devispro/icon.ico ^
-          --add-data "devispro/devispro;devispro" ^
-          --add-data "devispro/icon.ico;." ^
-          --add-data "devispro/main_windows.py;." ^
-          --hidden-import=customtkinter ^
-          --hidden-import=darkdetect ^
-          --hidden-import=packaging ^
-          --hidden-import=PIL ^
-          --hidden-import=pypdfium2 ^
-          --hidden-import=cryptography ^
-          --hidden-import=requests ^
-          --hidden-import=pandas ^
-          --hidden-import=openpyxl ^
-          --hidden-import=lxml ^
-          --hidden-import=devispro ^
-          --collect-all=devispro ^
-          --collect-all=fpdf ^
-          --collect-all=segno ^
-          --log-level=DEBUG ^
-          devispro/main_windows.py 2>&1 | tee pyinstaller_full.log
+        pyinstaller --clean --noconfirm --name DevisPro --windowed --icon=devispro/devispro/icon.ico --add-data "devispro/devispro;devispro" --add-data "devispro/icon.ico;." --add-data "devispro/main_windows.py;." --hidden-import=customtkinter --hidden-import=darkdetect --hidden-import=packaging --hidden-import=PIL --hidden-import=pypdfium2 --hidden-import=cryptography --hidden-import=requests --hidden-import=pandas --hidden-import=openpyxl --hidden-import=lxml --hidden-import=devispro --collect-all=devispro --collect-all=fpdf --collect-all=segno --log-level=DEBUG devispro/main_windows.py 2>&1 | tee pyinstaller_full.log
       continue-on-error: true
 
     - name: Debug dist folder (after full build)
