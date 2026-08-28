@@ -33,11 +33,11 @@ jobs:
         echo "TESSDATA_PREFIX=C:\Program Files\Tesseract-OCR\tessdata" >> $GITHUB_ENV
         tesseract --version
 
-    - name: Prepare source (flatten devispro structure)
+    - name: Prepare source (use clean devispro/devispro)
       run: |
-        # Move flat devispro to build dir (avoid nested devispro/devispro)
+        # Use the clean nested package
         mkdir build_src
-        xcopy /E /I /Y devispro\* build_src\devispro\
+        xcopy /E /I /Y devispro\devispro\* build_src\devispro\
         dir build_src\devispro
 
     - name: Build with PyInstaller
