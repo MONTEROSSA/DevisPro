@@ -33,21 +33,17 @@ jobs:
         echo "TESSDATA_PREFIX=C:\Program Files\Tesseract-OCR\tessdata" >> $GITHUB_ENV
         tesseract --version
 
-    - name: Prepare source (use clean devispro/devispro)
+    - name: Build with PyInstaller (from root, using proper paths)
       run: |
-        # Use the clean nested package
-        mkdir build_src
-        xcopy /E /I /Y devispro\devispro\* build_src\devispro\
-        dir build_src\devispro
-
-    - name: Build with PyInstaller
-      working-directory: ./build_src
-      run: |
+        # Ensure devispro package is on PYTHONPATH
+        echo "$(pwd)" >> $GITHUB_PATH
+        
         pyinstaller --clean --noconfirm ^
           --name DevisPro ^
           --windowed ^
-          --icon=devispro/icon.ico ^
-          --add-data "devispro;devispro" ^
+          --icon=devispro/devispro/icon.ico ^
+          --add-data "devispro/devispro;devispro" ^
+          --add-data "devispro/icon.ico;." ^
           --hidden-import=customtkinter ^
           --hidden-import=darkdetect ^
           --hidden-import=packaging ^
@@ -58,93 +54,77 @@ jobs:
           --hidden-import=pandas ^
           --hidden-import=openpyxl ^
           --hidden-import=lxml ^
-          --hidden-import=crypto_rsa ^
-          --hidden-import=license_admin ^
-          --hidden-import=segno ^
+          --hidden-import=devispro ^
+          --hidden-import=devispro.models ^
+          --hidden-import=devispro.stammdaten ^
+          --hidden-import=devispro.importers ^
+          --hidden-import=devispro.parsers ^
+          --hidden-import=devispro.providers ^
+          --hidden-import=devispro.history ^
+          --hidden-import=devispro.firmen_preise ^
+          --hidden-import=devispro.ch_preise ^
+          --hidden-import=devispro.pricing ^
+          --hidden-import=devispro.license ^
+          --hidden-import=devispro.trial_counter ^
+          --hidden-import=devispro.benchmark ^
+          --hidden-import=devispro.abo ^
+          --hidden-import=devispro.kantone ^
+          --hidden-import=devispro.multicurrency ^
+          --hidden-import=devispro.accounting ^
+          --hidden-import=devispro.marketing ^
+          --hidden-import=devispro.diagnostics ^
+          --hidden-import=devispro.agent ^
+          --hidden-import=devispro.monitor ^
+          --hidden-import=devispro.erp ^
+          --hidden-import=devispro.bridge_agent ^
+          --hidden-import=devispro.backup ^
+          --hidden-import=devispro.ordner_import ^
+          --hidden-import=devispro.templates ^
+          --hidden-import=devispro.version ^
+          --hidden-import=devispro.crypto_rsa ^
+          --hidden-import=devispro.license_admin ^
+          --hidden-import=devispro.analysen_bibliothek ^
+          --hidden-import=devispro.anleitung ^
+          --hidden-import=devispro.ctk_theme ^
+          --hidden-import=devispro.theme ^
+          --hidden-import=devispro.cli ^
+          --hidden-import=devispro.connector ^
+          --hidden-import=devispro.exporter ^
+          --hidden-import=devispro.extras ^
+          --hidden-import=devispro.kalkulation ^
+          --hidden-import=devispro.lead_magnet ^
+          --hidden-import=devispro.lifecycle ^
+          --hidden-import=devispro.local_ai ^
+          --hidden-import=devispro.mahnung ^
+          --hidden-import=devispro.margen_copilot ^
+          --hidden-import=devispro.matcher ^
+          --hidden-import=devispro.npk ^
+          --hidden-import=devispro.pdf ^
+          --hidden-import=devispro.pdf_export ^
+          --hidden-import=devispro.pdf_native ^
+          --hidden-import=devispro.plausibility ^
+          --hidden-import=devispro.portal_import ^
+          --hidden-import=devispro.preise_gui ^
+          --hidden-import=devispro.preise_import ^
+          --hidden-import=devispro.pricelist ^
+          --hidden-import=devispro.prompts ^
+          --hidden-import=devispro.qr_rechnung ^
+          --hidden-import=devispro.qr_render ^
+          --hidden-import=devispro.rechnung ^
+          --hidden-import=devispro.recurring ^
+          --hidden-import=devispro.roi ^
+          --hidden-import=devispro.sample_project ^
+          --hidden-import=devispro.subunternehmer ^
+          --hidden-import=devispro.system ^
+          --hidden-import=devispro.team_auth ^
+          --hidden-import=devispro.team_sync ^
+          --hidden-import=devispro.updates ^
+          --hidden-import=devispro.validators ^
+          --hidden-import=devispro.vision ^
+          --hidden-import=devispro.whatsapp_bot ^
+          --hidden-import=devispro.whitelabel ^
+          --hidden-import=devispro.zahlungsplan ^
           --hidden-import=fpdf ^
-          --hidden-import=importers ^
-          --hidden-import=parsers ^
-          --hidden-import=providers ^
-          --hidden-import=history ^
-          --hidden-import=firmen_preise ^
-          --hidden-import=ch_preise ^
-          --hidden-import=pricing ^
-          --hidden-import=license ^
-          --hidden-import=trial_counter ^
-          --hidden-import=benchmark ^
-          --hidden-import=abo ^
-          --hidden-import=kantone ^
-          --hidden-import=multicurrency ^
-          --hidden-import=accounting ^
-          --hidden-import=marketing ^
-          --hidden-import=diagnostics ^
-          --hidden-import=agent ^
-          --hidden-import=monitor ^
-          --hidden-import=erp ^
-          --hidden-import=bridge_agent ^
-          --hidden-import=backup ^
-          --hidden-import=ordner_import ^
-          --hidden-import=templates ^
-          --hidden-import=version ^
-          --hidden-import=stammdaten ^
-          --hidden-import=models ^
-          --hidden-import=importers.datanorm ^
-          --hidden-import=importers.crbx ^
-          --hidden-import=importers.gaeb ^
-          --hidden-import=importers.oenorm ^
-          --hidden-import=importers.xrechnung ^
-          --hidden-import=importers.bauweb ^
-          --hidden-import=importers.sia451 ^
-          --hidden-import=parsers.crb ^
-          --hidden-import=parsers.crb_sia ^
-          --hidden-import=parsers.json_if ^
-          --hidden-import=parsers.partner_api ^
-          --hidden-import=parsers.sia451_roundtrip ^
-          --hidden-import=providers.base ^
-          --hidden-import=providers.http_llm ^
-          --hidden-import=providers.local ^
-          --hidden-import=providers.mock ^
-          --hidden-import=analysen_bibliothek ^
-          --hidden-import=anleitung ^
-          --hidden-import=ctk_theme ^
-          --hidden-import=theme ^
-          --hidden-import=cli ^
-          --hidden-import=connector ^
-          --hidden-import=exporter ^
-          --hidden-import=extras ^
-          --hidden-import=kalkulation ^
-          --hidden-import=lead_magnet ^
-          --hidden-import=lifecycle ^
-          --hidden-import=local_ai ^
-          --hidden-import=mahnung ^
-          --hidden-import=margen_copilot ^
-          --hidden-import=matcher ^
-          --hidden-import=npk ^
-          --hidden-import=pdf ^
-          --hidden-import=pdf_export ^
-          --hidden-import=pdf_native ^
-          --hidden-import=plausibility ^
-          --hidden-import=portal_import ^
-          --hidden-import=preise_gui ^
-          --hidden-import=preise_import ^
-          --hidden-import=pricelist ^
-          --hidden-import=prompts ^
-          --hidden-import=qr_rechnung ^
-          --hidden-import=qr_render ^
-          --hidden-import=rechnung ^
-          --hidden-import=recurring ^
-          --hidden-import=roi ^
-          --hidden-import=sample_project ^
-          --hidden-import=subunternehmer ^
-          --hidden-import=system ^
-          --hidden-import=team_auth ^
-          --hidden-import=team_sync ^
-          --hidden-import=updates ^
-          --hidden-import=validators ^
-          --hidden-import=vision ^
-          --hidden-import=whatsapp_bot ^
-          --hidden-import=whitelabel ^
-          --hidden-import=zahlungsplan ^
           --hidden-import=fpdf.actions ^
           --hidden-import=fpdf.annotations ^
           --hidden-import=fpdf.bidi ^
@@ -179,11 +159,18 @@ jobs:
           --hidden-import=fpdf.transitions ^
           --hidden-import=fpdf.unicode_script ^
           --hidden-import=fpdf.util ^
+          --hidden-import=segno ^
+          --hidden-import=segno.encoder ^
+          --hidden-import=segno.helpers ^
+          --hidden-import=segno.utils ^
+          --hidden-import=segno.writers ^
+          --collect-all=devispro ^
+          --collect-all=fpdf ^
+          --collect-all=segno ^
           --log-level=DEBUG ^
           devispro/app_gui.py
 
     - name: Create distribution package
-      working-directory: ./build_src
       run: |
         mkdir DevisPro_Windows
         xcopy /E /I /Y dist\DevisPro\* DevisPro_Windows\
@@ -207,7 +194,6 @@ jobs:
         echo Web: www.devispro.de>> DevisPro_Windows\README.txt
 
     - name: Create ZIP
-      working-directory: ./build_src
       run: |
         cd DevisPro_Windows
         7z a -tzip ..\DevisPro_Windows.zip .
@@ -217,12 +203,12 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: DevisPro-Windows
-        path: build_src/DevisPro_Windows.zip
+        path: DevisPro_Windows.zip
         retention-days: 30
 
     - name: Create Release (on tag)
       if: startsWith(github.ref, 'refs/tags/')
       uses: softprops/action-gh-release@v2
       with:
-        files: build_src/DevisPro_Windows.zip
+        files: DevisPro_Windows.zip
         generate_release_notes: true
