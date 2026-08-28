@@ -66,38 +66,62 @@ jobs:
         path: pyinstaller_build.log
         retention-days: 30
 
-    - name: Create distribution package
+    - name: Create distribution package (with full debug)
       run: |
+        Write-Host "=== PACKAGE STEP START ==="
+        Write-Host "CWD: $(Get-Location)"
+        
+        # Full recursive listing of dist
+        Write-Host "=== FULL DIST TREE ==="
+        if (Test-Path dist) {
+          Get-ChildItem dist -Recurse | ForEach-Object { Write-Host "  $($_.FullName) - $($_.Length) bytes" }
+        } else {
+          Write-Host "dist NOT FOUND"
+        }
+        
         # Handle all possible PyInstaller output structures
         $srcPath = ""
         if (Test-Path "dist\DevisPro") {
           $srcPath = "dist\DevisPro"
+          Write-Host "Found: dist\DevisPro (directory)"
         } elseif (Test-Path "dist\DevisPro.exe") {
           $srcPath = "dist"
+          Write-Host "Found: dist\DevisPro.exe (single file)"
         } elseif (Test-Path "dist") {
-          # Get first subfolder or file in dist
           $items = Get-ChildItem dist
           if ($items.Count -gt 0) {
             $srcPath = "dist"
+            Write-Host "Found: dist with $($items.Count) items"
+            $items | ForEach-Object { Write-Host "  $($_.Name) - $($_.PSIsContainer ? 'dir' : 'file')" }
           }
         }
         
         if ($srcPath -eq "") {
           Write-Error "ERROR: No dist output found"
-          Get-ChildItem -Recurse dist 2>$null | ForEach-Object { Write-Host "Found: $($_.FullName)" }
           exit 1
         }
         
         Write-Host "Using source path: $srcPath"
         New-Item -ItemType Directory -Force -Path "DevisPro_Windows" | Out-Null
         Copy-Item -Recurse -Force "$srcPath\*" "DevisPro_Windows\"
+        
+        Write-Host "=== DEVISPRO_WINDOWS CONTENTS ==="
+        Get-ChildItem DevisPro_Windows -Recurse | ForEach-Object { Write-Host "  $($_.FullName)" }
 
         # Copy Windows Tesseract to package
-        Copy-Item -Recurse -Force "C:\Program Files\Tesseract-OCR\*" "DevisPro_Windows\tesseract\"
+        Write-Host "=== COPYING TESSERACT ==="
+        if (Test-Path "C:\Program Files\Tesseract-OCR") {
+          Copy-Item -Recurse -Force "C:\Program Files\Tesseract-OCR\*" "DevisPro_Windows\tesseract\"
+          Write-Host "Tesseract copied"
+        } else {
+          Write-Host "Tesseract NOT found at C:\Program Files\Tesseract-OCR"
+        }
 
         # Create README
         $readme = "DevisPro fuer Windows`n=======================`n`nInstallation:`n1. Entpacken Sie dieses Archiv an einen beliebigen Ort`n2. Doppelklicken Sie auf DevisPro.exe`n`nSystemvoraussetzungen:`n- Windows 10/11 (64-bit)`n- Keine zusaetzliche Installation noetig`n`nSupport: info@devispro.de`nWeb: www.devispro.de"
         $readme | Out-File -Encoding UTF8 "DevisPro_Windows\README.txt"
+        
+        Write-Host "=== PACKAGE STEP COMPLETE ==="
 
     - name: Create ZIP
       run: |
