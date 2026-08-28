@@ -31,12 +31,12 @@ class DevisProApp(tk.Tk):
         self.devis = None
         self._build_ui()
         self._status("Bereit. Format links wählen und Datei öffnen.")
-        # diagnose: echte geomentrie auf dem laufenden mac messen
-        self.after(1500, self._diag_dump)
+        # diagnose: skip on Windows
+        # self.after(1500, self._diag_dump)
 
     def _diag_dump(self):
         try:
-            with open("/tmp/devispro_geom.txt", "w") as f:
+            with open(os.path.join("/var/folders/4r/cwlct0_s34n8zxpn974f_qd00000gn/T", "devispro_geom.txt"), "w") as f:
                 f.write("TITLE=%s\n" % self.title())
                 f.write("WIN: w=%d h=%d view=%d\n" % (self.winfo_width(), self.winfo_height(), self.winfo_viewable()))
                 kids = self.winfo_children()
@@ -52,7 +52,7 @@ class DevisProApp(tk.Tk):
                             name, w.winfo_x(), w.winfo_y(), w.winfo_width(), w.winfo_height(), w.winfo_viewable()))
                 f.write("DONE\n")
         except Exception as e:
-            open("/tmp/devispro_geom.txt", "w").write("ERR %s\n" % e)
+            open(os.path.join("/var/folders/4r/cwlct0_s34n8zxpn974f_qd00000gn/T", "devispro_geom.txt"), "w").write("ERR %s\n" % e)
 
     def _build_ui(self):
         main = tk.Frame(self)
