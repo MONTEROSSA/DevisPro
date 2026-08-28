@@ -68,17 +68,29 @@ jobs:
 
     - name: Create distribution package
       run: |
-        # Check both possible output structures
+        # Handle all possible PyInstaller output structures
+        $srcPath = ""
         if (Test-Path "dist\DevisPro") {
-          New-Item -ItemType Directory -Force -Path "DevisPro_Windows" | Out-Null
-          Copy-Item -Recurse -Force "dist\DevisPro\*" "DevisPro_Windows\"
+          $srcPath = "dist\DevisPro"
         } elseif (Test-Path "dist\DevisPro.exe") {
-          New-Item -ItemType Directory -Force -Path "DevisPro_Windows" | Out-Null
-          Copy-Item -Recurse -Force "dist\*" "DevisPro_Windows\"
-        } else {
+          $srcPath = "dist"
+        } elseif (Test-Path "dist") {
+          # Get first subfolder or file in dist
+          $items = Get-ChildItem dist
+          if ($items.Count -gt 0) {
+            $srcPath = "dist"
+          }
+        }
+        
+        if ($srcPath -eq "") {
           Write-Error "ERROR: No dist output found"
+          Get-ChildItem -Recurse dist 2>$null | ForEach-Object { Write-Host "Found: $($_.FullName)" }
           exit 1
         }
+        
+        Write-Host "Using source path: $srcPath"
+        New-Item -ItemType Directory -Force -Path "DevisPro_Windows" | Out-Null
+        Copy-Item -Recurse -Force "$srcPath\*" "DevisPro_Windows\"
 
         # Copy Windows Tesseract to package
         Copy-Item -Recurse -Force "C:\Program Files\Tesseract-OCR\*" "DevisPro_Windows\tesseract\"
