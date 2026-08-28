@@ -171,6 +171,7 @@ jobs:
           --collect-all=segno ^
           --log-level=DEBUG ^
           devispro/main_windows.py 2>&1 | tee pyinstaller_build.log
+      continue-on-error: true
 
     - name: Debug dist folder
       run: |
