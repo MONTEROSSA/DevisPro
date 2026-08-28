@@ -1,0 +1,464 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "DevisPro Partner API",
+    "description": "API für ERP-Partner: SIA-451 Export, Preis-Sync, Webhooks\n\n## Authentifizierung\nAlle Endpoints (außer `/health`) benötigen einen API-Key im Header:\n```\nX-API-Key:IhrAPIKey\n```\n\n## Rate Limiting\n- 100 Requests pro Minute pro API-Key\n- Headers: `X-RateLimit-Limit`, `X-RateLimit-Remaining`, `X-RateLimit-Reset`\n- Bei Überschreitung: HTTP 429\n\n## Partner-Onboarding\nKontakt: api@devispro.ch für API-Key Registrierung",
+    "version": "1.0.0",
+    "contact": {
+      "name": "DevisPro API Support",
+      "email": "api@devispro.ch"
+    }
+  },
+  "servers": [
+    {
+      "url": "https://api.devispro.ch/v1",
+      "description": "Production Server"
+    },
+    {
+      "url": "http://127.0.0.1:8765",
+      "description": "Local Development Server"
+    }
+  ],
+  "security": [
+    {
+      "ApiKeyAuth": []
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "ApiKeyAuth": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "X-API-Key",
+        "description": "Ihr Partner-API-Key (erhalten Sie via api@devispro.ch)"
+      }
+    },
+    "schemas": {
+      "DevisExportResponse": {
+        "type": "object",
+        "properties": {
+          "devis_id": {
+            "type": "string",
+            "description": "Eindeutige Devis-ID",
+            "example": "abc123def456"
+          },
+          "download_url": {
+            "type": "string",
+            "format": "uri",
+            "description": "Temporäre Download-URL (gültig 1 Stunde)",
+            "example": "/api/v1/download/xyz789"
+          },
+          "expires_at": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Ablaufzeitpunkt der Download-URL"
+          },
+          "positions_count": {
+            "type": "integer",
+            "description": "Anzahl Positionen im Export"
+          }
+        },
+        "required": ["devis_id", "download_url", "expires_at", "positions_count"]
+      },
+      "PriceSyncPayload": {
+        "type": "object",
+        "properties": {
+          "devis_id": {
+            "type": "string",
+            "description": "Devis-ID aus DevisPro",
+            "example": "abc123def456"
+          },
+          "positions": {
+            "type": "array",
+            "description": "Liste bepreister Positionen",
+            "items": {
+              "type": "object",
+              "properties": {
+                "pos_nr": {
+                  "type": "string",
+                  "description": "Positionsnummer (exakt wie im LV)",
+                  "example": "01.01.001"
+                },
+                "ep": {
+                  "type": "number",
+                  "format": "float",
+                  "description": "Einheitspreis in CHF",
+                  "example": 125.50
+                },
+                "betrag": {
+                  "type": "number",
+                  "format": "float",
+                  "description": "Gesamtbetrag (Menge x EP) in CHF",
+                  "example": 1255.00
+                },
+                "menge": {
+                  "type": "number",
+                  "format": "float",
+                  "description": "Menge",
+                  "example": 10.0
+                },
+                "einheit": {
+                  "type": "string",
+                  "description": "Einheit (z.B. m2, Stk, m)",
+                  "example": "m2"
+                },
+                "text": {
+                  "type": "string",
+                  "description": "Positionstext (optional, zur Validierung)",
+                  "example": "Mauerwerk Kalksandstein"
+                }
+              },
+              "required": ["pos_nr", "ep"],
+              "additionalProperties": true
+            },
+            "minItems": 1
+          }
+        },
+        "required": ["devis_id", "positions"]
+      },
+      "PriceSyncResponse": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "description": "Ob alle Positionen ohne Fehler verarbeitet wurden"
+          },
+          "devis_id": {
+            "type": "string",
+            "description": "Devis-ID"
+          },
+          "synced_positions": {
+            "type": "integer",
+            "description": "Anzahl erfolgreich synchronisierter Positionen"
+          },
+          "errors": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Fehlermeldungen bei fehlerhaften Positionen"
+          }
+        },
+        "required": ["success", "devis_id", "synced_positions", "errors"]
+      },
+      "WebhookPayload": {
+        "type": "object",
+        "properties": {
+          "devis_id": {
+            "type": "string",
+            "description": "Devis-ID"
+          },
+          "event": {
+            "type": "string",
+            "enum": ["devis_finalized"],
+            "default": "devis_finalized",
+            "description": "Event-Typ"
+          },
+          "timestamp": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Zeitpunkt der Finalisierung"
+          },
+          "data": {
+            "type": "object",
+            "description": "Zusätzliche Daten (optional)"
+          }
+        },
+        "required": ["devis_id", "event"]
+      },
+      "WebhookResponse": {
+        "type": "object",
+        "properties": {
+          "received": {
+            "type": "boolean",
+            "description": "Bestätigung des Empfangs"
+          },
+          "devis_id": {
+            "type": "string",
+            "description": "Devis-ID"
+          }
+        },
+        "required": ["received", "devis_id"]
+      },
+      "ErrorResponse": {
+        "type": "object",
+        "properties": {
+          "detail": {
+            "type": "string",
+            "description": "Fehlerbeschreibung"
+          },
+          "code": {
+            "type": "string",
+            "description": "Fehlercode"
+          }
+        },
+        "required": ["detail", "code"]
+      },
+      "HealthResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "example": "ok"
+          },
+          "version": {
+            "type": "string",
+            "example": "1.0.0"
+          },
+          "partners": {
+            "type": "integer",
+            "description": "Anzahl registrierter Partner"
+          }
+        }
+      }
+    }
+  },
+  "paths": {
+    "/health": {
+      "get": {
+        "summary": "Health Check",
+        "description": "Prüft API-Verfügbarkeit (keine Auth erforderlich)",
+        "operationId": "healthCheck",
+        "responses": {
+          "200": {
+            "description": "API ist verfügbar",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HealthResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [],
+        "tags": ["System"]
+      }
+    },
+    "/api/v1/devis/{devis_id}/export": {
+      "get": {
+        "summary": "Devis als SIA-451 exportieren",
+        "description": "Liefert eine temporäre Download-URL für den SIA-451 Export des Devis.\nDie Datei enthält alle Positionen mit bepreisten Einheitspreisen und Beträgen.\n\n**Format:** SIA 451 Fixed-Width (kompatibel zu Sorba, CRB, Messerli)\n**Encoding:** UTF-8\n**Währung:** CHF (Rappen in Preiszeilen)",
+        "operationId": "exportDevis",
+        "parameters": [
+          {
+            "name": "devis_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Devis-ID (erhalten via DevisPro oder Webhook)",
+            "example": "abc123def456"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Export bereit zum Download",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DevisExportResponse"
+                }
+              }
+            },
+            "headers": {
+              "X-RateLimit-Limit": {
+                "schema": { "type": "integer" },
+                "description": "Max Requests pro Fenster"
+              },
+              "X-RateLimit-Remaining": {
+                "schema": { "type": "integer" },
+                "description": "Verbleibende Requests"
+              },
+              "X-RateLimit-Reset": {
+                "schema": { "type": "integer" },
+                "description": "Unix-Timestamp für Reset"
+              }
+            }
+          },
+          "401": {
+            "description": "Ungültiger oder fehlender API-Key",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
+          },
+          "403": {
+            "description": "Kein Zugriff auf diesen Devis",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
+          },
+          "404": {
+            "description": "Devis nicht gefunden",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
+          },
+          "429": {
+            "description": "Rate Limit überschritten",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            },
+            "headers": {
+              "X-RateLimit-Limit": { "schema": { "type": "integer" } },
+              "X-RateLimit-Remaining": { "schema": { "type": "integer" } },
+              "X-RateLimit-Reset": { "schema": { "type": "integer" } }
+            }
+          }
+        },
+        "tags": ["Devis Export"]
+      }
+    },
+    "/api/v1/preise/sync": {
+      "post": {
+        "summary": "Preise vom ERP-Partner synchronisieren",
+        "description": "Empfängt bepreiste Positionen vom ERP-System des Partners.\n\n**Wichtig:**\n- `pos_nr` muss exakt mit der LV-Positionsnummer übereinstimmen\n- `ep` (Einheitspreis) ist Pflichtfeld\n- `betrag` wird validiert: muss `menge * ep` entsprechen (Toleranz ±0.01 CHF)\n- Positionen mit Fehlern werden übersprungen, Details in `errors`\n\n**Workflow:**\n1. Partner ruft `/export` auf → erhält LV mit Positionen\n2. Partner berechnet Preise im ERP\n3. Partner sendet Preise via `/preise/sync`\n4. DevisPro aktualisiert Devis\n5. Partner finalisiert via Webhook",
+        "operationId": "syncPrices",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PriceSyncPayload"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Preise verarbeitet",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PriceSyncResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Ungültige Payload",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
+          },
+          "401": {
+            "description": "Ungültiger API-Key",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
+          },
+          "403": {
+            "description": "Kein Zugriff auf diesen Devis",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
+          },
+          "404": {
+            "description": "Devis nicht gefunden",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
+          },
+          "429": {
+            "description": "Rate Limit überschritten",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
+          }
+        },
+        "tags": ["Preis-Sync"]
+      }
+    },
+    "/api/v1/webhook/devis_finalized": {
+      "post": {
+        "summary": "Webhook: Devis finalisiert",
+        "description": "Wird vom ERP-Partner aufgerufen, wenn der Devis finalisiert/angeboten wurde.\n\n**Verwendung:**\n- DevisPro kann Status auf 'finalized' setzen\n- Löst evtl. Benachrichtigungen an Bauherr/Architekt aus\n- Idempotent: Mehrfachaufruf mit gleicher devis_id ist sicher",
+        "operationId": "webhookDevisFinalized",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/WebhookPayload"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Webhook empfangen",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WebhookResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Ungültiger API-Key",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
+          },
+          "403": {
+            "description": "Kein Zugriff auf diesen Devis",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
+          },
+          "429": {
+            "description": "Rate Limit überschritten",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
+          }
+        },
+        "tags": ["Webhooks"]
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "System",
+      "description": "System-Endpoints (Health, Version)"
+    },
+    {
+      "name": "Devis Export",
+      "description": "SIA-451 Export für Partner"
+    },
+    {
+      "name": "Preis-Sync",
+      "description": "Preis-Rückmeldung vom ERP"
+    },
+    {
+      "name": "Webhooks",
+      "description": "Event-Webhooks von Partnern"
+    }
+  ]
+}

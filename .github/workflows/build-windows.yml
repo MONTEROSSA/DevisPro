@@ -10,38 +10,36 @@ jobs:
   build-windows:
     runs-on: windows-latest
     timeout-minutes: 60
-    
+
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
-      
+
     - name: Set up Python
       uses: actions/setup-python@v5
       with:
         python-version: '3.11'
         architecture: 'x64'
-        
+
     - name: Install dependencies
       run: |
         pip install --upgrade pip
         pip install pyinstaller customtkinter darkdetect packaging pillow pypdfium2 cryptography requests pandas openpyxl lxml
-        
+
     - name: Install Tesseract (Windows)
       run: |
         choco install tesseract -y --no-progress
         echo "C:\Program Files\Tesseract-OCR" >> $GITHUB_PATH
         echo "TESSDATA_PREFIX=C:\Program Files\Tesseract-OCR\tessdata" >> $GITHUB_ENV
         tesseract --version
-        
+
     - name: Prepare source
       run: |
-        # Copy devispro source to root for PyInstaller
-        mkdir devispro_build
-        xcopy /E /I /Y devispro devispro_build\devispro
-        xcopy /E /I /Y devispro_build\devispro\..\Resources\tesseract devispro_build\tesseract 2>nul || echo "tesseract not in Resources, using system"
-        
+        # devispro and tesseract directories are already in repo
+        dir devispro
+        dir tesseract
+
     - name: Build with PyInstaller
-      working-directory: ./devispro_build
       run: |
         pyinstaller --clean --noconfirm ^
           --name DevisPro ^
@@ -67,12 +65,12 @@ jobs:
           --exclude-module=pdb ^
           --exclude-module=doctest ^
           devispro/app_gui.py
-          
+
     - name: Create distribution package
       run: |
         mkdir DevisPro_Windows
         xcopy /E /I /Y dist\DevisPro\* DevisPro_Windows\
-        
+
         # Create README
         echo DevisPro für Windows> DevisPro_Windows\README.txt
         echo =======================>> DevisPro_Windows\README.txt
@@ -87,20 +85,20 @@ jobs:
         echo.>> DevisPro_Windows\README.txt
         echo Support: info@devispro.de>> DevisPro_Windows\README.txt
         echo Web: www.devispro.de>> DevisPro_Windows\README.txt
-        
+
     - name: Create ZIP
       run: |
         cd DevisPro_Windows
-        7z a -tzip ../DevisPro_Windows.zip .
+        7z a -tzip ..\DevisPro_Windows.zip .
         cd ..
-        
+
     - name: Upload artifact
       uses: actions/upload-artifact@v4
       with:
         name: DevisPro-Windows
         path: DevisPro_Windows.zip
         retention-days: 30
-        
+
     - name: Create Release (on tag)
       if: startsWith(github.ref, 'refs/tags/')
       uses: softprops/action-gh-release@v2

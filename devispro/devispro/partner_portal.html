@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DevisPro Partner Portal — ERP Integration</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #f5f5f5; min-height: 100vh; }
+.container { max-width: 900px; margin: 0 auto; padding: 40px 20px; }
+.header { text-align: center; margin-bottom: 40px; }
+.logo { width: 80px; height: 80px; background: linear-gradient(135deg, #FF6A1A, #FF8C42); border-radius: 16px; display: inline-flex; align-items: center; justify-content: center; color: white; font-size: 32px; font-weight: 700; margin-bottom: 16px; }
+h1 { color: #1a1a2e; font-size: 32px; font-weight: 700; margin-bottom: 8px; }
+.subtitle { color: #666; font-size: 18px; }
+.card { background: white; border-radius: 16px; padding: 32px; box-shadow: 0 2px 12px rgba(0,0,0,0.08); margin-bottom: 24px; }
+.card h2 { color: #1a1a2e; font-size: 20px; font-weight: 600; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
+.card h2::before { content: ''; width: 4px; height: 24px; background: #FF6A1A; border-radius: 2px; }
+.form-group { margin-bottom: 20px; }
+label { display: block; font-weight: 500; color: #333; margin-bottom: 8px; font-size: 14px; }
+input, select, textarea { width: 100%; padding: 12px 16px; border: 1px solid #e0e0e0; border-radius: 8px; font-size: 14px; transition: border-color 0.2s, box-shadow 0.2s; }
+input:focus, select:focus, textarea:focus { outline: none; border-color: #FF6A1A; box-shadow: 0 0 0 3px rgba(255,106,26,0.15); }
+.row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+@media (max-width: 600px) { .row { grid-template-columns: 1fr; } }
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 14px 28px; border-radius: 8px; font-size: 15px; font-weight: 600; cursor: pointer; transition: all 0.2s; border: none; }
+.btn-primary { background: linear-gradient(135deg, #FF6A1A, #FF8C42); color: white; }
+.btn-primary:hover { transform: translateY(-1px); box-shadow: 0 4px 16px rgba(255,106,26,0.3); }
+.btn-secondary { background: #f0f0f0; color: #333; }
+.btn-secondary:hover { background: #e0e0e0; }
+.code-block { background: #1a1a2e; color: #e0e0e0; padding: 16px; border-radius: 8px; font-family: 'Monaco', 'Menlo', monospace; font-size: 13px; line-height: 1.6; overflow-x: auto; margin: 16px 0; }
+.code-block .key { color: #FF6A1A; }
+.code-block .string { color: #4ec9b0; }
+.code-block .comment { color: #6a9955; }
+.feature-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 16px; margin-top: 20px; }
+.feature { padding: 20px; background: #fafafa; border-radius: 12px; border-left: 4px solid #FF6A1A; }
+.feature h3 { font-size: 15px; font-weight: 600; color: #1a1a2e; margin-bottom: 8px; }
+.feature p { font-size: 13px; color: #666; line-height: 1.5; }
+.api-key-display { background: #fff3eb; border: 1px solid #ffd8c0; border-radius: 8px; padding: 16px; margin: 16px 0; display: flex; align-items: center; gap: 12px; }
+.api-key-display code { flex: 1; font-family: monospace; font-size: 13px; color: #1a1a2e; background: transparent; padding: 0; }
+.copy-btn { padding: 8px 16px; background: #FF6A1A; color: white; border: none; border-radius: 6px; cursor: pointer; font-size: 13px; }
+.copy-btn:hover { background: #e85a15; }
+.steps { counter-reset: step; margin: 20px 0; }
+.step { display: flex; gap: 16px; margin-bottom: 24px; position: relative; }
+.step::before { counter-increment: step; content: counter(step); width: 32px; height: 32px; background: #FF6A1A; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; flex-shrink: 0; }
+.step-content h4 { font-size: 16px; font-weight: 600; color: #1a1a2e; margin-bottom: 4px; }
+.step-content p { color: #666; font-size: 14px; }
+.hidden { display: none; }
+.toast { position: fixed; bottom: 24px; right: 24px; background: #1a1a2e; color: white; padding: 16px 24px; border-radius: 8px; box-shadow: 0 8px 32px rgba(0,0,0,0.2); transform: translateY(100px); opacity: 0; transition: all 0.3s; z-index: 1000; }
+.toast.show { transform: translateY(0); opacity: 1; }
+.toast.success { background: #2e7d32; }
+.toast.error { background: #c62828; }
+</style>
+</head>
+<body>
+<div class="container">
+<div class="header">
+<div class="logo">DP</div>
+<h1>DevisPro Partner Portal</h1>
+<p class="subtitle">ERP-Integration für Abacus, Proffix, SAP & Custom — White-Label <strong>„DevisPro inside“</strong></p>
+</div>
+
+<div class="card">
+<h2>🚀 Schnellstart: Partner werden</h2>
+<div class="steps">
+<div class="step">
+<div class="step-content">
+<h4>API Key generieren</h4>
+<p>Füllen Sie das Formular aus und erhalten Sie Ihren persönlichen API Key für die DevisPro Partner API.</p>
+</div>
+</div>
+<div class="step">
+<div class="step-content">
+<h4>In ERP integrieren</h4>
+<p>Nutzen Sie die REST-Endpoints (/api/v1/devis/{id}/export, /api/v1/preise/sync, /api/v1/webhook/devis_finalized) in Ihrem ERP-System.</p>
+</div>
+</div>
+<div class="step">
+<div class="step-content">
+<h4>Go Live</h4>
+<p>Ihre Kunden nutzen DevisPro für Offertstellung — Daten fliessen automatisch in Ihr ERP. White-Label: Ihre Marke, unser Engine.</p>
+</div>
+</div>
+</div>
+</div>
+
+<div class="card">
+<h2>🔑 API Key beantragen</h2>
+<form id="keyForm">
+<div class="row">
+<div class="form-group">
+<label>Partner-Name / Firma</label>
+<input type="text" name="name" placeholder="z.B. Muster AG" required>
+</div>
+<div class="form-group">
+<label>ERP-System</label>
+<select name="partner" required>
+<option value="">Bitte wählen</option>
+<option value="abacus">Abacus</option>
+<option value="proffix">Proffix</option>
+<option value="sap">SAP Business One</option>
+<option value="custom">Custom / Andere</option>
+</select>
+</div>
+</div>
+<div class="form-group">
+<label>Gewünschte Berechtigungen</label>
+<div style="display: flex; flex-wrap: wrap; gap: 12px; margin-top: 8px;">
+<label style="display: flex; align-items: center; gap: 6px; font-weight: 400; cursor: pointer;"><input type="checkbox" name="perm" value="devis:read" checked> Devis lesen/exportieren</label>
+<label style="display: flex; align-items: center; gap: 6px; font-weight: 400; cursor: pointer;"><input type="checkbox" name="perm" value="preise:sync" checked> Preise synchronisieren</label>
+<label style="display: flex; align-items: center; gap: 6px; font-weight: 400; cursor: pointer;"><input type="checkbox" name="perm" value="webhook"> Webhook (Devis finalisiert)</label>
+<label style="display: flex; align-items: center; gap: 6px; font-weight: 400; cursor: pointer;"><input type="checkbox" name="perm" value="devis:write"> Devis schreiben</label>
+</div>
+</div>
+<div class="form-group">
+<label>Rate Limit (Requests/Minute)</label>
+<input type="number" name="rate_limit" value="100" min="10" max="1000" style="max-width: 120px;">
+</div>
+<button type="submit" class="btn btn-primary">API Key generieren</button>
+</form>
+<div id="keyResult" class="hidden">
+<h3 style="margin-top: 24px; margin-bottom: 12px;">Ihr API Key</h3>
+<div class="api-key-display">
+<code id="apiKeyDisplay"></code>
+<button class="copy-btn" onclick="copyKey()">Kopieren</button>
+</div>
+<p style="color: #666; font-size: 14px;">⚠️ Wichtig: Speichern Sie den Key sicher. Er wird <strong>nicht erneut angezeigt</strong>. Header: <code>X-API-Key: dp_abacus_xxx...</code></p>
+</div>
+</div>
+
+<div class="card">
+<h2>📚 API Endpoints</h2>
+<div class="feature-grid">
+<div class="feature">
+<h3>GET /api/v1/devis/{id}/export</h3>
+<p>Exportiert fertiges Devis im ERP-nativen Format (Abacus/Proffix/SAP). Permission: <code>devis:read</code></p>
+</div>
+<div class="feature">
+<h3>POST /api/v1/preise/sync</h3>
+<p>Empfängt Preisliste aus ERP (Artikel, Preise, Rabattgruppen) für DevisPro-Kalkulation. Permission: <code>preise:sync</code></p>
+</div>
+<div class="feature">
+<h3>POST /api/v1/webhook/devis_finalized</h3>
+<p>Webhook: Wird getriggert wenn Devis in DevisPro finalisiert wird. Permission: <code>webhook</code></p>
+</div>
+<div class="feature">
+<h3>GET /health</h3>
+<p>Health Check für Monitoring & Load Balancer.</p>
+</div>
+</div>
+
+<h3 style="margin-top: 24px;">Beispiel: Devis Export (cURL)</h3>
+<div class="code-block">
+<span class="comment"># Devis exportieren</span>
+curl -X GET "https://api.devispro.ch/api/v1/devis/DEV-2026-001/export" \
+  -H "X-API-Key: dp_abacus_xxx..."
+
+<span class="comment"># Preise an DevisPro senden</span>
+curl -X POST "https://api.devispro.ch/api/v1/preise/sync" \
+  -H "X-API-Key: dp_abacus_xxx..." \
+  -H "Content-Type: application/json" \
+  -d '{"artikel": [{"artikelnummer": "A-001", "preis": 85.0, "einheit": "m2", "rabattgruppe": "RG1"}]}'
+</div>
+</div>
+
+<div class="card">
+<h2>🎯 Warum DevisPro inside?</h2>
+<div class="feature-grid">
+<div class="feature">
+<h3>Keine User-Lizenz-Falle</h3>
+<p>1 Lizenz = gesamtes Team (2-5 User). Flat-Preis CHF 350/Mt. — keine pro-User-Kosten.</p>
+</div>
+<div class="feature">
+<h3>Offline-First & DSGVO</h3>
+<p>Daten bleiben beim Kunden (Mac/Win Desktop, NAS, iCloud). Keine Cloud-Zwang.</p>
+</div>
+<div class="feature">
+<h3>SIA451 Roundtrip</h3>
+<p>Import LV → Bepreisen → Export (Struktur 1:1 identisch). Perfekt für öffentliche Ausschreibungen.</p>
+</div>
+<div class="feature">
+<h3>Lokale KI (Ollama)</h3>
+<p>Margen-Copilot & KI-Agent laufen offline auf Kundengerät. Geheimhaltung garantiert.</p>
+</div>
+</div>
+</div>
+
+<div class="card" style="text-align: center; background: linear-gradient(135deg, #1a1a2e, #16213e); color: white;">
+<h2 style="color: white;">Bereit für die Integration?</h2>
+<p style="margin: 16px 0; opacity: 0.9;">Werden Sie ERP-Partner und bieten Sie Ihren Kunden die beste Schweizer Offert-Lösung — powered by DevisPro.</p>
+<button class="btn btn-primary" onclick="document.getElementById('keyForm').scrollIntoView({behavior: 'smooth'})">Jetzt API Key beantragen</button>
+<p style="margin-top: 24px; opacity: 0.7; font-size: 14px;">Fragen? Kontakt: <a href="mailto:partner@devispro.de" style="color: #FF6A1A;">partner@devispro.de</a></p>
+</div>
+</div>
+
+<div id="toast" class="toast"></div>
+
+<script>
+document.getElementById('keyForm').addEventListener('submit', async (e) => {
+e.preventDefault();
+const form = e.target;
+const data = {
+name: form.name.value,
+partner: form.partner.value,
+permissions: Array.from(form.querySelectorAll('input[name="perm"]:checked')).map(cb => cb.value),
+rate_limit: parseInt(form.rate_limit.value) || 100,
+};
+const btn = form.querySelector('button[type="submit"]');
+btn.disabled = true;
+btn.textContent = 'Generiere...';
+try {
+const res = await fetch('/api/v1/admin/keys', {
+method: 'POST',
+headers: { 'Content-Type': 'application/json' },
+body: JSON.stringify(data),
+});
+const result = await res.json();
+if (res.ok) {
+document.getElementById('apiKeyDisplay').textContent = result.key;
+document.getElementById('keyResult').classList.remove('hidden');
+form.classList.add('hidden');
+showToast('API Key erfolgreich generiert!', 'success');
+} else {
+showToast('Fehler: ' + (result.detail || 'Unbekannt'), 'error');
+}
+} catch (err) {
+showToast('Netzwerkfehler: ' + err.message, 'error');
+} finally {
+btn.disabled = false;
+btn.textContent = 'API Key generieren';
+}
+});
+
+function copyKey() {
+const key = document.getElementById('apiKeyDisplay').textContent;
+navigator.clipboard.writeText(key).then(() => {
+const btn = document.querySelector('.copy-btn');
+btn.textContent = 'Kopiert!';
+setTimeout(() => btn.textContent = 'Kopieren', 2000);
+showToast('Key in Zwischenablage kopiert', 'success');
+});
+}
+
+function showToast(msg, type = '') {
+const toast = document.getElementById('toast');
+toast.textContent = msg;
+toast.className = 'toast show ' + type;
+setTimeout(() => toast.classList.remove('show'), 3000);
+}
+</script>
+</body>
+</html>
