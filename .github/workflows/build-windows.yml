@@ -35,9 +35,8 @@ jobs:
 
     - name: Prepare source
       run: |
-        # devispro and tesseract directories are already in repo
+        # devispro source is already in repo
         dir devispro
-        dir tesseract
 
     - name: Build with PyInstaller
       run: |
@@ -46,7 +45,6 @@ jobs:
           --windowed ^
           --icon=devispro/icon.ico ^
           --add-data "devispro;devispro" ^
-          --add-data "tesseract;tesseract" ^
           --hidden-import=customtkinter ^
           --hidden-import=darkdetect ^
           --hidden-import=packaging ^
@@ -70,6 +68,9 @@ jobs:
       run: |
         mkdir DevisPro_Windows
         xcopy /E /I /Y dist\DevisPro\* DevisPro_Windows\
+
+        # Copy Windows Tesseract to package
+        xcopy /E /I /Y "C:\Program Files\Tesseract-OCR\*" DevisPro_Windows\tesseract\
 
         # Create README
         echo DevisPro für Windows> DevisPro_Windows\README.txt
