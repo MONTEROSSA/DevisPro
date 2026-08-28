@@ -33,6 +33,10 @@ jobs:
         echo "TESSDATA_PREFIX=C:\Program Files\Tesseract-OCR\tessdata" >> $GITHUB_ENV
         tesseract --version
 
+    - name: Test imports (debug)
+      run: |
+        python -c "import sys; sys.path.insert(0, '.'); from devispro import app_gui; print('app_gui import OK')"
+
     - name: Build with PyInstaller (from root, clean entry point)
       run: |
         pyinstaller --clean --noconfirm ^
@@ -177,7 +181,7 @@ jobs:
         xcopy /E /I /Y "C:\Program Files\Tesseract-OCR\*" DevisPro_Windows\tesseract\
 
         # Create README
-        echo DevisPro für Windows> DevisPro_Windows\README.txt
+        echo DevisPro fuer Windows> DevisPro_Windows\README.txt
         echo =======================>> DevisPro_Windows\README.txt
         echo.>> DevisPro_Windows\README.txt
         echo Installation:>> DevisPro_Windows\README.txt
@@ -186,7 +190,7 @@ jobs:
         echo.>> DevisPro_Windows\README.txt
         echo Systemvoraussetzungen:>> DevisPro_Windows\README.txt
         echo - Windows 10/11 (64-bit)>> DevisPro_Windows\README.txt
-        echo - Keine zusätzliche Installation nötig>> DevisPro_Windows\README.txt
+        echo - Keine zusaetzliche Installation noetig>> DevisPro_Windows\README.txt
         echo.>> DevisPro_Windows\README.txt
         echo Support: info@devispro.de>> DevisPro_Windows\README.txt
         echo Web: www.devispro.de>> DevisPro_Windows\README.txt
