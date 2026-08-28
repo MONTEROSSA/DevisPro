@@ -37,6 +37,28 @@ jobs:
       run: |
         python -c "import sys; sys.path.insert(0, '.'); from devispro import app_gui; print('app_gui import OK')"
 
+    - name: Test PyInstaller analysis (debug)
+      run: |
+        python -m PyInstaller --clean --noconfirm ^
+          --name DevisPro ^
+          --windowed ^
+          --icon=devispro/devispro/icon.ico ^
+          --add-data "devispro/devispro;devispro" ^
+          --add-data "devispro/icon.ico;." ^
+          --add-data "devispro/main_windows.py;." ^
+          --hidden-import=customtkinter ^
+          --hidden-import=darkdetect ^
+          --hidden-import=packaging ^
+          --hidden-import=PIL ^
+          --hidden-import=pypdfium2 ^
+          --hidden-import=cryptography ^
+          --hidden-import=requests ^
+          --hidden-import=pandas ^
+          --hidden-import=openpyxl ^
+          --hidden-import=lxml ^
+          --log-level=DEBUG ^
+          devispro/main_windows.py
+
     - name: Build with PyInstaller (from root, clean entry point)
       run: |
         pyinstaller --clean --noconfirm ^
