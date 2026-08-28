@@ -10,6 +10,10 @@ jobs:
   build-windows:
     runs-on: windows-latest
     timeout-minutes: 60
+    defaults:
+      run:
+        shell: pwsh
+        working-directory: ${{ github.workspace }}
 
     steps:
     - name: Checkout code
@@ -29,99 +33,59 @@ jobs:
     - name: Install Tesseract (Windows)
       run: |
         choco install tesseract -y --no-progress
-        echo "C:\Program Files\Tesseract-OCR" >> $GITHUB_PATH
-        echo "TESSDATA_PREFIX=C:\Program Files\Tesseract-OCR\tessdata" >> $GITHUB_ENV
+        echo "C:\Program Files\Tesseract-OCR" >> $env:GITHUB_PATH
+        $env:TESSDATA_PREFIX = "C:\Program Files\Tesseract-OCR\tessdata"
         tesseract --version
 
     - name: Test imports (debug)
       run: |
         python -c "import sys; sys.path.insert(0, '.'); from devispro import app_gui; print('app_gui import OK')"
 
-    - name: PyInstaller simple (single line command)
+    - name: PyInstaller build (PowerShell, correct working dir)
       run: |
-        pyinstaller --clean --noconfirm --name DevisPro --windowed --log-level=DEBUG devispro/main_windows.py 2>&1 | tee pyinstaller_simple.log
-      continue-on-error: true
+        pyinstaller --clean --noconfirm --name DevisPro --windowed --icon=devispro/devispro/icon.ico --add-data "devispro/devispro;devispro" --add-data "devispro/icon.ico;." --add-data "devispro/main_windows.py;." --hidden-import=customtkinter --hidden-import=darkdetect --hidden-import=packaging --hidden-import=PIL --hidden-import=pypdfium2 --hidden-import=cryptography --hidden-import=requests --hidden-import=pandas --hidden-import=openpyxl --hidden-import=lxml --hidden-import=devispro --collect-all=devispro --collect-all=fpdf --collect-all=segno --log-level=DEBUG devispro/main_windows.py 2>&1 | tee pyinstaller_build.log
 
     - name: Debug dist folder (comprehensive)
       run: |
-        echo "=== CWD ==="
-        cd
-        echo "=== ls -la ==="
-        dir /b
-        echo "=== dist folder (if exists) ==="
-        if exist dist (
-          dir dist
-          echo "=== dist contents ==="
-          dir /s dist
-        ) else (
-          echo "dist folder does NOT exist"
-        )
+        Write-Host "=== CWD ==="
+        Get-Location
+        Write-Host "=== dist folder (if exists) ==="
+        if (Test-Path dist) {
+          Get-ChildItem dist
+          Write-Host "=== dist contents (recursive) ==="
+          Get-ChildItem dist -Recurse
+        } else {
+          Write-Host "dist folder does NOT exist"
+        }
 
-    - name: Upload PyInstaller simple log
+    - name: Upload PyInstaller build log
       uses: actions/upload-artifact@v4
       if: always()
       with:
-        name: pyinstaller-simple-log
-        path: pyinstaller_simple.log
-        retention-days: 30
-
-    - name: PyInstaller full (single line command)
-      run: |
-        pyinstaller --clean --noconfirm --name DevisPro --windowed --icon=devispro/devispro/icon.ico --add-data "devispro/devispro;devispro" --add-data "devispro/icon.ico;." --add-data "devispro/main_windows.py;." --hidden-import=customtkinter --hidden-import=darkdetect --hidden-import=packaging --hidden-import=PIL --hidden-import=pypdfium2 --hidden-import=cryptography --hidden-import=requests --hidden-import=pandas --hidden-import=openpyxl --hidden-import=lxml --hidden-import=devispro --collect-all=devispro --collect-all=fpdf --collect-all=segno --log-level=DEBUG devispro/main_windows.py 2>&1 | tee pyinstaller_full.log
-      continue-on-error: true
-
-    - name: Debug dist folder (after full build)
-      run: |
-        echo "=== CWD ==="
-        cd
-        echo "=== dist folder (if exists) ==="
-        if exist dist (
-          dir dist
-          echo "=== dist contents ==="
-          dir /s dist
-        ) else (
-          echo "dist folder does NOT exist"
-        )
-
-    - name: Upload PyInstaller full log
-      uses: actions/upload-artifact@v4
-      if: always()
-      with:
-        name: pyinstaller-full-log
-        path: pyinstaller_full.log
+        name: pyinstaller-build-log
+        path: pyinstaller_build.log
         retention-days: 30
 
     - name: Create distribution package
       run: |
         # Check both possible output structures
-        if exist dist\DevisPro (
-          mkdir DevisPro_Windows
-          xcopy /E /I /Y dist\DevisPro\* DevisPro_Windows\
-        ) else if exist dist\DevisPro.exe (
-          mkdir DevisPro_Windows
-          xcopy /E /I /Y dist\* DevisPro_Windows\
-        ) else (
-          echo "ERROR: No dist output found"
+        if (Test-Path "dist\DevisPro") {
+          New-Item -ItemType Directory -Force -Path "DevisPro_Windows" | Out-Null
+          Copy-Item -Recurse -Force "dist\DevisPro\*" "DevisPro_Windows\"
+        } elseif (Test-Path "dist\DevisPro.exe") {
+          New-Item -ItemType Directory -Force -Path "DevisPro_Windows" | Out-Null
+          Copy-Item -Recurse -Force "dist\*" "DevisPro_Windows\"
+        } else {
+          Write-Error "ERROR: No dist output found"
           exit 1
-        )
+        }
 
         # Copy Windows Tesseract to package
-        xcopy /E /I /Y "C:\Program Files\Tesseract-OCR\*" DevisPro_Windows\tesseract\
+        Copy-Item -Recurse -Force "C:\Program Files\Tesseract-OCR\*" "DevisPro_Windows\tesseract\"
 
         # Create README
-        echo DevisPro fuer Windows> DevisPro_Windows\README.txt
-        echo =======================>> DevisPro_Windows\README.txt
-        echo.>> DevisPro_Windows\README.txt
-        echo Installation:>> DevisPro_Windows\README.txt
-        echo 1. Entpacken Sie dieses Archiv an einen beliebigen Ort>> DevisPro_Windows\README.txt
-        echo 2. Doppelklicken Sie auf DevisPro.exe>> DevisPro_Windows\README.txt
-        echo.>> DevisPro_Windows\README.txt
-        echo Systemvoraussetzungen:>> DevisPro_Windows\README.txt
-        echo - Windows 10/11 (64-bit)>> DevisPro_Windows\README.txt
-        echo - Keine zusaetzliche Installation noetig>> DevisPro_Windows\README.txt
-        echo.>> DevisPro_Windows\README.txt
-        echo Support: info@devispro.de>> DevisPro_Windows\README.txt
-        echo Web: www.devispro.de>> DevisPro_Windows\README.txt
+        $readme = "DevisPro fuer Windows`n=======================`n`nInstallation:`n1. Entpacken Sie dieses Archiv an einen beliebigen Ort`n2. Doppelklicken Sie auf DevisPro.exe`n`nSystemvoraussetzungen:`n- Windows 10/11 (64-bit)`n- Keine zusaetzliche Installation noetig`n`nSupport: info@devispro.de`nWeb: www.devispro.de"
+        $readme | Out-File -Encoding UTF8 "DevisPro_Windows\README.txt"
 
     - name: Create ZIP
       run: |
