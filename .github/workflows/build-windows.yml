@@ -37,38 +37,7 @@ jobs:
       run: |
         python -c "import sys; sys.path.insert(0, '.'); from devispro import app_gui; print('app_gui import OK')"
 
-    - name: Test PyInstaller analysis (debug) - capture output
-      run: |
-        python -m PyInstaller --clean --noconfirm ^
-          --name DevisPro ^
-          --windowed ^
-          --icon=devispro/devispro/icon.ico ^
-          --add-data "devispro/devispro;devispro" ^
-          --add-data "devispro/icon.ico;." ^
-          --add-data "devispro/main_windows.py;." ^
-          --hidden-import=customtkinter ^
-          --hidden-import=darkdetect ^
-          --hidden-import=packaging ^
-          --hidden-import=PIL ^
-          --hidden-import=pypdfium2 ^
-          --hidden-import=cryptography ^
-          --hidden-import=requests ^
-          --hidden-import=pandas ^
-          --hidden-import=openpyxl ^
-          --hidden-import=lxml ^
-          --log-level=DEBUG ^
-          devispro/main_windows.py 2>&1 | tee pyinstaller_debug.log
-      continue-on-error: true
-
-    - name: Upload PyInstaller debug log
-      uses: actions/upload-artifact@v4
-      if: always()
-      with:
-        name: pyinstaller-debug-log
-        path: pyinstaller_debug.log
-        retention-days: 30
-
-    - name: Build with PyInstaller (from root, clean entry point)
+    - name: Build with PyInstaller (from root, clean entry point) - DEBUG
       run: |
         pyinstaller --clean --noconfirm ^
           --name DevisPro ^
@@ -201,9 +170,19 @@ jobs:
           --collect-all=fpdf ^
           --collect-all=segno ^
           --log-level=DEBUG ^
-          devispro/main_windows.py
+          devispro/main_windows.py 2>&1 | tee pyinstaller_build.log
+      continue-on-error: true
+
+    - name: Upload PyInstaller build log
+      uses: actions/upload-artifact@v4
+      if: always()
+      with:
+        name: pyinstaller-build-log
+        path: pyinstaller_build.log
+        retention-days: 30
 
     - name: Create distribution package
+      if: success()
       run: |
         mkdir DevisPro_Windows
         xcopy /E /I /Y dist\DevisPro\* DevisPro_Windows\
@@ -227,12 +206,14 @@ jobs:
         echo Web: www.devispro.de>> DevisPro_Windows\README.txt
 
     - name: Create ZIP
+      if: success()
       run: |
         cd DevisPro_Windows
         7z a -tzip ..\DevisPro_Windows.zip .
         cd ..
 
     - name: Upload artifact
+      if: success()
       uses: actions/upload-artifact@v4
       with:
         name: DevisPro-Windows
