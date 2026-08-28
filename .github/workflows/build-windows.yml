@@ -37,7 +37,33 @@ jobs:
       run: |
         python -c "import sys; sys.path.insert(0, '.'); from devispro import app_gui; print('app_gui import OK')"
 
-    - name: Build with PyInstaller (from root, clean entry point) - DEBUG
+    - name: Simple PyInstaller test (no hidden imports)
+      run: |
+        pyinstaller --clean --noconfirm ^
+          --name DevisPro ^
+          --windowed ^
+          --log-level=DEBUG ^
+          devispro/main_windows.py 2>&1 | tee pyinstaller_simple.log
+      continue-on-error: true
+
+    - name: Debug dist folder
+      run: |
+        echo "=== CWD ==="
+        cd
+        echo "=== dist folder ==="
+        dir dist
+        echo "=== dist/DevisPro ==="
+        if exist dist\DevisPro dir dist\DevisPro
+
+    - name: Upload PyInstaller simple log
+      uses: actions/upload-artifact@v4
+      if: always()
+      with:
+        name: pyinstaller-simple-log
+        path: pyinstaller_simple.log
+        retention-days: 30
+
+    - name: Full PyInstaller build (with all imports)
       run: |
         pyinstaller --clean --noconfirm ^
           --name DevisPro ^
@@ -57,135 +83,26 @@ jobs:
           --hidden-import=openpyxl ^
           --hidden-import=lxml ^
           --hidden-import=devispro ^
-          --hidden-import=devispro.models ^
-          --hidden-import=devispro.stammdaten ^
-          --hidden-import=devispro.importers ^
-          --hidden-import=devispro.parsers ^
-          --hidden-import=devispro.providers ^
-          --hidden-import=devispro.history ^
-          --hidden-import=devispro.firmen_preise ^
-          --hidden-import=devispro.ch_preise ^
-          --hidden-import=devispro.pricing ^
-          --hidden-import=devispro.license ^
-          --hidden-import=devispro.trial_counter ^
-          --hidden-import=devispro.benchmark ^
-          --hidden-import=devispro.abo ^
-          --hidden-import=devispro.kantone ^
-          --hidden-import=devispro.multicurrency ^
-          --hidden-import=devispro.accounting ^
-          --hidden-import=devispro.marketing ^
-          --hidden-import=devispro.diagnostics ^
-          --hidden-import=devispro.agent ^
-          --hidden-import=devispro.monitor ^
-          --hidden-import=devispro.erp ^
-          --hidden-import=devispro.bridge_agent ^
-          --hidden-import=devispro.backup ^
-          --hidden-import=devispro.ordner_import ^
-          --hidden-import=devispro.templates ^
-          --hidden-import=devispro.version ^
-          --hidden-import=devispro.crypto_rsa ^
-          --hidden-import=devispro.license_admin ^
-          --hidden-import=devispro.analysen_bibliothek ^
-          --hidden-import=devispro.anleitung ^
-          --hidden-import=devispro.ctk_theme ^
-          --hidden-import=devispro.theme ^
-          --hidden-import=devispro.cli ^
-          --hidden-import=devispro.connector ^
-          --hidden-import=devispro.exporter ^
-          --hidden-import=devispro.extras ^
-          --hidden-import=devispro.kalkulation ^
-          --hidden-import=devispro.lead_magnet ^
-          --hidden-import=devispro.lifecycle ^
-          --hidden-import=devispro.local_ai ^
-          --hidden-import=devispro.mahnung ^
-          --hidden-import=devispro.margen_copilot ^
-          --hidden-import=devispro.matcher ^
-          --hidden-import=devispro.npk ^
-          --hidden-import=devispro.pdf ^
-          --hidden-import=devispro.pdf_export ^
-          --hidden-import=devispro.pdf_native ^
-          --hidden-import=devispro.plausibility ^
-          --hidden-import=devispro.portal_import ^
-          --hidden-import=devispro.preise_gui ^
-          --hidden-import=devispro.preise_import ^
-          --hidden-import=devispro.pricelist ^
-          --hidden-import=devispro.prompts ^
-          --hidden-import=devispro.qr_rechnung ^
-          --hidden-import=devispro.qr_render ^
-          --hidden-import=devispro.rechnung ^
-          --hidden-import=devispro.recurring ^
-          --hidden-import=devispro.roi ^
-          --hidden-import=devispro.sample_project ^
-          --hidden-import=devispro.subunternehmer ^
-          --hidden-import=devispro.system ^
-          --hidden-import=devispro.team_auth ^
-          --hidden-import=devispro.team_sync ^
-          --hidden-import=devispro.updates ^
-          --hidden-import=devispro.validators ^
-          --hidden-import=devispro.vision ^
-          --hidden-import=devispro.whatsapp_bot ^
-          --hidden-import=devispro.whitelabel ^
-          --hidden-import=devispro.zahlungsplan ^
-          --hidden-import=fpdf ^
-          --hidden-import=fpdf.actions ^
-          --hidden-import=fpdf.annotations ^
-          --hidden-import=fpdf.bidi ^
-          --hidden-import=fpdf.data.color_profiles ^
-          --hidden-import=fpdf.deprecation ^
-          --hidden-import=fpdf.drawing ^
-          --hidden-import=fpdf.drawing_primitives ^
-          --hidden-import=fpdf.encryption ^
-          --hidden-import=fpdf.enums ^
-          --hidden-import=fpdf.errors ^
-          --hidden-import=fpdf.font_type_3 ^
-          --hidden-import=fpdf.fonts ^
-          --hidden-import=fpdf.fpdf ^
-          --hidden-import=fpdf.graphics_state ^
-          --hidden-import=fpdf.html ^
-          --hidden-import=fpdf.image_datastructures ^
-          --hidden-import=fpdf.image_parsing ^
-          --hidden-import=fpdf.line_break ^
-          --hidden-import=fpdf.linearization ^
-          --hidden-import=fpdf.outline ^
-          --hidden-import=fpdf.output ^
-          --hidden-import=fpdf.pattern ^
-          --hidden-import=fpdf.prefs ^
-          --hidden-import=fpdf.recorder ^
-          --hidden-import=fpdf.sign ^
-          --hidden-import=fpdf.structure_tree ^
-          --hidden-import=fpdf.svg ^
-          --hidden-import=fpdf.syntax ^
-          --hidden-import=fpdf.table ^
-          --hidden-import=fpdf.template ^
-          --hidden-import=fpdf.text_region ^
-          --hidden-import=fpdf.transitions ^
-          --hidden-import=fpdf.unicode_script ^
-          --hidden-import=fpdf.util ^
-          --hidden-import=segno ^
-          --hidden-import=segno.encoder ^
-          --hidden-import=segno.helpers ^
-          --hidden-import=segno.utils ^
-          --hidden-import=segno.writers ^
           --collect-all=devispro ^
           --collect-all=fpdf ^
           --collect-all=segno ^
           --log-level=DEBUG ^
-          devispro/main_windows.py 2>&1 | tee pyinstaller_build.log
+          devispro/main_windows.py 2>&1 | tee pyinstaller_full.log
       continue-on-error: true
 
-    - name: Debug dist folder
+    - name: Debug dist folder (after full build)
       run: |
         echo "=== dist folder ==="
         dir dist
         echo "=== dist/DevisPro ==="
         if exist dist\DevisPro dir dist\DevisPro
 
-    - name: Upload PyInstaller build log
+    - name: Upload PyInstaller full log
       uses: actions/upload-artifact@v4
       if: always()
       with:
-        name: pyinstaller-build-log
-        path: pyinstaller_build.log
+        name: pyinstaller-full-log
+        path: pyinstaller_full.log
         retention-days: 30
 
     - name: Create distribution package
