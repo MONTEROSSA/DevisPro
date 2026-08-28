@@ -37,7 +37,7 @@ jobs:
       run: |
         python -c "import sys; sys.path.insert(0, '.'); from devispro import app_gui; print('app_gui import OK')"
 
-    - name: Test PyInstaller analysis (debug)
+    - name: Test PyInstaller analysis (debug) - capture output
       run: |
         python -m PyInstaller --clean --noconfirm ^
           --name DevisPro ^
@@ -57,7 +57,16 @@ jobs:
           --hidden-import=openpyxl ^
           --hidden-import=lxml ^
           --log-level=DEBUG ^
-          devispro/main_windows.py
+          devispro/main_windows.py 2>&1 | tee pyinstaller_debug.log
+      continue-on-error: true
+
+    - name: Upload PyInstaller debug log
+      uses: actions/upload-artifact@v4
+      if: always()
+      with:
+        name: pyinstaller-debug-log
+        path: pyinstaller_debug.log
+        retention-days: 30
 
     - name: Build with PyInstaller (from root, clean entry point)
       run: |
