@@ -57,6 +57,12 @@ jobs:
           --hidden-import=lxml ^
           --hidden-import=crypto_rsa ^
           --hidden-import=license_admin ^
+          --hidden-import=segno ^
+          --hidden-import=fpdf ^
+          --hidden-import=src ^
+          --hidden-import=importers ^
+          --hidden-import=parsers ^
+          --hidden-import=providers ^
           --exclude-module=tkinter.test ^
           --exclude-module=test ^
           --exclude-module=unittest ^
