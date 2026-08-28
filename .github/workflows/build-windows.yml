@@ -33,17 +33,15 @@ jobs:
         echo "TESSDATA_PREFIX=C:\Program Files\Tesseract-OCR\tessdata" >> $GITHUB_ENV
         tesseract --version
 
-    - name: Build with PyInstaller (from root, using proper paths)
+    - name: Build with PyInstaller (from root, clean entry point)
       run: |
-        # Ensure devispro package is on PYTHONPATH
-        echo "$(pwd)" >> $GITHUB_PATH
-        
         pyinstaller --clean --noconfirm ^
           --name DevisPro ^
           --windowed ^
           --icon=devispro/devispro/icon.ico ^
           --add-data "devispro/devispro;devispro" ^
           --add-data "devispro/icon.ico;." ^
+          --add-data "devispro/main_windows.py;." ^
           --hidden-import=customtkinter ^
           --hidden-import=darkdetect ^
           --hidden-import=packaging ^
@@ -168,7 +166,7 @@ jobs:
           --collect-all=fpdf ^
           --collect-all=segno ^
           --log-level=DEBUG ^
-          devispro/app_gui.py
+          devispro/main_windows.py
 
     - name: Create distribution package
       run: |
