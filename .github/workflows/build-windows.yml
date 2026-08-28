@@ -171,7 +171,13 @@ jobs:
           --collect-all=segno ^
           --log-level=DEBUG ^
           devispro/main_windows.py 2>&1 | tee pyinstaller_build.log
-      continue-on-error: true
+
+    - name: Debug dist folder
+      run: |
+        echo "=== dist folder ==="
+        dir dist
+        echo "=== dist/DevisPro ==="
+        if exist dist\DevisPro dir dist\DevisPro
 
     - name: Upload PyInstaller build log
       uses: actions/upload-artifact@v4
@@ -182,7 +188,6 @@ jobs:
         retention-days: 30
 
     - name: Create distribution package
-      if: success()
       run: |
         mkdir DevisPro_Windows
         xcopy /E /I /Y dist\DevisPro\* DevisPro_Windows\
@@ -206,14 +211,12 @@ jobs:
         echo Web: www.devispro.de>> DevisPro_Windows\README.txt
 
     - name: Create ZIP
-      if: success()
       run: |
         cd DevisPro_Windows
         7z a -tzip ..\DevisPro_Windows.zip .
         cd ..
 
     - name: Upload artifact
-      if: success()
       uses: actions/upload-artifact@v4
       with:
         name: DevisPro-Windows
