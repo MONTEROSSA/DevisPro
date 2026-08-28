@@ -38,7 +38,7 @@ jobs:
         # devispro source is already in repo
         dir devispro
 
-    - name: Build with PyInstaller
+    - name: Build with PyInstaller (with debug output)
       run: |
         pyinstaller --clean --noconfirm ^
           --name DevisPro ^
@@ -63,11 +63,7 @@ jobs:
           --hidden-import=importers ^
           --hidden-import=parsers ^
           --hidden-import=providers ^
-          --exclude-module=tkinter.test ^
-          --exclude-module=test ^
-          --exclude-module=unittest ^
-          --exclude-module=pdb ^
-          --exclude-module=doctest ^
+          --log-level=DEBUG ^
           devispro/app_gui.py
 
     - name: Create distribution package
