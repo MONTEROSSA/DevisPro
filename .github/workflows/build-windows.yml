@@ -33,12 +33,15 @@ jobs:
         echo "TESSDATA_PREFIX=C:\Program Files\Tesseract-OCR\tessdata" >> $GITHUB_ENV
         tesseract --version
 
-    - name: Prepare source
+    - name: Prepare source (flatten devispro structure)
       run: |
-        # devispro source is already in repo
-        dir devispro
+        # Move flat devispro to build dir (avoid nested devispro/devispro)
+        mkdir build_src
+        xcopy /E /I /Y devispro\* build_src\devispro\
+        dir build_src\devispro
 
-    - name: Build with PyInstaller (with debug output)
+    - name: Build with PyInstaller
+      working-directory: ./build_src
       run: |
         pyinstaller --clean --noconfirm ^
           --name DevisPro ^
@@ -59,7 +62,6 @@ jobs:
           --hidden-import=license_admin ^
           --hidden-import=segno ^
           --hidden-import=fpdf ^
-          --hidden-import=src ^
           --hidden-import=importers ^
           --hidden-import=parsers ^
           --hidden-import=providers ^
@@ -67,6 +69,7 @@ jobs:
           devispro/app_gui.py
 
     - name: Create distribution package
+      working-directory: ./build_src
       run: |
         mkdir DevisPro_Windows
         xcopy /E /I /Y dist\DevisPro\* DevisPro_Windows\
@@ -90,6 +93,7 @@ jobs:
         echo Web: www.devispro.de>> DevisPro_Windows\README.txt
 
     - name: Create ZIP
+      working-directory: ./build_src
       run: |
         cd DevisPro_Windows
         7z a -tzip ..\DevisPro_Windows.zip .
@@ -99,12 +103,12 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: DevisPro-Windows
-        path: DevisPro_Windows.zip
+        path: build_src/DevisPro_Windows.zip
         retention-days: 30
 
     - name: Create Release (on tag)
       if: startsWith(github.ref, 'refs/tags/')
       uses: softprops/action-gh-release@v2
       with:
-        files: DevisPro_Windows.zip
+        files: build_src/DevisPro_Windows.zip
         generate_release_notes: true
