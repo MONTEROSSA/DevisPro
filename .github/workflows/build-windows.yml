@@ -42,14 +42,20 @@ jobs:
         pyinstaller --clean --noconfirm --name DevisPro --windowed --log-level=DEBUG devispro/main_windows.py 2>&1 | tee pyinstaller_simple.log
       continue-on-error: true
 
-    - name: Debug dist folder
+    - name: Debug dist folder (comprehensive)
       run: |
         echo "=== CWD ==="
         cd
-        echo "=== dist folder ==="
-        dir dist
-        echo "=== dist/DevisPro ==="
-        if exist dist\DevisPro dir dist\DevisPro
+        echo "=== ls -la ==="
+        dir /b
+        echo "=== dist folder (if exists) ==="
+        if exist dist (
+          dir dist
+          echo "=== dist contents ==="
+          dir /s dist
+        ) else (
+          echo "dist folder does NOT exist"
+        )
 
     - name: Upload PyInstaller simple log
       uses: actions/upload-artifact@v4
@@ -66,10 +72,16 @@ jobs:
 
     - name: Debug dist folder (after full build)
       run: |
-        echo "=== dist folder ==="
-        dir dist
-        echo "=== dist/DevisPro ==="
-        if exist dist\DevisPro dir dist\DevisPro
+        echo "=== CWD ==="
+        cd
+        echo "=== dist folder (if exists) ==="
+        if exist dist (
+          dir dist
+          echo "=== dist contents ==="
+          dir /s dist
+        ) else (
+          echo "dist folder does NOT exist"
+        )
 
     - name: Upload PyInstaller full log
       uses: actions/upload-artifact@v4
@@ -81,8 +93,17 @@ jobs:
 
     - name: Create distribution package
       run: |
-        mkdir DevisPro_Windows
-        xcopy /E /I /Y dist\DevisPro\* DevisPro_Windows\
+        # Check both possible output structures
+        if exist dist\DevisPro (
+          mkdir DevisPro_Windows
+          xcopy /E /I /Y dist\DevisPro\* DevisPro_Windows\
+        ) else if exist dist\DevisPro.exe (
+          mkdir DevisPro_Windows
+          xcopy /E /I /Y dist\* DevisPro_Windows\
+        ) else (
+          echo "ERROR: No dist output found"
+          exit 1
+        )
 
         # Copy Windows Tesseract to package
         xcopy /E /I /Y "C:\Program Files\Tesseract-OCR\*" DevisPro_Windows\tesseract\
