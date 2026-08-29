@@ -8,7 +8,7 @@ on:
 
 jobs:
   build-deploy-mac:
-    runs-on: macos-14  # Apple Silicon Runner
+    runs-on: macos-14
     timeout-minutes: 90
     defaults:
       run:
@@ -18,47 +18,83 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v4
 
+    - name: Import Developer ID certificate
+      env:
+        MAC_CERT_P12_BASE64: ${{ secrets.MAC_CERT_P12_BASE64 }}
+        MAC_CERT_P12_PASSWORD: ${{ secrets.MAC_CERT_P12_PASSWORD }}
+        KEYCHAIN_PASSWORD: devpro-build-key
+      run: |
+        set -e
+        KEYCHAIN_PATH="$RUNNER_TEMP/devispro_keychain-db"
+        security create-keychain -p "$KEYCHAIN_PASSWORD" "$KEYCHAIN_PATH"
+        security set-keychain-settings -lut 21600 "$KEYCHAIN_PATH"
+        security unlock-keychain -p "$KEYCHAIN_PASSWORD" "$KEYCHAIN_PATH"
+        security list-keychains -d user -s "$KEYCHAIN_PATH" $(security list-keychains -d user | xargs)
+        echo "$MAC_CERT_P12_BASE64" | base64 --decode > "$RUNNER_TEMP/devispro.p12"
+        security import "$RUNNER_TEMP/devispro.p12" \
+          -k "$KEYCHAIN_PATH" \
+          -P "$MAC_CERT_P12_PASSWORD" \
+          -T /usr/bin/codesign \
+          -T /usr/bin/security
+        security set-key-partition-list -S apple-tool:,apple: -s -k "$KEYCHAIN_PASSWORD" "$KEYCHAIN_PATH"
+        echo "Certificate imported"
+
     - name: Set up Python
       uses: actions/setup-python@v5
       with:
         python-version: '3.11'
 
-    - name: Set up Ruby (for notarization tools)
-      uses: ruby/setup-ruby@v1
-      with:
-        ruby-version: '3.0'
-
-    - name: Install SSH key (VPS deploy)
-      env:
-        VPS_SSH_KEY: ${{ secrets.VPS_SSH_KEY }}
+    - name: Install Python deps
       run: |
-        mkdir -p ~/.ssh
-        echo "$VPS_SSH_KEY" > ~/.ssh/vps_key
-        chmod 600 ~/.ssh/vps_key
-        ssh-keyscan -H 187.77.79.26 >> ~/.ssh/known_hosts 2>/dev/null || true
-        echo "SSH key installed"
+        pip install --upgrade pip
+        pip install customtkinter darkdetect pillow pypdfium2 cryptography requests pandas openpyxl lxml fpdf segno
 
-    - name: Run sign_fix locally (build, sign, notarize)
+    - name: Build app bundle from source
+      run: |
+        set -e
+        APP="$HOME/Desktop/DevisPro.app"
+        rm -rf "$APP"
+        mkdir -p "$APP/Contents/Resources/devispro"
+        mkdir -p "$APP/Contents/Resources/kataloge"
+        cp -R "$GITHUB_WORKSPACE/devispro/." "$APP/Contents/Resources/devispro/"
+        if [ -d "$GITHUB_WORKSPACE/devispro/kataloge" ]; then
+          cp -R "$GITHUB_WORKSPACE/devispro/kataloge/." "$APP/Contents/Resources/kataloge/"
+        fi
+        cp "$GITHUB_WORKSPACE/.github/scripts/Info.plist.template" "$APP/Contents/Info.plist"
+        # Build version from tag if present
+        if [ "$GITHUB_REF_TYPE" = "tag" ]; then
+          sed -i '' "s|<string>1.4.0</string>|<string>${GITHUB_REF_NAME#v}</string>|g" "$APP/Contents/Info.plist"
+        fi
+        echo "App staged at: $APP ($(du -sh "$APP" | cut -f1))"
+
+    - name: Run sign_fix (sign + notarize)
       env:
-        # Apple Developer credentials
         APPLE_ID: ${{ secrets.APPLE_ID }}
         APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
         APPLE_APP_PASSWORD: ${{ secrets.APPLE_APP_PASSWORD }}
-        KEYCHAIN_PASSWORD: ${{ secrets.KEYCHAIN_PASSWORD }}
-        # Codename for certificate lookup
-        CERT_NAME: ${{ secrets.MAC_CERT_NAME }}
+        KEYCHAIN_PASSWORD: devpro-build-key
       run: |
         set -e
-        echo "=== STEP 1: Build .app from source ==="
         cd "$GITHUB_WORKSPACE"
-        # Source-Layout in /workspace/devispro, App muss auf /Users/runner/Desktop/DevisPro.app landen
-        # sign_fix erwartet SRC=/Users/runner/Desktop/DevisPro.app — wir simulieren das
-        mkdir -p "$RUNNER_TEMP/Desktop"
-        # Wir holen uns die letzte signierte App vom letzten erfolgreichen Run via Artifact
-        # Für Erstlauf: build .app lokal
-        bash DevisPro_sign_fix.command 2>&1 | tail -40
+        # Generate sign_fix variant with secrets injected
+        cp DevisPro_sign_fix.command DevisPro_sign_fix_gh.command
+        sed -i '' "s|info@monterossa.ch|$APPLE_ID|g" DevisPro_sign_fix_gh.command
+        sed -i '' "s|T3VS7P5X5D|$APPLE_TEAM_ID|g" DevisPro_sign_fix_gh.command
+        sed -i '' "s|mezr-waka-hawr-qbwb|$APPLE_APP_PASSWORD|g" DevisPro_sign_fix_gh.command
+        sed -i '' "s|/Users/ferdinandrothlisberger/Library/Keychains/devispro3.keychain-db|$RUNNER_TEMP/devispro_keychain-db|g" DevisPro_sign_fix_gh.command
+        sed -i '' "s|\$HOME/devis-auto/_vps_key|$RUNNER_TEMP/devispro_keychain-db|g" DevisPro_sign_fix_gh.command
+        # Remove VPS-Deploy block (we do it separately below)
+        python3 - <<'PYEOF'
+        import re
+        p = "DevisPro_sign_fix_gh.command"
+        s = open(p).read()
+        s = re.sub(r"VPS=\"root@.*?systemctl reload nginx.*?DEPLOYED\"\n", "", s, flags=re.DOTALL)
+        s = re.sub(r"curl -sI https://devispro.de/.*?head -1\n", "", s)
+        open(p, "w").write(s)
+        PYEOF
+        bash DevisPro_sign_fix_gh.command 2>&1 | tail -30
 
-    - name: Verify spctl + smoke-test
+    - name: Verify spctl + codesign
       run: |
         APP="$HOME/Desktop/DevisPro.app"
         spctl --assess --verbose=2 "$APP" 2>&1
@@ -72,7 +108,7 @@ jobs:
         path: ~/Desktop/DevisPro.app
         retention-days: 30
 
-    - name: Deploy to VPS (VPS-SSH + unzip + reload nginx)
+    - name: Deploy to VPS
       env:
         VPS_SSH_KEY: ${{ secrets.VPS_SSH_KEY }}
         VPS_HOST: ${{ secrets.VPS_HOST }}
@@ -80,10 +116,12 @@ jobs:
         set -e
         ZIP="$GITHUB_WORKSPACE/DevisPro_Mac_notarized.zip"
         ls -la "$ZIP"
-        echo "=== Upload ZIP to VPS ==="
+        mkdir -p ~/.ssh
+        echo "$VPS_SSH_KEY" > ~/.ssh/vps_key
+        chmod 600 ~/.ssh/vps_key
+        ssh-keyscan -H "$VPS_HOST" >> ~/.ssh/known_hosts 2>/dev/null || true
         scp -i ~/.ssh/vps_key -o StrictHostKeyChecking=no -o BatchMode=yes \
           "$ZIP" "root@${VPS_HOST}:/opt/devispro_app/DevisPro_Mac.zip"
-        echo "=== Install + reload nginx ==="
         ssh -i ~/.ssh/vps_key -o StrictHostKeyChecking=no -o BatchMode=yes \
           "root@${VPS_HOST}" "
             set -e
@@ -95,6 +133,5 @@ jobs:
             systemctl reload nginx
             echo DEPLOYED
           "
-        echo "=== Verify live ==="
         sleep 3
         curl -sI "https://devispro.de/DevisPro_Mac.zip" | head -2
