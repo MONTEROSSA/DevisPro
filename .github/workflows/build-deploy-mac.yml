@@ -1,0 +1,100 @@
+name: Build & Deploy DevisPro Mac
+
+on:
+  workflow_dispatch:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  build-deploy-mac:
+    runs-on: macos-14  # Apple Silicon Runner
+    timeout-minutes: 90
+    defaults:
+      run:
+        shell: bash
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.11'
+
+    - name: Set up Ruby (for notarization tools)
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: '3.0'
+
+    - name: Install SSH key (VPS deploy)
+      env:
+        VPS_SSH_KEY: ${{ secrets.VPS_SSH_KEY }}
+      run: |
+        mkdir -p ~/.ssh
+        echo "$VPS_SSH_KEY" > ~/.ssh/vps_key
+        chmod 600 ~/.ssh/vps_key
+        ssh-keyscan -H 187.77.79.26 >> ~/.ssh/known_hosts 2>/dev/null || true
+        echo "SSH key installed"
+
+    - name: Run sign_fix locally (build, sign, notarize)
+      env:
+        # Apple Developer credentials
+        APPLE_ID: ${{ secrets.APPLE_ID }}
+        APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
+        APPLE_APP_PASSWORD: ${{ secrets.APPLE_APP_PASSWORD }}
+        KEYCHAIN_PASSWORD: ${{ secrets.KEYCHAIN_PASSWORD }}
+        # Codename for certificate lookup
+        CERT_NAME: ${{ secrets.MAC_CERT_NAME }}
+      run: |
+        set -e
+        echo "=== STEP 1: Build .app from source ==="
+        cd "$GITHUB_WORKSPACE"
+        # Source-Layout in /workspace/devispro, App muss auf /Users/runner/Desktop/DevisPro.app landen
+        # sign_fix erwartet SRC=/Users/runner/Desktop/DevisPro.app — wir simulieren das
+        mkdir -p "$RUNNER_TEMP/Desktop"
+        # Wir holen uns die letzte signierte App vom letzten erfolgreichen Run via Artifact
+        # Für Erstlauf: build .app lokal
+        bash DevisPro_sign_fix.command 2>&1 | tail -40
+
+    - name: Verify spctl + smoke-test
+      run: |
+        APP="$HOME/Desktop/DevisPro.app"
+        spctl --assess --verbose=2 "$APP" 2>&1
+        codesign --verify --deep --strict "$APP" 2>&1
+        echo "Sign OK"
+
+    - name: Upload .app artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: DevisPro-macOS
+        path: ~/Desktop/DevisPro.app
+        retention-days: 30
+
+    - name: Deploy to VPS (VPS-SSH + unzip + reload nginx)
+      env:
+        VPS_SSH_KEY: ${{ secrets.VPS_SSH_KEY }}
+        VPS_HOST: ${{ secrets.VPS_HOST }}
+      run: |
+        set -e
+        ZIP="$GITHUB_WORKSPACE/DevisPro_Mac_notarized.zip"
+        ls -la "$ZIP"
+        echo "=== Upload ZIP to VPS ==="
+        scp -i ~/.ssh/vps_key -o StrictHostKeyChecking=no -o BatchMode=yes \
+          "$ZIP" "root@${VPS_HOST}:/opt/devispro_app/DevisPro_Mac.zip"
+        echo "=== Install + reload nginx ==="
+        ssh -i ~/.ssh/vps_key -o StrictHostKeyChecking=no -o BatchMode=yes \
+          "root@${VPS_HOST}" "
+            set -e
+            cp /opt/devispro_app/DevisPro_Mac.zip /var/www/devispro/DevisPro_Mac.zip
+            chmod 644 /var/www/devispro/DevisPro_Mac.zip
+            DATE=\$(date +%Y-%m-%d)
+            cp /var/www/devispro/DevisPro_Mac.zip /var/www/devispro/DevisPro-\${DATE}.zip
+            chmod 644 /var/www/devispro/DevisPro-\${DATE}.zip
+            systemctl reload nginx
+            echo DEPLOYED
+          "
+        echo "=== Verify live ==="
+        sleep 3
+        curl -sI "https://devispro.de/DevisPro_Mac.zip" | head -2
