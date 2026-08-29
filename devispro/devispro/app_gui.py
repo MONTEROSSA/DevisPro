@@ -19,6 +19,10 @@ from devispro import history as history_mod, firmen_preise, ch_preise
 from devispro.stammdaten import load_profile, save_profile
 from devispro.importers import import_devis
 from devispro.models import Devis, Position
+from devispro.verbaende_kataloge import KatalogImporter, KatalogPosition
+from devispro.marketplace import MarketplaceStore, MarketplaceSync, MarketplaceGUI, MarketplaceEntry, EntryStatus, MarketplaceCategory
+from devispro.cloud_sync import CloudSyncManager, SyncConfig, SyncProvider, discover_cloud_providers
+from devispro.erp_ecosystem import ERPManager, ERPConfig, ERPType, SyncDirection
 
 FONT = ("Helvetica", 10)
 
@@ -29,6 +33,15 @@ class DevisProApp(tk.Tk):
         self.title("DevisPro - Bau-Devis Bepreisung [vG0817]")
         self.geometry("1100x780")
         self.devis = None
+        self._katalog_importer = None  # Für Katalog-Suche
+        # Marketplace
+        self._marketplace_store = MarketplaceStore("marketplace")
+        self._marketplace_sync = MarketplaceSync(self._marketplace_store)
+        self._marketplace_gui = MarketplaceGUI(self, self._marketplace_store, self._marketplace_sync)
+        # Cloud Sync
+        self._cloud_sync_manager = CloudSyncManager("cloud_sync")
+        # ERP Ökosystem
+        self._erp_manager = ERPManager("erp_configs")
         self._build_ui()
         self._status("Bereit. Format links wählen und Datei öffnen.")
         # diagnose: skip on Windows
@@ -80,6 +93,15 @@ class DevisProApp(tk.Tk):
         self._btn(side, "Als CSV", lambda: self._export("csv"), "steelblue")
         self._btn(side, "Als PDF", lambda: self._export("pdf"), "steelblue")
         self._btn(side, "Buchhaltung", lambda: self._export("fibu"), "steelblue")
+        self._sec(side, "KATALOGE")
+        self._btn(side, "Verbandskataloge laden", self._kataloge_laden, "darkblue")
+        self._btn(side, "Kataloge durchsuchen", self._kataloge_suchen, "darkblue")
+        self._sec(side, "MARKETPLACE")
+        self._btn(side, "KI-Agent Marketplace", self._marketplace_gui.show_marketplace, "purple")
+        self._sec(side, "CLOUD SYNC")
+        self._btn(side, "Cloud Sync", self._cloud_sync_manager.show_gui, "teal")
+        self._sec(side, "ERP ÖKOSYSTEM")
+        self._btn(side, "ERP-Systeme", self._erp_manager.show_gui, "darkred")
         self._sec(side, "MEHR")
         self._btn(side, "Verlauf", self._verlauf, "gray")
         self._btn(side, "Setup / Stammdaten", self._setup, "gray")
@@ -316,6 +338,169 @@ class DevisProApp(tk.Tk):
             for d in items:
                 txt.insert("end", f"{d['id']}  {d.get('name','')}  {d.get('status','')}  {d.get('created','')}\n")
         txt.config(state="disabled")
+
+    def _kataloge_laden(self):
+        """Lädt alle Verbandskataloge (NPK, BKS, HLKS, CRB)"""
+        katalog_dir = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "kataloge")
+        if not os.path.exists(katalog_dir):
+            messagebox.showinfo("Hinweis", f"Katalog-Ordner nicht gefunden: {katalog_dir}\nBitte Kataloge dort ablegen.")
+            return
+        
+        self._status("Lade Verbandskataloge ...")
+        self.update_idletasks()
+        
+        def work():
+            try:
+                importer = KatalogImporter(katalog_dir)
+                results = {}
+                
+                # Verfügbare Kataloge prüfen
+                katalog_files = {
+                    'NPK': 'npk_2024.csv',
+                    'BKS': 'bks_2024.csv',
+                    'HLKS': 'hlks_2024.csv',
+                    'CRB': 'crb_2024.csv'
+                }
+                
+                for kat, file in katalog_files.items():
+                    file_path = os.path.join(katalog_dir, file)
+                    if os.path.exists(file_path):
+                        result = importer.import_katalog(file_path, kat, 2024)
+                        results[kat] = result
+                    else:
+                        results[kat] = {'imported': 0, 'errors': ['Datei nicht gefunden']}
+                
+                # Export für DevisPro
+                export_path = os.path.join(katalog_dir, "verbaende_devispro.json")
+                importer.export_devispro_json(export_path)
+                
+                total = importer.get_stats()['total']
+                
+                # UI Update
+                msg = f"Kataloge geladen: {total} Positionen"
+                for kat, res in results.items():
+                    msg += f"\n  {kat}: {res['imported']} Positionen"
+                
+                self.after(0, lambda: self._status(msg))
+                self.after(0, lambda: messagebox.showinfo("Kataloge geladen", msg))
+                
+                # Speichern für Suche
+                self._katalog_importer = importer
+                
+            except Exception as e:
+                self.after(0, lambda: messagebox.showerror("Fehler", str(e)))
+        
+        threading.Thread(target=work, daemon=True).start()
+
+    def _kataloge_suchen(self):
+        """Durchsucht geladene Kataloge"""
+        if not hasattr(self, '_katalog_importer') or not self._katalog_importer.positionen:
+            messagebox.showinfo("Hinweis", "Bitte zuerst 'Verbandskataloge laden' klicken.")
+            return
+        
+        win = tk.Toplevel(self)
+        win.title("Verbandskataloge durchsuchen")
+        win.geometry("900x600")
+        
+        # Such-Frame
+        search_frame = tk.Frame(win)
+        search_frame.pack(fill="x", padx=8, pady=8)
+        
+        tk.Label(search_frame, text="Suche:").pack(side="left")
+        search_entry = tk.Entry(search_frame, width=40)
+        search_entry.pack(side="left", padx=4)
+        
+        tk.Label(search_frame, text="Katalog:").pack(side="left", padx=(16, 4))
+        katalog_var = tk.StringVar(value="Alle")
+        katalog_combo = ttk.Combobox(search_frame, textvariable=katalog_var, 
+                                     values=["Alle", "NPK", "BKS", "HLKS", "CRB"], width=8, state="readonly")
+        katalog_combo.pack(side="left")
+        
+        # Results Treeview
+        cols = ("katalog", "nr", "titel", "einheit", "preis", "kategorie")
+        tree = ttk.Treeview(win, columns=cols, show="headings", height=25)
+        tree.heading("katalog", text="Katalog")
+        tree.heading("nr", text="Nummer")
+        tree.heading("titel", text="Titel")
+        tree.heading("einheit", text="Einheit")
+        tree.heading("preis", text="Preis CHF")
+        tree.heading("kategorie", text="Kategorie")
+        tree.column("katalog", width=70, stretch=False)
+        tree.column("nr", width=100, stretch=False)
+        tree.column("titel", width=400, stretch=True)
+        tree.column("einheit", width=70, stretch=False)
+        tree.column("preis", width=80, stretch=False, anchor="e")
+        tree.column("kategorie", width=150, stretch=False)
+        tree.pack(fill="both", expand=True, padx=8, pady=8)
+        
+        # Scrollbar
+        scrollbar = ttk.Scrollbar(win, orient="vertical", command=tree.yview)
+        scrollbar.pack(side="right", fill="y", padx=(0, 8), pady=8)
+        tree.configure(yscrollcommand=scrollbar.set)
+        
+        def do_search():
+            query = search_entry.get().strip()
+            kat = katalog_var.get() if katalog_var.get() != "Alle" else None
+            results = self._katalog_importer.search(query, kat, limit=200)
+            
+            tree.delete(*tree.get_children())
+            for pos in results:
+                tree.insert("", "end", values=(
+                    pos.katalog, pos.nummer, pos.titel[:60], 
+                    pos.einheit, f"{pos.preis:,.2f}", pos.kategorie
+                ))
+            
+            self._status(f"Katalog-Suche: {len(results)} Treffer für '{query}'")
+        
+        def on_double_click(event):
+            item = tree.selection()
+            if item:
+                vals = tree.item(item[0], 'values')
+                if vals and self.devis:
+                    # Position zum aktuellen Devis hinzufügen
+                    nr, titel, einheit, preis_str = vals[1], vals[2], vals[3], vals[4]
+                    preis = float(preis_str.replace(',', ''))
+                    
+                    # Dialog für Menge
+                    menge_win = tk.Toplevel(win)
+                    menge_win.title("Position hinzufügen")
+                    menge_win.geometry("300x150")
+                    
+                    tk.Label(menge_win, text=f"{nr}: {titel}").pack(pady=8)
+                    tk.Label(menge_win, text="Menge:").pack()
+                    menge_entry = tk.Entry(menge_win)
+                    menge_entry.pack(pady=4)
+                    menge_entry.insert(0, "1.0")
+                    
+                    def add_pos():
+                        try:
+                            menge = float(menge_entry.get().replace(',', '.'))
+                            from devispro.models import Position
+                            new_pos = Position(
+                                pos_nr=nr,
+                                text=titel,
+                                menge=menge,
+                                einheit=einheit,
+                                ep=preis,
+                                betrag=menge * preis
+                            )
+                            self.devis.positions.append(new_pos)
+                            self._fill_table()
+                            menge_win.destroy()
+                            self._status(f"Position {nr} hinzugefügt: {titel}")
+                        except Exception as e:
+                            messagebox.showerror("Fehler", str(e))
+                    
+                    tk.Button(menge_win, text="Hinzufügen", command=add_pos, bg="darkgreen", fg="white").pack(pady=8)
+        
+        tk.Button(search_frame, text="Suchen", command=do_search, bg="darkblue", fg="white").pack(side="left", padx=8)
+        search_entry.bind("<Return>", lambda e: do_search())
+        
+        # Initial alle laden
+        do_search()
+        
+        # Doppelklick zum Hinzufügen
+        tree.bind("<Double-1>", on_double_click)
 
     def _setup(self):
         profil = load_profile() or {}

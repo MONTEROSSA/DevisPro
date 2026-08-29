@@ -1,0 +1,4 @@
+code;bezeichnung;einheit;voranschlag_chf;kategorie
+HLKS-31;Heizung Wärmepumpe;kW;2400.00;Heizung
+HLKS-32;Lüftung;kW;1850.00;Lüftung
+HLKS-33;Sanitär;kW;1200.00;Sanitär
