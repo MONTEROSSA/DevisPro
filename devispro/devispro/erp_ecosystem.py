@@ -716,10 +716,19 @@ class ERPManager:
         data = {
             "version": "1.0",
             "updated_at": datetime.now().isoformat(),
-            "configs": {name: asdict(cfg) for name, cfg in self.configs.items()}
+            "configs": {name: self._serialize_config(cfg) for name, cfg in self.configs.items()}
         }
         with open(config_file, "w", encoding="utf-8") as f:
             json.dump(data, f, ensure_ascii=False, indent=2)
+
+    def _serialize_config(self, cfg) -> dict:
+        """Konvertiert ERPConfig zu JSON-kompatiblem dict (Enums → Strings)."""
+        d = asdict(cfg)
+        if hasattr(d.get('erp_type'), 'value'):
+            d['erp_type'] = d['erp_type'].value
+        if hasattr(d.get('sync_direction'), 'value'):
+            d['sync_direction'] = d['sync_direction'].value
+        return d
 
     def _create_plugin(self, name: str, config: ERPConfig):
         plugin_class = ERP_PLUGIN_REGISTRY.get(config.erp_type, CustomPlugin)

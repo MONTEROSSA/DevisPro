@@ -88,16 +88,20 @@ class KatalogImporter:
         
         for row_num, row in enumerate(reader, header_idx + 2):
             try:
+                # Sichere Defaults als Strings (sonst scheitert .strip()/.replace())
+                def _s(k, default=''):
+                    v = row.get(k, default)
+                    return str(v) if v is not None else default
                 pos = KatalogPosition(
                     katalog="NPK",
                     jahr=jahr,
-                    nummer=row.get('PosNr', row.get('Nummer', '')).strip(),
-                    titel=row.get('Titel', row.get('Langtext', '')).strip(),
-                    kurztext=row.get('Kurztext', '').strip(),
-                    einheit=row.get('Einheit', row.get('ME', 'Stk')).strip(),
-                    preis=float(row.get('Preis', row.get('Richtpreis', 0)).replace(',', '.')),
-                    kategorie=row.get('Kategorie', row.get('Hauptgruppe', '')).strip(),
-                    unterkategorie=row.get('Unterkategorie', row.get('Untergruppe', '')).strip(),
+                    nummer=_s('PosNr', _s('Nummer', '')).strip(),
+                    titel=_s('Titel', _s('Langtext', '')).strip(),
+                    kurztext=_s('Kurztext', '').strip(),
+                    einheit=_s('Einheit', _s('ME', 'Stk')).strip(),
+                    preis=float(_s('Preis', _s('Richtpreis', '0')).replace(',', '.')),
+                    kategorie=_s('Kategorie', _s('Hauptgruppe', '')).strip(),
+                    unterkategorie=_s('Unterkategorie', _s('Untergruppe', '')).strip(),
                     zusatzinfo={'original_row': row}
                 )
                 if pos.nummer and pos.titel:
@@ -154,16 +158,19 @@ class KatalogImporter:
                 reader = csv.DictReader(f, delimiter=';')
                 for row_num, row in enumerate(reader, 2):
                     try:
+                        def _s(k, default=''):
+                            v = row.get(k, default)
+                            return str(v) if v is not None else default
                         pos = KatalogPosition(
                             katalog="BKS",
                             jahr=jahr,
-                            nummer=row.get('PosNr', row.get('Nummer', '')).strip(),
-                            titel=row.get('Titel', row.get('Langtext', '')).strip(),
-                            kurztext=row.get('Kurztext', '').strip(),
-                            einheit=row.get('Einheit', row.get('ME', 'Stk')).strip(),
-                            preis=float(row.get('Preis', row.get('Richtpreis', 0)).replace(',', '.')),
-                            kategorie=row.get('Kategorie', row.get('Hauptgruppe', '')).strip(),
-                            unterkategorie=row.get('Unterkategorie', row.get('Untergruppe', '')).strip(),
+                            nummer=_s('PosNr', _s('Nummer', '')).strip(),
+                            titel=_s('Titel', _s('Langtext', '')).strip(),
+                            kurztext=_s('Kurztext', '').strip(),
+                            einheit=_s('Einheit', _s('ME', 'Stk')).strip(),
+                            preis=float(_s('Preis', _s('Richtpreis', '0')).replace(',', '.')),
+                            kategorie=_s('Kategorie', _s('Hauptgruppe', '')).strip(),
+                            unterkategorie=_s('Unterkategorie', _s('Untergruppe', '')).strip(),
                             zusatzinfo={'original_row': row}
                         )
                         if pos.nummer and pos.titel:
@@ -194,20 +201,23 @@ class KatalogImporter:
         
         for row_num, row in enumerate(reader, header_idx + 2):
             try:
+                def _s(k, default=''):
+                    v = row.get(k, default)
+                    return str(v) if v is not None else default
                 pos = KatalogPosition(
                     katalog="HLKS",
                     jahr=jahr,
-                    nummer=row.get('PosNr', row.get('Nummer', '')).strip(),
-                    titel=row.get('Titel', row.get('Bezeichnung', '')).strip(),
-                    kurztext=row.get('Kurztext', row.get('Kurzbezeichnung', '')).strip(),
-                    einheit=row.get('Einheit', row.get('ME', 'm2')).strip(),
-                    preis=float(row.get('Preis', row.get('Richtpreis', 0)).replace(',', '.')),
-                    kategorie=row.get('Hauptgruppe', row.get('Kategorie', '')).strip(),
-                    unterkategorie=row.get('Untergruppe', row.get('Unterkategorie', '')).strip(),
+                    nummer=_s('PosNr', _s('Nummer', '')).strip(),
+                    titel=_s('Titel', _s('Bezeichnung', '')).strip(),
+                    kurztext=_s('Kurztext', _s('Kurzbezeichnung', '')).strip(),
+                    einheit=_s('Einheit', _s('ME', 'm2')).strip(),
+                    preis=float(_s('Preis', _s('Richtpreis', '0')).replace(',', '.')),
+                    kategorie=_s('Hauptgruppe', _s('Kategorie', '')).strip(),
+                    unterkategorie=_s('Untergruppe', _s('Unterkategorie', '')).strip(),
                     zusatzinfo={
                         'original_row': row,
-                        'kanton': row.get('Kanton', '').strip(),
-                        'region': row.get('Region', '').strip()
+                        'kanton': _s('Kanton', '').strip(),
+                        'region': _s('Region', '').strip()
                     }
                 )
                 if pos.nummer and pos.titel:
@@ -237,20 +247,23 @@ class KatalogImporter:
         
         for row_num, row in enumerate(reader, header_idx + 2):
             try:
+                def _s(k, default=''):
+                    v = row.get(k, default)
+                    return str(v) if v is not None else default
                 pos = KatalogPosition(
                     katalog="CRB",
                     jahr=jahr,
-                    nummer=row.get('PosNr', row.get('Nummer', '')).strip(),
-                    titel=row.get('Titel', row.get('Langtext', '')).strip(),
-                    kurztext=row.get('Kurztext', '').strip(),
-                    einheit=row.get('Einheit', row.get('ME', 'Stk')).strip(),
-                    preis=float(row.get('Preis', row.get('Richtpreis', 0)).replace(',', '.')),
-                    kategorie=row.get('Kategorie', row.get('Hauptgruppe', '')).strip(),
-                    unterkategorie=row.get('Unterkategorie', row.get('Untergruppe', '')).strip(),
+                    nummer=_s('PosNr', _s('Nummer', '')).strip(),
+                    titel=_s('Titel', _s('Langtext', '')).strip(),
+                    kurztext=_s('Kurztext', '').strip(),
+                    einheit=_s('Einheit', _s('ME', 'Stk')).strip(),
+                    preis=float(_s('Preis', _s('Richtpreis', '0')).replace(',', '.')),
+                    kategorie=_s('Kategorie', _s('Hauptgruppe', '')).strip(),
+                    unterkategorie=_s('Unterkategorie', _s('Untergruppe', '')).strip(),
                     zusatzinfo={
                         'original_row': row,
-                        'din_norm': row.get('DIN', row.get('Norm', '')).strip(),
-                        'vorgabe': row.get('Vorgabe', '').strip()
+                        'din_norm': _s('DIN', _s('Norm', '')).strip(),
+                        'vorgabe': _s('Vorgabe', '').strip()
                     }
                 )
                 if pos.nummer and pos.titel:

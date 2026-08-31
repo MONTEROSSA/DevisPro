@@ -1,3 +1,3 @@
-code;bezeichnung;einheit;voranschlag_chf;kategorie
-BKS-201;BKP 201 Baugrubenaushub;m3;38.00;Erdarbeiten
-BKS-211;BKP 211 Baumeisterarbeiten;pauschal;85000.00;Baumeister
+PosNr;Titel;Kurztext;Einheit;Preis;Kategorie;Unterkategorie
+BKS-201;BKP 201 Baugrubenaushub;;m3;38.00;Erdarbeiten;
+BKS-211;BKP 211 Baumeisterarbeiten;;pauschal;85000.00;Baumeister;

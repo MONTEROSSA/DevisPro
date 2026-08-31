@@ -1,12 +1,12 @@
-code;bezeichnung;einheit;voranschlag_chf;kategorie
-NPK-111;Baustelleneinrichtung;pauschal;4500.00;Baustellengemeinkosten
-NPK-112;Gerüste;m2;28.50;Gerüste
-NPK-211;Aushub;m3;42.00;Erdarbeiten
-NPK-311;Betonfundament C25/30;m3;285.00;Betonarbeiten
-NPK-411;Backstein-Mauerwerk 17.5cm;m2;115.00;Maurerarbeiten
-NPK-412;Hintermauerwerk Backstein;m2;95.00;Maurerarbeiten
-NPK-511;Gipsputz 15mm;m2;38.50;Gipserarbeiten
-NPK-611;Holzschalung Dach;m2;78.00;Zimmerarbeiten
-NPK-711;Bituminöse Abdichtung;m2;48.00;Abdichtungen
-NPK-811;Heizungsrohre Kupfer 22mm;m1;32.00;Sanitär
-NPK-911;Elektroleitungen NYM 3x1.5;m1;8.50;Elektro
+PosNr;Titel;Kurztext;Einheit;Preis;Kategorie;Unterkategorie
+NPK-111;Baustelleneinrichtung;;pauschal;4500.00;Baustellengemeinkosten;
+NPK-112;Gerüste;;m2;28.50;Gerüste;
+NPK-211;Aushub;;m3;42.00;Erdarbeiten;
+NPK-311;Betonfundament C25/30;;m3;285.00;Betonarbeiten;
+NPK-411;Backstein-Mauerwerk 17.5cm;;m2;115.00;Maurerarbeiten;
+NPK-412;Hintermauerwerk Backstein;;m2;95.00;Maurerarbeiten;
+NPK-511;Gipsputz 15mm;;m2;38.50;Gipserarbeiten;
+NPK-611;Holzschalung Dach;;m2;78.00;Zimmerarbeiten;
+NPK-711;Bituminöse Abdichtung;;m2;48.00;Abdichtungen;
+NPK-811;Heizungsrohre Kupfer 22mm;;m1;32.00;Sanitär;
+NPK-911;Elektroleitungen NYM 3x1.5;;m1;8.50;Elektro;

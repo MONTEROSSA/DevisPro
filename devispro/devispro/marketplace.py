@@ -84,7 +84,15 @@ class MarketplaceEntry:
     
     @classmethod
     def from_dict(cls, data: Dict) -> 'MarketplaceEntry':
-        return cls(**data)
+        # Defaults für Pflichtfelder, falls im JSON fehlend
+        defaults = {
+            'description': '',
+            'author_id': '',
+            'content': '',
+            'content_type': 'prompt',
+        }
+        merged = {**defaults, **data}
+        return cls(**merged)
 
 
 class MarketplaceStore:
@@ -115,10 +123,17 @@ class MarketplaceStore:
         data = {
             'version': '1.0',
             'updated_at': datetime.now().isoformat(),
-            'entries': [e.to_dict() for e in self.entries.values()]
+            'entries': [self._serialize_entry(e) for e in self.entries.values()]
         }
         with open(self.entries_file, 'w', encoding='utf-8') as f:
             json.dump(data, f, ensure_ascii=False, indent=2)
+
+    def _serialize_entry(self, entry) -> dict:
+        """Konvertiert MarketplaceEntry zu JSON-kompatiblem dict."""
+        d = asdict(entry)
+        if hasattr(d.get('status'), 'value'):
+            d['status'] = d['status'].value
+        return d
         
         # Index für schnelle Suche
         index = {}

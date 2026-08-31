@@ -312,8 +312,16 @@ class CloudSyncManager:
     
     def _save_configs(self):
         config_file = self.config_dir / "configs.json"
+        # Konvertiere Enums zu Strings für JSON-Serialisierung
+        def _serialize(cfg):
+            d = asdict(cfg)
+            if isinstance(d.get('provider'), SyncProvider):
+                d['provider'] = d['provider'].value
+            if isinstance(d.get('conflict_strategy'), str):
+                pass  # bereits str
+            return d
         data = {
-            'configs': {name: asdict(cfg) for name, cfg in self.configs.items()}
+            'configs': {name: _serialize(cfg) for name, cfg in self.configs.items()}
         }
         with open(config_file, 'w', encoding='utf-8') as f:
             json.dump(data, f, ensure_ascii=False, indent=2)
