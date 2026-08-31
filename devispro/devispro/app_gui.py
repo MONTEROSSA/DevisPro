@@ -383,5 +383,35 @@ class DevisProApp(ctk.CTk):
 
 
 if __name__ == "__main__":
+    import platform
+    import subprocess
     app = DevisProApp()
+    # macOS: Fenster sichtbar machen — Workaround für Hardened-Runtime + Bundle-Launcher
+    # Bei einem signierten .app Bundle wird der Mach-O-Launcher per execv() zur Python-Binary,
+    # dabei verliert tkinter den Window-Server-Anker. Workaround: Fenster nach kurzer Verzögerung
+    # erneut anfordern + topmost-Trick.
+    try:
+        app.update_idletasks()
+        app.update()
+        if platform.system() == "Darwin":
+            def force_show():
+                try:
+                    app.deiconify()
+                    app.lift()
+                    app.attributes("-topmost", True)
+                    app.focus_force()
+                    app.update()
+                    app.after(400, lambda: app.attributes("-topmost", False))
+                    subprocess.Popen(
+                        ['osascript', '-e',
+                         f'tell application "System Events" to set frontmost of (first process whose unix id is {app.winfo_id()}) to true'],
+                        stdout=subprocess.DEVNULL,
+                        stderr=subprocess.DEVNULL,
+                    )
+                except Exception:
+                    pass
+            app.after(150, force_show)
+            app.after(1500, force_show)
+    except Exception:
+        pass
     app.mainloop()
