@@ -3,8 +3,23 @@
 Einmal eingeben -> bleibt ausserhalb des Bundles gespeichert (data_store)
 und wird fuer jedes neue Devis automatisch verwendet.
 """
-# data_store als direkter import (kein relativer Import, vermeidet Circular)
-import data_store as ds
+# data_store als direkter import mit Fallback (kein relativer Import, vermeidet Circular)
+import importlib.util
+import os as _os
+import sys as _sys
+_here = _os.path.dirname(_os.path.abspath(__file__))
+if '__file__' in dir() and __file__:
+    pass
+_sys.path.insert(0, _os.path.dirname(_here))  # /Contents/Resources/devispro
+try:
+    import data_store as ds
+except ImportError:
+    _ds_path = _os.path.join(_here, 'data_store.py')
+    _spec = importlib.util.spec_from_file_location('data_store', _ds_path)
+    assert _spec is not None
+    ds = importlib.util.module_from_spec(_spec)
+    _spec.loader.exec_module(ds)
+    _sys.modules['data_store'] = ds
 
 
 def default_profile() -> dict:
