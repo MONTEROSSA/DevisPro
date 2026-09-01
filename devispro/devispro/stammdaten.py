@@ -3,7 +3,8 @@
 Einmal eingeben -> bleibt ausserhalb des Bundles gespeichert (data_store)
 und wird fuer jedes neue Devis automatisch verwendet.
 """
-from . import data_store as ds
+# data_store als direkter import (kein relativer Import, vermeidet Circular)
+import data_store as ds
 
 
 def default_profile() -> dict:

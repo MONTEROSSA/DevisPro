@@ -219,42 +219,45 @@ def chat(message, context=None):
         val, info = _set_mwst(m.group(2), profil, data_dir)
         return {"answer": f"✅ {info} Betroffene Offerten/Rechnungen werden beim naechsten Speichern neu berechnet.", "action": "mwst", "lang": lang}
 
-    # 2) Kanton aendern (robust: alle formulierungen)
+    # 2) Kanton aendern (robust: alle formulierungen) — ABER nur wenn nicht "währung" oder "export" erwähnt
+    is_currency = any(w in ql for w in ("waehrung", "euro", "umrechn", "franken", "chf", "eur", "usd", "gbp"))
+    is_export = any(w in ql for w in ("export", "buchhalt", "abacus", "proffix", "datev", "bmd", "banana", "sap", "lexoffice", "sevdesk", "winoffice", "ramco", "mobit", "kleinvieh", "csv"))
     from devispro import kantone as kantone_mod
-    kt_erkannt = None
-    ql2 = ql.replace(".", " ")
-    # a) "kanton/kt" + code oder name
-    m = re.search(r"(kanton|kt\.?|kant\.?)\s*(auf|in|nach|zu|an|auf den)?\s*([a-zäöü]{2,20})", ql2)
-    if m:
-        kt_erkannt = m.group(3)
-    # b) "schalte/wechsle/setze/stelle/umschalte/ander auf|zu|in X um"
-    if not kt_erkannt:
-        m2 = re.search(r"(schalt|wechsel|setz|stell|umschalt|ändere?|aendere?|umstell)\w*\s+(auf|zu|in|nach|an)\s+([a-zäöü]{2,20})", ql2)
-        if m2:
-            kt_erkannt = m2.group(3)
-    # c) "auf|zu|in|nach X (um|wechseln|schalten)"
-    if not kt_erkannt:
-        m3 = re.search(r"(auf|zu|in|nach)\s+([a-zäöü]{2,20})\s*(um|wechsel|schalt|ändere?|aendere?)?", ql2)
-        if m3:
-            kt_erkannt = m3.group(2)
-    # d) direkter Kantonsname irgendwo im text
-    if not kt_erkannt:
-        for kn in kantone_mod.KANTON_NAMEN:
-            if kn in ql:
-                kt_erkannt = kn
-                break
-    # e) nur der code (AG, ZH, ...)
-    if not kt_erkannt:
-        for code in kantone_mod.KANTONE:
-            if code.lower() in ql.split():
-                kt_erkannt = code
-                break
-    if kt_erkannt:
-        code = kantone_mod.normiere_kanton(kt_erkannt)
-        if code:
-            kt, info = _set_kanton(code, profil, data_dir)
-            return {"answer": f"✅ {info}", "action": "kanton", "lang": lang}
-        return {"answer": f"⚠️ Kanton «{kt_erkannt}» ist mir nicht bekannt. Beispiele: «Wechsle auf Kanton Aargau», «setze Kanton auf ZH».", "action": "kanton", "lang": lang}
+    if (("kanton" in ql or "kt." in ql or "kt " in ql) and not is_currency and not is_export):
+        kt_erkannt = None
+        ql2 = ql.replace(".", " ")
+        # a) "kanton/kt" + code oder name
+        m = re.search(r"(kanton|kt\.?|kant\.?)\s*(auf|in|nach|zu|an|auf den)?\s*([a-zäöü]{2,20})", ql2)
+        if m:
+            kt_erkannt = m.group(3)
+        # b) "schalte/wechsle/setze/stelle/umschalte/ander auf|zu|in X um"
+        if not kt_erkannt:
+            m2 = re.search(r"(schalt|wechsel|setz|stell|umschalt|ändere?|aendere?|umstell)\w*\s+(auf|zu|in|nach|an)\s+([a-zäöü]{2,20})", ql2)
+            if m2:
+                kt_erkannt = m2.group(3)
+        # c) "auf|zu|in|nach X (um|wechseln|schalten)"
+        if not kt_erkannt:
+            m3 = re.search(r"(auf|zu|in|nach)\s+([a-zäöü]{2,20})\s*(um|wechsel|schalt|ändere?|aendere?)?", ql2)
+            if m3:
+                kt_erkannt = m3.group(2)
+        # d) direkter Kantonsname irgendwo im text
+        if not kt_erkannt:
+            for kn in kantone_mod.KANTON_NAMEN:
+                if kn in ql:
+                    kt_erkannt = kn
+                    break
+        # e) nur der code (AG, ZH, ...)
+        if not kt_erkannt:
+            for code in kantone_mod.KANTONE:
+                if code.lower() in ql.split():
+                    kt_erkannt = code
+                    break
+        if kt_erkannt:
+            code = kantone_mod.normiere_kanton(kt_erkannt)
+            if code:
+                kt, info = _set_kanton(code, profil, data_dir)
+                return {"answer": f"✅ {info}", "action": "kanton", "lang": lang}
+            return {"answer": f"⚠️ Kanton «{kt_erkannt}» ist mir nicht bekannt. Beispiele: «Wechsle auf Kanton Aargau», «setze Kanton auf ZH».", "action": "kanton", "lang": lang}
 
     # 3) Betrieb aendern
     m = re.search(r"(betrieb|firma)\s*(auf|ist)?\s*[:\"]?\s*([A-Za-z0-9\s\.]+)", ql)

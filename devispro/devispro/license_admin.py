@@ -33,10 +33,21 @@ PREIS_JAHR = 990.0
 PREIS_EINRICHTUNG = 2400.0
 ABO_START = dt.date(2026, 1, 1).isoformat()  # Demo-Referenz
 
-# Tarif-Preise aus zentraler Preis-Quelle (DevisPro vs DevisPro+ERP)
+# Tarif-Preise aus zentraler Preis-Quelle (DevisPro vs DevisPro+ERP).
+# Alte Keys "lizenz_jahr" / "einrichtung" gibt's im neuen pricing.py nicht mehr —
+# jetzt heißen sie "support_jahr" (Professional) und "einmal_chf" (Einrichtung).
+# Wir holen beide Keys mit Legacy-Fallback, damit alte Aufrufer weiter laufen.
 from devispro import pricing as _pricing
-PREIS_JAHR = _pricing.preis("devis")["lizenz_jahr"]
-PREIS_EINRICHTUNG = _pricing.preis("devis")["einrichtung"]
+
+def _preise_keys(tarif: str = "professional") -> tuple:
+    """Liefert (jahres_preis, einrichtungs_preis) — robust gegen Key-Umbenennungen."""
+    p = _pricing.preis(tarif)
+    # Neuer Tarif-Schema: support_jahr + einmal_chf
+    jahres = p.get("support_jahr", p.get("lizenz_jahr", 990.0))
+    einmal = p.get("einmal_chf", p.get("einrichtung", 2400.0))
+    return float(jahres), float(einmal)
+
+PREIS_JAHR, PREIS_EINRICHTUNG = _preise_keys("professional")
 
 # PRIVATE Key nur hier (Anbieter). Wird NICHT an KMU ausgeliefert.
 _PRIVATE_KEY = None
