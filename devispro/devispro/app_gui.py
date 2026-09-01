@@ -330,7 +330,48 @@ class DevisProApp(ctk.CTk):
             self._status(f"Preise-FEHLER: {e}")
 
     def _agent(self):
-        messagebox.showinfo("KI-Agent", "KI-Agent wird in einem späteren Update freigeschaltet.")
+        """Echter KI-Agent: öffnet Chat-Dialog mit DevisPro-Assistent."""
+        from tkinter import scrolledtext
+        win = ctk.CTkToplevel(self)
+        win.title("DevisPro KI-Agent")
+        win.geometry("760x560")
+        win.configure(fg_color=BG_DARK)
+        ctk.CTkLabel(win, text="DevisPro KI-Agent (offline, lokal)",
+                     font=FONT_H2, text_color=ACCENT).pack(pady=10)
+        ctk.CTkLabel(win, text="Fragen Sie: «setze MWST auf 8.1», «was kostet DevisPro?», «rechne 5000 CHF in EUR um»",
+                     font=FONT_SM, text_color=TXT_DIM).pack(pady=(0,8))
+
+        txt = scrolledtext.ScrolledText(win, bg=BG_PANEL, fg=TXT_MAIN, insertbackground=TXT_MAIN, font=("Menlo", 10), height=22)
+        txt.pack(fill="both", expand=True, padx=14, pady=8)
+
+        entry_frame = ctk.CTkFrame(win, fg_color=BG_PANEL)
+        entry_frame.pack(fill="x", padx=14, pady=10)
+        ent = ctk.CTkEntry(entry_frame, placeholder_text="Frage eingeben...")
+        ent.pack(side="left", fill="x", expand=True, padx=(0, 8))
+
+        def ask(event=None):
+            q = ent.get().strip()
+            if not q:
+                return
+            ent.delete(0, "end")
+            txt.insert("end", f"\n👤 Sie: {q}\n")
+            try:
+                from agent import chat as agent_chat
+                r = agent_chat(q)
+                answer = r.get("answer", "Keine Antwort")
+                action = r.get("action", "")
+                txt.insert("end", f"🤖 Agent: {answer}\n")
+                if action:
+                    txt.insert("end", f"   [action={action}]\n")
+            except Exception as e:
+                txt.insert("end", f"⚠️ Fehler: {e}\n")
+            txt.see("end")
+
+        btn = ctk.CTkButton(entry_frame, text="Senden", command=ask, fg_color=ACCENT, hover_color=ACCENT_HV, width=100)
+        btn.pack(side="right")
+        ent.bind("<Return>", ask)
+        ent.focus_set()
+        self._status("KI-Agent geöffnet")
 
     def _show_offerte(self):
         if not self.devis:
