@@ -206,46 +206,184 @@ def create_partner_app() -> "FastAPI":
     async def health():
         return {"status": "ok", "service": "devispro-partner-api", "version": "1.0.0"}
     
+    # --- Devis List ---
+    @app.get("/api/v1/devis")
+    @require_permission("devis:read")
+    async def list_devis(pk: PartnerKey = Depends(verify_api_key)):
+        """Listet alle Devis im lokalen DevisPro-Store."""
+        from devispro.data_store import app_support_dir
+        devis_dir = Path(app_support_dir()) / "devis"
+        if not devis_dir.exists():
+            return {"devis": [], "count": 0}
+        results = []
+        for dev_dir in sorted(devis_dir.iterdir()):
+            if not dev_dir.is_dir():
+                continue
+            meta_file = dev_dir / "meta.json"
+            if not meta_file.exists():
+                continue
+            try:
+                with open(meta_file, encoding="utf-8") as f:
+                    meta = json.load(f)
+                # Betrag aus bepreist.sia lesen (letzte Position vor 99-Total)
+                sia_file = dev_dir / "bepreist.sia"
+                netto = meta.get("netto", 0.0)
+                position_count = 0
+                if sia_file.exists():
+                    sia_text = sia_file.read_text(encoding="utf-8")
+                    position_count = sia_text.count("\n1")  # Positionen starten mit "1"
+                meta["position_count"] = position_count
+                results.append(meta)
+            except Exception as e:
+                logger.warning(f"Devis {dev_dir.name} konnte nicht gelesen werden: {e}")
+        return {"devis": results, "count": len(results)}
+
     # --- Devis Export ---
     @app.get("/api/v1/devis/{devis_id}/export")
     @require_permission("devis:read")
     async def export_devis(devis_id: str, pk: PartnerKey = Depends(verify_api_key)):
         """Exportiert fertiges Devis für ERP (Abacus/Proffix/SAP Format)."""
-        # TODO: Echte Devis-Ladung aus DevisPro Daten
-        # Hier Mock-Response
-        return {
-            "devis_id": devis_id,
-            "format": "erp_native",
-            "status": "exported",
-            "data": {
-                "positions": [
-                    {"pos_nr": "0901.010", "text": "Betonabbruch", "menge": 45, "einheit": "m2", "ep": 85.0, "total": 3825.0},
-                ],
-                "summe_netto": 3825.0,
-                "mwst": 310.0,
-                "summe_brutto": 4135.0,
+        from devispro.data_store import app_support_dir
+        devis_dir = Path(app_support_dir()) / "devis" / devis_id
+        if not devis_dir.exists():
+            raise HTTPException(status_code=404, detail=f"Devis {devis_id} nicht gefunden")
+
+        meta_file = devis_dir / "meta.json"
+        sia_file = devis_dir / "bepreist.sia"
+        if not meta_file.exists() or not sia_file.exists():
+            raise HTTPException(status_code=404, detail=f"Devis-Daten unvollständig")
+
+        try:
+            with open(meta_file, encoding="utf-8") as f:
+                meta = json.load(f)
+            sia_text = sia_file.read_text(encoding="utf-8")
+
+            # SIA-451 Positionen parsen (vereinfachtes Format)
+            positions = []
+            for raw_line in sia_text.splitlines():
+                # Position-Zeile beginnt mit "3" (berechnete Pos) — Format: 3NNNNNMengeEinheit
+                if not raw_line.startswith("3"):
+                    continue
+                # Numerische Felder extrahieren (SIA-451 Festformat 16-Stellen)
+                try:
+                    # Pos-Nr (Stelle 1-16, 1-indexed), Menge (16-30), Ep (30-46), Total (46-62)
+                    pos_nr = raw_line[0:16].strip()
+                    menge_str = raw_line[16:30].strip()
+                    einheit = raw_line[30:34].strip()
+                    ep_str = raw_line[34:50].strip()
+                    total_str = raw_line[50:66].strip()
+                    menge = float(menge_str) / 10000 if menge_str else 0.0
+                    ep = float(ep_str) / 100000 if ep_str else 0.0
+                    total = float(total_str) / 100 if total_str else 0.0
+                    positions.append({
+                        "pos_nr": pos_nr,
+                        "menge": menge,
+                        "einheit": einheit,
+                        "ep": ep,
+                        "total": total,
+                    })
+                except (ValueError, IndexError):
+                    continue
+
+            summe_netto = sum(p["total"] for p in positions)
+            mwst = summe_netto * 0.081  # CH MwSt 8.1%
+            summe_brutto = summe_netto + mwst
+
+            return {
+                "devis_id": devis_id,
+                "format": "erp_native",
+                "status": "exported",
+                "meta": meta,
+                "data": {
+                    "positions": positions,
+                    "summe_netto": round(summe_netto, 2),
+                    "mwst": round(mwst, 2),
+                    "summe_brutto": round(summe_brutto, 2),
+                },
             }
-        }
-    
+        except Exception as e:
+            logger.error(f"Devis-Export fehlgeschlagen für {devis_id}: {e}")
+            raise HTTPException(status_code=500, detail=f"Export-Fehler: {e}")
+
     # --- Preis-Sync ---
     @app.post("/api/v1/preise/sync")
     @require_permission("preise:sync")
     async def sync_preise(request: Request, pk: PartnerKey = Depends(verify_api_key)):
         """Empfängt Preisliste von ERP (Artikel, Preise, Rabattgruppen)."""
+        from devispro.data_store import PREISE_PATH
         data = await request.json()
         artikel = data.get("artikel", [])
-        # TODO: In meine_preise.csv importieren
-        return {"status": "synced", "received": len(artikel), "imported": len(artikel)}
-    
+        imported_count = 0
+
+        try:
+            # Bestehende CSV lesen
+            existing = []
+            if Path(PREISE_PATH).exists():
+                with open(PREISE_PATH, encoding="utf-8") as f:
+                    existing = [l.rstrip() for l in f.readlines()]
+
+            # Neue Artikel anhängen (csv-append Modus)
+            with open(PREISE_PATH, "a", encoding="utf-8") as f:
+                for art in artikel:
+                    art_nr = art.get("nr", "")
+                    text = art.get("text", "").replace(",", ";")  # CSV-Schutz
+                    einheit = art.get("einheit", "Stk")
+                    preis = art.get("preis", 0.0)
+                    row = f"{art_nr},{text},{einheit},{preis}"
+                    if row not in existing:
+                        f.write(row + "\n")
+                        imported_count += 1
+
+            return {
+                "status": "synced",
+                "received": len(artikel),
+                "imported": imported_count,
+                "skipped_duplicates": len(artikel) - imported_count,
+            }
+        except Exception as e:
+            logger.error(f"Preis-Sync fehlgeschlagen: {e}")
+            raise HTTPException(status_code=500, detail=f"Sync-Fehler: {e}")
+
     # --- Webhook: Devis finalisiert ---
     @app.post("/api/v1/webhook/devis_finalized")
     @require_permission("webhook")
     async def webhook_devis_finalized(request: Request, pk: PartnerKey = Depends(verify_api_key)):
         """Webhook wird aufgerufen wenn Devis in DevisPro finalisiert wird."""
+        from devispro.data_store import path as ds_path
         data = await request.json()
-        # TODO: An ERP weiterleiten / Queue
-        logger.info(f"Webhook Devis finalisiert: {data.get('devis_id')} von Partner {pk.name}")
-        return {"status": "received", "devis_id": data.get("devis_id")}
+        devis_id = data.get("devis_id")
+        if not devis_id:
+            raise HTTPException(status_code=400, detail="devis_id erforderlich")
+
+        # ERP-Queue: Webhook-Daten persistent in der Partner-Queue speichern
+        queue_path = Path(ds_path("partner_erp_queue.json"))
+        try:
+            queue = []
+            if queue_path.exists():
+                with open(queue_path, encoding="utf-8") as f:
+                    queue = json.load(f)
+
+            queue.append({
+                "devis_id": devis_id,
+                "partner": pk.partner,
+                "partner_name": pk.name,
+                "received_at": datetime.now().isoformat(),
+                "payload": data,
+                "forwarded": False,
+            })
+
+            with open(queue_path, "w", encoding="utf-8") as f:
+                json.dump(queue, f, ensure_ascii=False, indent=2)
+
+            logger.info(f"Webhook Devis finalisiert: {devis_id} von Partner {pk.name} (Queue: {len(queue)})")
+            return {
+                "status": "queued",
+                "devis_id": devis_id,
+                "queue_position": len(queue),
+            }
+        except Exception as e:
+            logger.error(f"Webhook-Queue fehlgeschlagen: {e}")
+            raise HTTPException(status_code=500, detail=f"Queue-Fehler: {e}")
     
     # --- Partner Key Management (Admin) ---
     @app.post("/api/v1/admin/keys")
