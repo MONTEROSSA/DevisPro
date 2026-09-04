@@ -6,6 +6,7 @@ import os
 import sys
 import threading
 import tkinter as tk
+from pathlib import Path
 from tkinter import filedialog, messagebox, ttk, scrolledtext
 
 import customtkinter as ctk
@@ -389,11 +390,63 @@ class DevisProApp(ctk.CTk):
             txt.insert("end", f"{p.pos:>6}  {p.bezeichnung:<40}  {p.menge:>8.2f} {p.einheit:<4}  EP {p.ep:>8.2f}  = {p.betrag:>10.2f}\n")
 
     def _export(self, kind):
+        """Echter Export (M26: Trust-Bug-Fix) — schreibt echte Dateien statt nur Status-Meldungen.
+
+        Args:
+            kind: 'pdf', 'sia', 'csv', 'buchhaltung', 'angebot', 'json'
+        """
         if not self.devis:
             messagebox.showinfo("Export", "Kein Devis geladen.")
             return
-        self._status(f"Export {kind}…")
-        self._status(f"Export {kind}: ok")
+        try:
+            from tkinter import filedialog
+            # Dateinamen + Extension vorschlagen
+            ext_map = {
+                "pdf": ".pdf",
+                "sia": ".sia",
+                "csv": ".csv",
+                "buchhaltung": ".csv",
+                "angebot": ".pdf",
+                "json": ".json",
+            }
+            default_name = f"devis_{getattr(self.devis, 'id', 'aktuell') or 'aktuell'}{ext_map.get(kind, '.txt')}"
+            out = filedialog.asksaveasfilename(
+                defaultextension=ext_map.get(kind, ".txt"),
+                initialfile=default_name,
+                title=f"Devis exportieren als {kind.upper()}",
+                filetypes=[(f"{kind.upper()}-Datei", f"*{ext_map.get(kind, '.txt')}"), ("Alle Dateien", "*.*")],
+            )
+            if not out:
+                self._status("Export abgebrochen")
+                return
+
+            self._status(f"Export {kind} → {out}…")
+            # Echter Export basierend auf Typ
+            if kind == "pdf" or kind == "angebot":
+                from devispro.pdf_export import write_pdf
+                write_pdf(self.devis, out)
+            elif kind == "sia":
+                from devispro.parsers.devispro_sia import export as sia_export
+                sia_export(self.devis, out)
+            elif kind == "csv" or kind == "buchhaltung":
+                from devispro.exporter import export
+                export(self.devis, out, fmt="csv")
+            elif kind == "json":
+                import json
+                with open(out, "w", encoding="utf-8") as f:
+                    json.dump(self.devis.to_dict() if hasattr(self.devis, "to_dict") else str(self.devis),
+                              f, indent=2, ensure_ascii=False)
+            else:
+                raise ValueError(f"Unbekannter Export-Typ: {kind}")
+            self._status(f"✓ Export {kind}: {out}")
+            messagebox.showinfo(
+                "Export erfolgreich",
+                f"Devis wurde exportiert nach:\n{out}\n\n"
+                f"Datei existiert: {Path(out).stat().st_size} Bytes",
+            )
+        except Exception as e:
+            self._status(f"❌ Export {kind} fehlgeschlagen: {e}")
+            messagebox.showerror("Export fehlgeschlagen", f"Fehler beim {kind}-Export:\n{e}\n\nBitte erneut versuchen oder Support kontaktieren.")
 
     def _kataloge_laden(self):
         self._status("Verbandskataloge werden geladen…")
