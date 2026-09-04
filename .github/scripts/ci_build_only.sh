@@ -25,9 +25,11 @@ fi
 # Info.plist kopieren
 cp "$GITHUB_WORKSPACE/.github/scripts/Info.plist.template" "$APP/Contents/Info.plist"
 
-# Version setzen wenn Tag-Push
-if [ "$GITHUB_REF_TYPE" = "tag" ]; then
-  sed -i '' "s|<string>1.4.0</string>|<string>${GITHUB_REF_NAME#v}</string>|g" "$APP/Contents/Info.plist"
+# Version setzen wenn Tag-Push (dynamisch aus Git-Tag)
+if [ -n "$GITHUB_REF_NAME" ] && [ "$GITHUB_REF_TYPE" = "tag" ]; then
+  VERSION="${GITHUB_REF_NAME#v}"  # strip leading "v"
+  sed -i '' "s|<string>1.4.8</string>|<string>${VERSION}</string>|g" "$APP/Contents/Info.plist"
+  echo "Version auf ${VERSION} gesetzt"
 fi
 
 # Tote .so entfernen (kann Notarize brechen, aber bei ad-hoc ok)

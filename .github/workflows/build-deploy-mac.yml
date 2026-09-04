@@ -69,6 +69,33 @@ jobs:
         path: DevisPro-macOS-adhoc.zip
         retention-days: 30
 
+    - name: Create GitHub Release
+      if: startsWith(github.ref, 'refs/tags/v')
+      uses: softprops/action-gh-release@v2
+      with:
+        name: "DevisPro ${{ github.ref_name }}"
+        body: |
+          ## DevisPro ${{ github.ref_name }} - Ad-Hoc signed
+
+          **Plan B Build:** CI-based ad-hoc codesign (kein Apple-Notarization).
+          Für die offizielle Developer-ID-signierte und Apple-notarisierte Version
+          siehe den lokalen sign_fix auf deinem Mac.
+
+          ### Download
+          - **macOS** (diese Version): `DevisPro-macOS-adhoc.zip` (Artifact oben)
+          - **macOS** (offiziell, lokal signiert): https://devispro.de/DevisPro-2026-09-03-adhoc.zip
+          - **Windows**: https://github.com/MONTEROSSA/DevisPro/releases/download/v1.3.1/DevisPro-Windows.zip (bald aktualisiert)
+
+          ### Features in v1.4.x
+          - ✅ 4 Profit-Module: Verbandskataloge (NPK/BKS/HLKS/CRB), Marktplatz, Cloud-Sync, ERP-Ecosystem
+          - ✅ FastAPI-basiertes Partner-API mit echten Datenanbindungen
+          - ✅ 19 LLM-Cron-Jobs repariert (Provider-Modell-Wechsel)
+          - ✅ Vollständige Landingpage mit allen Modulen
+        draft: false
+        prerelease: false
+        files: |
+          DevisPro-macOS-adhoc.zip
+
     - name: Deploy to VPS
       env:
         VPS_SSH_KEY: ${{ secrets.VPS_SSH_KEY }}
