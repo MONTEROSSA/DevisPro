@@ -63,8 +63,15 @@ def save(devis, netto, name=None, method="mock", kanton="ZH", status="offen"):
     did = _next_id()
     ddir = os.path.join(DEVIS_DIR, did)
     os.makedirs(ddir, exist_ok=True)
-    from devispro.parsers import crb
-    crb.export(devis, os.path.join(ddir, "bepreist.sia"))
+    # M18: DevisPro-Export verwenden (1-stellige Prefix, 13-stellige codes)
+    # damit der M16-Parser die Datei spaeter wieder lesen kann.
+    # Fallback auf crb.export wenn devispro_sia nicht verfuegbar (alte Versionen).
+    try:
+        from devispro.parsers import devispro_sia
+        devispro_sia.export(devis, os.path.join(ddir, "bepreist.sia"))
+    except ImportError:
+        from devispro.parsers import crb
+        crb.export(devis, os.path.join(ddir, "bepreist.sia"))
     meta = {
         "id": did,
         "name": name or f"{devis.meta.get('projekt', '')} {devis.meta.get('objekt', '')}".strip() or did,

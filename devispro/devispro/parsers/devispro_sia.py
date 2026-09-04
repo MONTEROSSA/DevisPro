@@ -42,6 +42,90 @@ def _to_chf(s: str) -> float:
     return int(digits) / 100.0
 
 
+def _to_rappen(value: float, width: int) -> str:
+    """Konvertiert einen CHF-Wert zu Rappen-String mit fixer Breite."""
+    from decimal import Decimal, ROUND_HALF_UP
+    rappen = int((Decimal(str(value or 0)) * 100).quantize(Decimal("1"), rounding=ROUND_HALF_UP))
+    return f"{rappen:0{width}d}"
+
+
+def _fmt_posnr(nr: str) -> str:
+    """Formatiert pos_nr als 13-stelligen String (ohne Prefix).
+
+    DevisPro-Format: 1-stelliger Prefix ('1' oder '3') + 13 Stellen Code.
+    Wir schreiben den Prefix (z.B. '1') separat, also muss diese Funktion
+    13 Zeichen liefern, damit Pos-Zeile insgesamt 68 Zeichen hat.
+    """
+    s = (nr or "").replace(".", "").replace(" ", "")[:13]
+    return s.ljust(13, "0")
+
+
+def _fmt_text(text: str) -> str:
+    """Formatiert Text als 40-Zeichen-String (mit trailing spaces aufgefuellt)."""
+    return (text or "").ljust(40)[:40]
+
+
+def _fmt_einheit(unit: str) -> str:
+    """Formatiert Einheit als 4-Zeichen-String (mit trailing spaces aufgefuellt)."""
+    return (unit or "").ljust(4)[:4]
+
+
+def _fmt_date(date_str: str) -> str:
+    """Formatiert Datum als YYYYMMDD 8-Zeichen-String.
+
+    Akzeptiert: 'YYYY-MM-DD', 'YYYY-MM-DD HH:MM', 'YYYYMMDD' oder leer.
+    """
+    s = (date_str or "").replace("-", "").replace(" ", "").replace(":", "")[:8]
+    return s.ljust(8, "0")[:8]
+
+
+def export(devis: Devis, path: str) -> None:
+    """Schreibt ein Devis im DevisPro-Format (kompatibel zu bestehenden Dateien).
+
+    Layout: Header, dann pro Position zwei Zeilen ('1' = Original, '3' = Preis), Footer.
+    Werte werden in Rappen x 100 konvertiert.
+    """
+    lines = []
+    m = devis.meta
+
+    # Header (58 Zeichen)
+    header = (
+        "01"
+        + (m.get("project_id", "") or "").ljust(9)[:9]
+        + (m.get("project_name", "") or "").ljust(28)[:28]
+        + (m.get("devis_nr", "") or "").ljust(8)[:8]
+        + _fmt_date(m.get("date", "") or "")
+        + (m.get("currency", "CHF") or "CHF").ljust(3)[:3]
+    )
+    lines.append(header)
+
+    # Positionen
+    for p in devis.positions:
+        # Original-Position (68 Zeichen)
+        lines.append(
+            "1"
+            + _fmt_posnr(p.pos_nr or "")
+            + _fmt_text(p.text or "")
+            + _to_rappen(p.menge or 0.0, 10)
+            + _fmt_einheit(p.einheit or "")
+        )
+        # Preis-Zeile (36 Zeichen)
+        ep = p.ep if p.ep is not None else 0.0
+        betrag = p.betrag if p.betrag is not None else (ep * (p.menge or 0.0))
+        lines.append(
+            "3"
+            + _fmt_posnr(p.pos_nr or "")
+            + _to_rappen(ep, 10)
+            + _to_rappen(betrag, 12)
+        )
+
+    # Footer
+    lines.append("99" + f"{len(devis.positions):06d}")
+
+    with open(path, "w", encoding="utf-8") as f:
+        f.write("\n".join(lines) + "\n")
+
+
 def parse(path: str) -> Devis:
     """Parst eine DevisPro-formatierte bepreist.sia Datei.
 
@@ -120,4 +204,4 @@ def parse(path: str) -> Devis:
 
 # Konstante für die Parser-Erkennung
 PARSER_ID = "devispro_sia"
-PARSER_VERSION = "1.0.0"
+PARSER_VERSION = "1.1.0"
