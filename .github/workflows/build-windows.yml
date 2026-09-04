@@ -6,6 +6,10 @@ on:
     tags:
       - 'v*'
 
+permissions:
+  contents: write
+  actions: read
+
 jobs:
   build-windows:
     runs-on: windows-latest
@@ -70,7 +74,7 @@ jobs:
       run: |
         Write-Host "=== PACKAGE STEP START ==="
         Write-Host "CWD: $(Get-Location)"
-        
+
         # Full recursive listing of dist
         Write-Host "=== FULL DIST TREE ==="
         if (Test-Path dist) {
@@ -78,7 +82,7 @@ jobs:
         } else {
           Write-Host "dist NOT FOUND"
         }
-        
+
         # Handle all possible PyInstaller output structures
         $srcPath = ""
         if (Test-Path "dist\DevisPro") {
@@ -95,14 +99,14 @@ jobs:
             $items | ForEach-Object { Write-Host "  $($_.Name) - $($_.PSIsContainer ? 'dir' : 'file')" }
           }
         }
-        
+
         if ($srcPath -eq "") {
           Write-Error "ERROR: No dist output found"
           exit 1
         }
-        
+
         Write-Host "Using source path: $srcPath"
-        
+
         # Create target directory
         try {
           New-Item -ItemType Directory -Force -Path "DevisPro_Windows" | Out-Null
@@ -111,7 +115,7 @@ jobs:
           Write-Error "Failed to create DevisPro_Windows: $($_.Exception.Message)"
           exit 1
         }
-        
+
         # Copy files with error handling
         try {
           Copy-Item -Recurse -Force "$srcPath\*" "DevisPro_Windows\"
@@ -122,7 +126,7 @@ jobs:
           Write-Host "Target: DevisPro_Windows"
           exit 1
         }
-        
+
         Write-Host "=== DEVISPRO_WINDOWS CONTENTS ==="
         Get-ChildItem DevisPro_Windows -Recurse | ForEach-Object { Write-Host "  $($_.FullName)" }
 
@@ -148,7 +152,7 @@ jobs:
           Write-Error "README creation failed: $($_.Exception.Message)"
           exit 1
         }
-        
+
         Write-Host "=== PACKAGE STEP COMPLETE ==="
 
     - name: Create ZIP

@@ -6,6 +6,10 @@ on:
     tags:
       - 'v*'
 
+permissions:
+  contents: write  # für GitHub-Release-Erstellung
+  actions: read
+
 jobs:
   build-deploy-mac:
     runs-on: macos-14
