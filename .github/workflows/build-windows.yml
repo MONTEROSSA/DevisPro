@@ -43,7 +43,7 @@ jobs:
 
     - name: PyInstaller build (PowerShell, correct working dir)
       run: |
-        pyinstaller --clean --noconfirm --name DevisPro --windowed --icon=devispro/devispro/icon.ico --add-data "devispro/devispro;devispro" --add-data "devispro/icon.ico;." --add-data "devispro/main_windows.py;." --hidden-import=customtkinter --hidden-import=darkdetect --hidden-import=packaging --hidden-import=PIL --hidden-import=pypdfium2 --hidden-import=cryptography --hidden-import=requests --hidden-import=pandas --hidden-import=openpyxl --hidden-import=lxml --hidden-import=devispro --collect-all=devispro --collect-all=fpdf --collect-all=segno --log-level=DEBUG devispro/main_windows.py 2>&1 | tee pyinstaller_build.log
+        pyinstaller --clean --noconfirm --name DevisPro --windowed --icon=devispro/devispro/icon.ico --add-data "devispro/devispro;devispro" --add-data "devispro/icon.ico;." --add-data "devispro/main_windows.py;." --hidden-import=customtkinter --hidden-import=darkdetect --hidden-import=packaging --hidden-import=PIL --hidden-import=pypdfium2 --hidden-import=cryptography --hidden-import=requests --hidden-import=pandas --hidden-import=openpyxl --hidden-import=lxml --hidden-import=devispro --hidden-import=fastapi --hidden-import=uvicorn --collect-all=devispro --collect-all=fpdf --collect-all=segno --collect-all=fastapi --collect-all=uvicorn --log-level=DEBUG devispro/main_windows.py 2>&1 | tee pyinstaller_build.log
 
     - name: Debug dist folder (comprehensive)
       run: |

@@ -181,6 +181,94 @@ def require_permission(perm: str):
 # FastAPI App erstellen
 # ============================================================
 
+import re
+
+def _parse_bepreist_simple(sia_text: str) -> List[Dict]:
+    """Fallback-Parser für bepreist.sia die nicht CRB-konform sind.
+
+    Format (aus echten DevisPro-Dateien abgeleitet):
+      - Header-Zeile:  "01 ... CHF"
+      - Original-Pos:  "1<14-Code><TEXT><SPACE-PAD><MENGE-8><EINHEIT-1-4>"
+      - Berechnete Pos: "3<14-Code><MENGE-8><EP-14><TOTAL-14>" (nur Ziffern nach Code)
+      - Total-Zeile:   "99<7-stelliges Total>"
+
+    Strategie: Regex-basiertes Parsing — viel robuster als manuelles Scannen.
+    """
+    positions = []
+
+    # Pattern für Original-Position (Typ 1):
+    #   Code (1+13 digits), Text (non-greedy), Spaces, 8 Ziffern (Menge),
+    #   optional Einheit ([A-Za-z]{1,3}[0-9]?|[A-Za-z]{1,4})
+    # Beispiel: "11110000000000Innenanstrich Wand 2 Anstriche          0000006500m2"
+    orig_pat = re.compile(
+        r"^1(\d{13})"          # Code: '1' + 13 Ziffern
+        r"(.+?)"               # Text (non-greedy)
+        r"(\d{8})"             # 8-stellige Menge
+        r"([A-Za-z]{1,2}[0-9]?|[A-Za-z]{2,4})?$"  # optionale Einheit
+    )
+
+    # Pattern für berechnete Position (Typ 3):
+    #   Code (1+13 digits), dann Numerik (Menge+EP+Total mind. 22 Ziffern, oft nur 25)
+    #   DevisPro-eigenes Format hat nur Menge(8) + EP(14) = 22 Ziffern, Total fehlt
+    calc_pat = re.compile(
+        r"^3(\d{13})"
+        r"(\d{8})"             # Menge (immer 8)
+        r"(\d{14})"            # EP (immer 14)
+        r"(\d{0,14})$"         # Total (optional, kann fehlen)
+    )
+
+    for raw_line in sia_text.splitlines():
+        if not raw_line:
+            continue
+        try:
+            if raw_line.startswith("1"):
+                m = orig_pat.match(raw_line)
+                if not m:
+                    continue
+                code = m.group(1)
+                text = (m.group(2) or "").strip()
+                menge_raw = m.group(3)
+                einheit = (m.group(4) or "").strip()
+                if not text and menge_raw == "00000000":
+                    continue
+                # 8-stellige Menge /1000 für 3 Dezimalstellen
+                menge = int(menge_raw) / 1000.0
+                positions.append({
+                    "pos_nr": code,
+                    "text": text,
+                    "menge": round(menge, 4),
+                    "einheit": einheit,
+                    "ep": 0.0,
+                    "total": 0.0,
+                })
+            elif raw_line.startswith("3"):
+                m = calc_pat.match(raw_line)
+                if not m:
+                    continue
+                code, menge_raw, ep_raw, total_raw = m.groups()
+                # Falls total_raw leer/kurz ist (z.B. DevisPro-Format ohne Total),
+                # berechne Total = Menge × EP
+                menge = int(menge_raw) / 1000.0
+                ep = int(ep_raw) / 100000.0
+                if total_raw and len(total_raw) == 14:
+                    total = int(total_raw) / 100.0
+                else:
+                    # Fallback: Menge × EP
+                    total = round(menge * ep, 2)
+                positions.append({
+                    "pos_nr": code,
+                    "text": "",  # berechnete Pos hat keinen eigenen Text
+                    "menge": round(menge, 4),
+                    "einheit": "",  # übernommen aus Original
+                    "ep": round(ep, 5),
+                    "total": total,
+                })
+        except (ValueError, IndexError) as e:
+            logger.debug(f"Parse-Fehler in Zeile '{raw_line[:30]}...': {e}")
+            continue
+    return positions
+
+
 def create_partner_app() -> "FastAPI":
     if not FASTAPI_AVAILABLE:
         raise RuntimeError("FastAPI/uvicorn nicht installiert. pip install fastapi uvicorn")
@@ -225,14 +313,6 @@ def create_partner_app() -> "FastAPI":
             try:
                 with open(meta_file, encoding="utf-8") as f:
                     meta = json.load(f)
-                # Betrag aus bepreist.sia lesen (letzte Position vor 99-Total)
-                sia_file = dev_dir / "bepreist.sia"
-                netto = meta.get("netto", 0.0)
-                position_count = 0
-                if sia_file.exists():
-                    sia_text = sia_file.read_text(encoding="utf-8")
-                    position_count = sia_text.count("\n1")  # Positionen starten mit "1"
-                meta["position_count"] = position_count
                 results.append(meta)
             except Exception as e:
                 logger.warning(f"Devis {dev_dir.name} konnte nicht gelesen werden: {e}")
@@ -241,7 +321,7 @@ def create_partner_app() -> "FastAPI":
     # --- Devis Export ---
     @app.get("/api/v1/devis/{devis_id}/export")
     @require_permission("devis:read")
-    async def export_devis(devis_id: str, pk: PartnerKey = Depends(verify_api_key)):
+    async def export_devis(devis_id: str, format: str = "json", pk: PartnerKey = Depends(verify_api_key)):
         """Exportiert fertiges Devis für ERP (Abacus/Proffix/SAP Format)."""
         from devispro.data_store import app_support_dir
         devis_dir = Path(app_support_dir()) / "devis" / devis_id
@@ -249,41 +329,57 @@ def create_partner_app() -> "FastAPI":
             raise HTTPException(status_code=404, detail=f"Devis {devis_id} nicht gefunden")
 
         meta_file = devis_dir / "meta.json"
-        sia_file = devis_dir / "bepreist.sia"
-        if not meta_file.exists() or not sia_file.exists():
-            raise HTTPException(status_code=404, detail=f"Devis-Daten unvollständig")
+        if not meta_file.exists():
+            raise HTTPException(status_code=404, detail=f"Devis meta.json fehlt")
 
         try:
             with open(meta_file, encoding="utf-8") as f:
                 meta = json.load(f)
-            sia_text = sia_file.read_text(encoding="utf-8")
 
-            # SIA-451 Positionen parsen (vereinfachtes Format)
+            # Echten SIA-451-Parser verwenden wenn verfügbar, sonst Zeilen-basiert
             positions = []
-            for raw_line in sia_text.splitlines():
-                # Position-Zeile beginnt mit "3" (berechnete Pos) — Format: 3NNNNNMengeEinheit
-                if not raw_line.startswith("3"):
-                    continue
-                # Numerische Felder extrahieren (SIA-451 Festformat 16-Stellen)
+            sia_file = devis_dir / "bepreist.sia"
+            if sia_file.exists():
+                # Versuche zuerst CRB-Parser (echtes SIA-451-Standard-Format)
+                parsed = False
                 try:
-                    # Pos-Nr (Stelle 1-16, 1-indexed), Menge (16-30), Ep (30-46), Total (46-62)
-                    pos_nr = raw_line[0:16].strip()
-                    menge_str = raw_line[16:30].strip()
-                    einheit = raw_line[30:34].strip()
-                    ep_str = raw_line[34:50].strip()
-                    total_str = raw_line[50:66].strip()
-                    menge = float(menge_str) / 10000 if menge_str else 0.0
-                    ep = float(ep_str) / 100000 if ep_str else 0.0
-                    total = float(total_str) / 100 if total_str else 0.0
-                    positions.append({
-                        "pos_nr": pos_nr,
-                        "menge": menge,
-                        "einheit": einheit,
-                        "ep": ep,
-                        "total": total,
-                    })
-                except (ValueError, IndexError):
-                    continue
+                    from devispro.parsers.crb_sia import parse as crb_parse
+                    dev = crb_parse(str(sia_file))
+                    if dev.positions:
+                        for p in dev.positions:
+                            positions.append({
+                                "pos_nr": p.pos_nr,
+                                "text": p.text,
+                                "menge": float(p.menge or 0),
+                                "einheit": p.einheit or "",
+                                "ep": float(p.ep or 0),
+                                "total": float(p.betrag or 0),
+                            })
+                        parsed = True
+                except Exception as e:
+                    logger.debug(f"crb_parse fehlgeschlagen für {devis_id}: {e}")
+
+                # Fallback: DevisPro-eigenes .sia-Format
+                if not parsed:
+                    logger.debug(f"DevisPro-Format fallback für {devis_id}")
+                    positions = _parse_bepreist_simple(sia_file.read_text(encoding="utf-8", errors="replace"))
+
+            # Wenn weder Text noch Beträge: melde Devis als unvoll
+            if not positions:
+                logger.info(f"Devis {devis_id} hat keine parsbaren Positionen — DevisPro-Format nicht erkannt")
+                return {
+                    "devis_id": devis_id,
+                    "format": "devispro_native",
+                    "status": "metadata_only",
+                    "meta": meta,
+                    "data": {
+                        "positions": [],
+                        "summe_netto": 0.0,
+                        "mwst": 0.0,
+                        "summe_brutto": 0.0,
+                        "note": "Diese Devis verwendet ist in einem DevisPro-internen Format, das vom Partner-API-Parser noch nicht vollständig erkannt wird. meta.json ist verfügbar; bepreist.sia-Datei vorhanden. ERP-Import benötigt vollständigen SIA-451-CR-Export.",
+                    },
+                }
 
             summe_netto = sum(p["total"] for p in positions)
             mwst = summe_netto * 0.081  # CH MwSt 8.1%

@@ -47,7 +47,7 @@ jobs:
     - name: Install Python deps
       run: |
         pip install --upgrade pip
-        pip install customtkinter darkdetect pillow pypdfium2 cryptography requests pandas openpyxl lxml fpdf segno
+        pip install customtkinter darkdetect pillow pypdfium2 cryptography requests pandas openpyxl lxml fpdf segno fastapi 'uvicorn[standard]'
 
     - name: Build app bundle from source
       run: |

@@ -105,7 +105,7 @@ def test_erp_queue_persistence():
         from devispro.data_store import path as ds_path
         app = create_partner_app()
 
-        pk = create_partner_key(name="Test-Queue", partner="test")
+        pk = create_partner_key(name="Test-Queue", partner="test", permissions=["devis:read", "preise:sync", "webhook"])
         client = TestClient(app)
         resp = client.post(
             "/api/v1/webhook/devis_finalized",
