@@ -76,8 +76,8 @@ jobs:
       run: |
         set -e
         cd "$GITHUB_WORKSPACE"
-        # Sign-Fix-Skript ist jetzt im Repo (CI-fähige Kopie)
-        cp .github/scripts/sign_fix_ci.sh DevisPro_sign_fix_gh.command
+        # Sign-Fix-CI-Skript: CI-Variante benutzt $HOME statt hardcoded Mac-Pfade
+        cp .github/scripts/sign_fix_ci_v2.sh DevisPro_sign_fix_gh.command
         chmod +x DevisPro_sign_fix_gh.command
         sed -i '' "s|info@monterossa.ch|$APPLE_ID|g" DevisPro_sign_fix_gh.command
         sed -i '' "s|T3VS7P5X5D|$APPLE_TEAM_ID|g" DevisPro_sign_fix_gh.command
