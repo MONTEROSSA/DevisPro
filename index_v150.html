@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="de-CH">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DevisPro v1.5 — Die intelligenteste Devis-Software der Schweiz. SIA-451, Sorba, GAEB.</title>
+<meta name="description" content="DevisPro v1.5: Erstellen Sie Devis in 5 Minuten statt 3 Stunden. Mit KI-Agent, Verbandskatalogen (NPK/BKS/HLKS/CRB) und 10 ERP-Anbindungen. 5 Devis gratis testen — keine Kreditkarte.">
+<meta property="og:title" content="DevisPro v1.5 — Devis in 5 Minuten">
+<meta property="og:description" content="Die intelligenteste Devis-Software der Schweiz. KI-gestützt, lokal, offline-fähig. 5 Devis gratis testen.">
+<meta property="og:type" content="website">
+<title>DevisPro v1.5 — Die intelligenteste Devis-Software der Schweiz</title>
+<style>
+:root {
+  --bg-dark: #0F1419;
+  --bg-card: #1F2933;
+  --bg-panel: #252D38;
+  --border: #3E4C59;
+  --accent: #FF6A1A;
+  --accent-light: #FF8542;
+  --text-main: #F3F5F7;
+  --text-dim: #9AA5B1;
+  --success: #10B981;
+  --info: #3B82F6;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Helvetica Neue', sans-serif;
+  background: var(--bg-dark);
+  color: var(--text-main);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+.container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+
+/* === NAV === */
+nav {
+  padding: 20px 0;
+  position: sticky; top: 0; z-index: 100;
+  background: rgba(15, 20, 25, 0.95);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+}
+nav .container { display: flex; justify-content: space-between; align-items: center; }
+.logo { font-size: 24px; font-weight: 800; color: var(--accent); }
+.logo span { color: var(--text-main); }
+nav ul { display: flex; gap: 30px; list-style: none; }
+nav a { color: var(--text-dim); text-decoration: none; font-weight: 500; }
+nav a:hover { color: var(--text-main); }
+.cta-nav { background: var(--accent); color: white !important; padding: 10px 20px; border-radius: 8px; }
+
+/* === HERO === */
+.hero { padding: 100px 0 60px; text-align: center; }
+.hero h1 {
+  font-size: 64px; font-weight: 800; margin-bottom: 24px;
+  background: linear-gradient(135deg, var(--accent) 0%, #FF8C42 100%);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text; line-height: 1.1;
+}
+.hero .sub { font-size: 22px; color: var(--text-dim); margin-bottom: 40px; max-width: 720px; margin-left: auto; margin-right: auto; }
+.hero .badges { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; margin-bottom: 40px; }
+.badge {
+  background: var(--bg-panel); padding: 8px 16px; border-radius: 100px;
+  font-size: 14px; color: var(--text-dim); border: 1px solid var(--border);
+}
+.badge.live { color: var(--success); border-color: var(--success); }
+.cta-primary {
+  display: inline-block; background: var(--accent); color: white;
+  padding: 18px 40px; border-radius: 12px; font-size: 18px; font-weight: 600;
+  text-decoration: none; margin: 8px;
+  box-shadow: 0 8px 24px rgba(255, 106, 26, 0.4);
+  transition: all 0.2s;
+}
+.cta-primary:hover { background: var(--accent-light); transform: translateY(-2px); }
+.cta-secondary {
+  display: inline-block; background: transparent; color: var(--text-main);
+  padding: 18px 40px; border-radius: 12px; font-size: 18px; font-weight: 600;
+  text-decoration: none; border: 2px solid var(--border);
+}
+.cta-secondary:hover { border-color: var(--accent); color: var(--accent); }
+
+/* === SOCIAL PROOF === */
+.social-proof { padding: 40px 0; text-align: center; }
+.social-proof .logos {
+  display: flex; justify-content: center; gap: 60px; align-items: center;
+  flex-wrap: wrap; opacity: 0.5;
+}
+.social-proof .logo-item {
+  font-size: 24px; font-weight: 700; color: var(--text-dim); letter-spacing: 1px;
+}
+.metric-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin-top: 40px; }
+.metric { text-align: center; padding: 30px; background: var(--bg-card); border-radius: 16px; border: 1px solid var(--border); }
+.metric .num { font-size: 42px; font-weight: 800; color: var(--accent); }
+.metric .label { color: var(--text-dim); font-size: 14px; margin-top: 8px; }
+
+/* === SECTIONS === */
+section { padding: 80px 0; }
+.section-title {
+  font-size: 42px; font-weight: 800; text-align: center; margin-bottom: 16px;
+}
+.section-sub {
+  font-size: 18px; color: var(--text-dim); text-align: center;
+  max-width: 720px; margin: 0 auto 60px;
+}
+.grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
+.grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+.grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
+.card {
+  background: var(--bg-card); border: 1px solid var(--border);
+  padding: 32px; border-radius: 16px;
+  transition: all 0.2s;
+}
+.card:hover { border-color: var(--accent); transform: translateY(-4px); }
+.card .icon { font-size: 36px; margin-bottom: 16px; }
+.card h3 { font-size: 22px; margin-bottom: 12px; color: var(--text-main); }
+.card p { color: var(--text-dim); font-size: 15px; }
+
+/* === AI-MOAT SECTION === */
+.ai-moat {
+  background: linear-gradient(135deg, rgba(255, 106, 26, 0.05) 0%, rgba(255, 106, 26, 0.15) 100%);
+  border: 1px solid var(--accent);
+  padding: 60px;
+  border-radius: 24px;
+  margin: 60px 0;
+  text-align: center;
+}
+.ai-moat h2 { font-size: 48px; margin-bottom: 20px; }
+.ai-moat .demo {
+  background: var(--bg-dark); padding: 30px; border-radius: 12px;
+  margin: 30px 0; font-family: monospace; text-align: left;
+  border: 1px solid var(--border);
+}
+.ai-moat .demo .user { color: var(--info); }
+.ai-moat .demo .ai { color: var(--accent); margin-top: 12px; }
+.ai-moat .demo .ai::before { content: "DevisPro: "; color: var(--text-dim); }
+
+/* === PRICING === */
+.pricing-card {
+  background: var(--bg-card); border: 1px solid var(--border);
+  padding: 40px; border-radius: 16px; text-align: center;
+  position: relative;
+}
+.pricing-card.popular { border-color: var(--accent); transform: scale(1.05); }
+.pricing-card .popular-badge {
+  position: absolute; top: -12px; left: 50%; transform: translateX(-50%);
+  background: var(--accent); color: white; padding: 6px 20px;
+  border-radius: 100px; font-size: 13px; font-weight: 600;
+}
+.pricing-card h3 { font-size: 24px; margin-bottom: 8px; }
+.pricing-card .price { font-size: 48px; font-weight: 800; color: var(--accent); margin: 16px 0 8px; }
+.pricing-card .price-unit { color: var(--text-dim); font-size: 14px; margin-bottom: 24px; }
+.pricing-card ul { list-style: none; text-align: left; margin: 24px 0; }
+.pricing-card li { color: var(--text-dim); padding: 8px 0; padding-left: 24px; position: relative; }
+.pricing-card li::before { content: "✓"; position: absolute; left: 0; color: var(--success); font-weight: 800; }
+
+/* === FOOTER === */
+footer { padding: 60px 0 30px; border-top: 1px solid var(--border); margin-top: 80px; }
+footer .cols { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; }
+footer h4 { font-size: 14px; color: var(--text-dim); text-transform: uppercase; margin-bottom: 16px; }
+footer a { color: var(--text-dim); text-decoration: none; display: block; padding: 4px 0; }
+footer a:hover { color: var(--text-main); }
+footer .copyright { text-align: center; color: var(--text-dim); margin-top: 40px; padding-top: 20px; border-top: 1px solid var(--border); font-size: 13px; }
+
+/* === RESPONSIVE === */
+@media (max-width: 768px) {
+  .hero h1 { font-size: 40px; }
+  .hero .sub { font-size: 18px; }
+  .grid, .grid-3, .grid-4 { grid-template-columns: 1fr; }
+  .metric-row { grid-template-columns: 1fr 1fr; }
+  .pricing-card.popular { transform: none; }
+  nav ul { display: none; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="container">
+    <div class="logo">Devis<span>Pro</span></div>
+    <ul>
+      <li><a href="#features">Features</a></li>
+      <li><a href="#ai">KI-Agent</a></li>
+      <li><a href="#kataloge">Kataloge</a></li>
+      <li><a href="#pricing">Preise</a></li>
+      <li><a href="https://github.com/MONTEROSSA/DevisPro/releases">Releases</a></li>
+    </ul>
+    <a href="#download" class="cta-nav">5 Devis gratis testen</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="container">
+    <h1>Devis in 5 Minuten.<br>Nicht 3 Stunden.</h1>
+    <p class="sub">DevisPro v1.5 ist die intelligenteste Devis-Software der Schweiz. Mit KI-Agent, Verbandskatalogen (NPK/BKS/HLKS/CRB) und 10 ERP-Anbindungen. Lokal, offline-fähig, schweizer Datenhoheit.</p>
+    <div class="badges">
+      <span class="badge live">● v1.5.0 jetzt verfügbar</span>
+      <span class="badge">5 Devis gratis — keine Kreditkarte</span>
+      <span class="badge">macOS · Windows · Linux</span>
+      <span class="badge">🇨🇭 Schweizer Datenhoheit</span>
+    </div>
+    <div>
+      <a href="https://github.com/MONTEROSSA/DevisPro/releases/latest" class="cta-primary">DevisPro herunterladen</a>
+      <a href="https://devispro.de/DevisPro-2026-09-03-adhoc.zip" class="cta-secondary">Direkt-Download (macOS)</a>
+    </div>
+  </div>
+</section>
+
+<!-- METRICS -->
+<section class="social-proof">
+  <div class="container">
+    <div class="metric-row">
+      <div class="metric">
+        <div class="num">88</div>
+        <div class="label">Verbandskatalog-Positionen</div>
+      </div>
+      <div class="metric">
+        <div class="num">10</div>
+        <div class="label">ERP-Direktanbindungen</div>
+      </div>
+      <div class="metric">
+        <div class="num">26</div>
+        <div class="label">Kantone-spezifische Preise</div>
+      </div>
+      <div class="metric">
+        <div class="num">5 Min</div>
+        <div class="label">statt 3 Std. pro Devis</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section id="features">
+  <div class="container">
+    <h2 class="section-title">4 Profit-Module für Ihren Devis-Alltag</h2>
+    <p class="section-sub">DevisPro ersetzt vier separate Tools — und kostet weniger als eines davon.</p>
+
+    <div class="grid-4">
+      <div class="card">
+        <div class="icon">📚</div>
+        <h3>Verbandskataloge</h3>
+        <p>NPK, BKS, HLKS, CRB — 88 echte Marktpositionen aus Schweizer Verbandsstandards. Mit kantonspezifischen Preisen (ZG+20%, JU-10%).</p>
+      </div>
+      <div class="card">
+        <div class="icon">🤝</div>
+        <h3>Subunternehmer-Marktplatz</h3>
+        <p>Direkt aus DevisPro Profile und Kapazitäten in Ihrer Region finden. Keine Provision, keine versteckten Gebühren.</p>
+      </div>
+      <div class="card">
+        <div class="icon">☁️</div>
+        <h3>Optionale Cloud-Sync</h3>
+        <p>Teamwork mit Architekten — Ende-zu-Ende-verschlüsselt. Standardmäßig aus, Sie wählen den Speicherort.</p>
+      </div>
+      <div class="card">
+        <div class="icon">🔌</div>
+        <h3>10 ERP-Anbindungen</h3>
+        <p>Abacus, Proffix, BMD, DATEV, Banana, SAP, Lexoffice, SevDesk, WinOffice, Mobit. Direktanbindung, keine CSV-Tanz.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- AI-MOAT -->
+<section id="ai">
+  <div class="container">
+    <div class="ai-moat">
+      <div style="font-size: 14px; color: var(--accent); font-weight: 700; letter-spacing: 2px;">★ EINZIGARTIGER VERKAUFSVORTEIL</div>
+      <h2>Der DevisPro KI-Agent</h2>
+      <p style="font-size: 18px; color: var(--text-dim); max-width: 600px; margin: 20px auto;">Sprechen Sie mit DevisPro wie mit einem erfahrenen Bauführer. Kein Click-Wizard, kein Formular — einfach fragen.</p>
+
+      <div class="demo">
+        <div class="user">> "Ich brauche eine Vorlage für Badezimmer-Renovation, 12m2"</div>
+        <div class="ai">Basierend auf 'Badezimmer-Renovation' (Sanitär) habe ich 10 Standardpositionen aus dem NPK-Katalog für Sie vorbereitet:
+          • 311.10 Montage WC-Anlage Standard — CHF 1'450.00/Stk
+          • 311.20 Montage Waschbecken inkl. Armatur — CHF 1'180.00/Stk
+          • 312.10 Montage Dusche bodeneben — CHF 3'850.00/Stk
+          • 320.20 Kaltwasser-Leitung verlegen — CHF 125.00/m
+          • 330.10 Plattenarbeiten Wand, 30x60 cm — CHF 165.00/m²
+          ... + 5 weitere
+        </div>
+        <div class="user" style="margin-top: 16px;">> "Was war mein umsatzstärkster Monat?"</div>
+        <div class="ai">Ihr Gesamtumsatz: CHF 84'250 (aus 36 Devis). Durchschnittlicher Devis: CHF 2'340. Ihr Top-Kunde: 'Bauunternehmung XY AG' (8 Devis).</div>
+        <div class="user" style="margin-top: 16px;">> "Wie viel MwSt hab ich bezahlt?"</div>
+        <div class="ai">Gesamt-MwSt 8.1%: CHF 6'824. Brutto: CHF 91'074. (Hinweis: Bei Werkleistungen gilt 8.1%, bei Lieferungen 7.7%.)</div>
+      </div>
+
+      <p style="margin-top: 24px; color: var(--text-dim);"><strong style="color: var(--text-main);">Kein Mitbewerber hat das.</strong> Weder Bauwise, bauMax, noch Sorba.</p>
+    </div>
+  </div>
+</section>
+
+<!-- KATALOGE -->
+<section id="kataloge">
+  <div class="container">
+    <h2 class="section-title">88 echte Marktpositionen aus 4 Verbandskatalogen</h2>
+    <p class="section-sub">Keine Schätzungen. Keine "Platzhalter". Echte, geprüfte Schweizer Marktrichtpreise.</p>
+
+    <div class="grid-4">
+      <div class="card">
+        <h3>📋 NPK-Katalog</h3>
+        <div style="font-size: 36px; font-weight: 800; color: var(--accent); margin: 16px 0;">55</div>
+        <p style="color: var(--text-dim);">Positionen für Maler, Sanitär, Elektriker, Schreiner</p>
+      </div>
+      <div class="card">
+        <h3>🏗️ BKS-Katalog</h3>
+        <div style="font-size: 36px; font-weight: 800; color: var(--accent); margin: 16px 0;">15</div>
+        <p style="color: var(--text-dim);">Baukosten-Standard für Hochbau, Dach, Fenster, Türen</p>
+      </div>
+      <div class="card">
+        <h3>🔥 HLKS-Katalog</h3>
+        <div style="font-size: 36px; font-weight: 800; color: var(--accent); margin: 16px 0;">11</div>
+        <p style="color: var(--text-dim);">Heizung, Lüftung, Klima, Sanitär-Standard</p>
+      </div>
+      <div class="card">
+        <h3>📊 CRB-Katalog</h3>
+        <div style="font-size: 36px; font-weight: 800; color: var(--accent); margin: 16px 0;">7</div>
+        <p style="color: var(--text-dim);">Baukostenschlüssel für Vollkalkulationen</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS / PROOF -->
+<section>
+  <div class="container">
+    <h2 class="section-title">Was DevisPro für Sie bedeutet</h2>
+    <div class="grid-3">
+      <div class="card">
+        <h3>⏱️ 97% Zeitersparnis</h3>
+        <p>3 Stunden pro Devis → 5 Minuten. Bei 100 Devis pro Jahr sparen Sie <strong style="color: var(--accent);">CHF 12'000+</strong> an Personalkosten.</p>
+      </div>
+      <div class="card">
+        <h3>💰 Mehr Marge</h3>
+        <p>Automatische Marktpreis-Vorschläge pro Kanton. Keine "Bauchgefühl"-Preise mehr. <strong style="color: var(--accent);">+15% Marge</strong> dokumentiert.</p>
+      </div>
+      <div class="card">
+        <h3>🏆 Keine Fehler</h3>
+        <p>KI-Agent fängt Inkonsistenzen bevor sie im Devis landen. Keine "Wir haben die Position vergessen"-Diskussionen mehr.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section id="pricing">
+  <div class="container">
+    <h2 class="section-title">3 Tarife. Volle Transparenz. Jederzeit kündbar.</h2>
+    <p class="section-sub">Modell C — Per-User + Add-ons. Basierend auf Pricing-Strategie-Analyse 09/2026.</p>
+
+    <div class="grid-3">
+      <div class="pricing-card">
+        <h3>Solo</h3>
+        <div class="price">79 CHF</div>
+        <div class="price-unit">/Monat · 1 User · 5 Devis inkl.</div>
+        <ul>
+          <li>5 Devis pro Monat inklusive</li>
+          <li>Sorba-Import</li>
+          <li>PDF + QR-Rechnung</li>
+          <li>E-Mail-Support</li>
+        </ul>
+        <a href="#download" class="cta-secondary">Solo wählen</a>
+      </div>
+
+      <div class="pricing-card popular">
+        <div class="popular-badge">EMPFOHLEN</div>
+        <h3>Team</h3>
+        <div class="price">249 CHF</div>
+        <div class="price-unit">/Monat · 3 User · 25 Devis inkl.</div>
+        <ul>
+          <li>25 Devis pro Monat inklusive</li>
+          <li>Alles aus Solo</li>
+          <li>3 User inkl. (jeder weitere +99 CHF)</li>
+          <li>KI-Agent Premium</li>
+          <li>Cloud-Sync (optional)</li>
+          <li>Priority-Support</li>
+        </ul>
+        <a href="#download" class="cta-primary">Team wählen</a>
+      </div>
+
+      <div class="pricing-card">
+        <h3>Business</h3>
+        <div class="price">599 CHF</div>
+        <div class="price-unit">/Monat · 5 User · Unlimited</div>
+        <ul>
+          <li>Unbegrenzte Devis</li>
+          <li>5 User inkl.</li>
+          <li>10 ERP-Anbindungen</li>
+          <li>API-Zugang</li>
+          <li>Subunternehmer-Marktplatz Premium</li>
+          <li>Dedizierter Account-Manager</li>
+        </ul>
+        <a href="#download" class="cta-secondary">Business wählen</a>
+      </div>
+    </div>
+
+    <p style="text-align: center; margin-top: 40px; color: var(--text-dim);">Plus 20% Jahresbonus: 79 CHF/Mt → 758 CHF/Jahr · 249 → 2390 · 599 → 5750</p>
+    <p style="text-align: center; color: var(--text-dim); margin-top: 8px;">Keine Kreditkarte für 5-Devis-Testversion. Jederzeit kündbar.</p>
+  </div>
+</section>
+
+<!-- DOWNLOAD -->
+<section id="download">
+  <div class="container" style="text-align: center;">
+    <h2 class="section-title">Bereit für Ihr erstes 5-Minuten-Devis?</h2>
+    <p class="section-sub">Download in 30 Sekunden. 5 Devis kostenlos. Keine Kreditkarte.</p>
+
+    <div class="grid-3" style="max-width: 800px; margin: 40px auto;">
+      <a href="https://devispro.de/DevisPro-2026-09-03-adhoc.zip" class="card" style="text-align: center; text-decoration: none;">
+        <div class="icon">🍎</div>
+        <h3>macOS</h3>
+        <p style="color: var(--text-dim);">Apple Silicon + Intel<br>Developer-ID signiert</p>
+        <div style="color: var(--accent); margin-top: 16px; font-weight: 600;">Download (46 MB) →</div>
+      </a>
+
+      <a href="https://github.com/MONTEROSSA/DevisPro/releases/latest" class="card" style="text-align: center; text-decoration: none;">
+        <div class="icon">🪟</div>
+        <h3>Windows</h3>
+        <p style="color: var(--text-dim);">Windows 10/11 (64-bit)<br>Inkl. Tesseract OCR</p>
+        <div style="color: var(--accent); margin-top: 16px; font-weight: 600;">Download (~50 MB) →</div>
+      </a>
+
+      <a href="https://github.com/MONTEROSSA/DevisPro" class="card" style="text-align: center; text-decoration: none;">
+        <div class="icon">🐧</div>
+        <h3>Linux</h3>
+        <p style="color: var(--text-dim);">Via pip install<br>Source verfügbar</p>
+        <div style="color: var(--accent); margin-top: 16px; font-weight: 600;">GitHub →</div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="cols">
+      <div>
+        <div class="logo">Devis<span>Pro</span></div>
+        <p style="color: var(--text-dim); margin-top: 16px; max-width: 320px;">Die intelligenteste Devis-Software der Schweiz. Lokal, offline-fähig, schweizer Datenhoheit.</p>
+        <p style="color: var(--text-dim); margin-top: 16px;">
+          info@devispro.de<br>
+          +41 41 534 48 90
+        </p>
+      </div>
+      <div>
+        <h4>Produkt</h4>
+        <a href="#features">Features</a>
+        <a href="#ai">KI-Agent</a>
+        <a href="#kataloge">Kataloge</a>
+        <a href="#pricing">Preise</a>
+      </div>
+      <div>
+        <h4>Unternehmen</h4>
+        <a href="https://github.com/MONTEROSSA/DevisPro">GitHub</a>
+        <a href="https://github.com/MONTEROSSA/DevisPro/releases">Releases</a>
+        <a href="#">Über uns</a>
+        <a href="#">Kontakt</a>
+      </div>
+      <div>
+        <h4>Rechtliches</h4>
+        <a href="#">Datenschutz</a>
+        <a href="#">AGB</a>
+        <a href="#">Impressum</a>
+      </div>
+    </div>
+    <div class="copyright">
+      © 2026 Monterossa · DevisPro v1.5.0 · Made in Switzerland 🇨🇭
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
