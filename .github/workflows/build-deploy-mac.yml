@@ -76,8 +76,9 @@ jobs:
       run: |
         set -e
         cd "$GITHUB_WORKSPACE"
-        # Generate sign_fix variant with secrets injected
-        cp DevisPro_sign_fix.command DevisPro_sign_fix_gh.command
+        # Sign-Fix-Skript ist jetzt im Repo (CI-fähige Kopie)
+        cp .github/scripts/sign_fix_ci.sh DevisPro_sign_fix_gh.command
+        chmod +x DevisPro_sign_fix_gh.command
         sed -i '' "s|info@monterossa.ch|$APPLE_ID|g" DevisPro_sign_fix_gh.command
         sed -i '' "s|T3VS7P5X5D|$APPLE_TEAM_ID|g" DevisPro_sign_fix_gh.command
         sed -i '' "s|mezr-waka-hawr-qbwb|$APPLE_APP_PASSWORD|g" DevisPro_sign_fix_gh.command
