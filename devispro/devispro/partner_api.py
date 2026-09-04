@@ -340,11 +340,11 @@ def create_partner_app() -> "FastAPI":
             positions = []
             sia_file = devis_dir / "bepreist.sia"
             if sia_file.exists():
-                # Versuche zuerst CRB-Parser (echtes SIA-451-Standard-Format)
+                # Versuche zuerst den DevisPro-eigenen Parser (M16, unterstützt echte DevisPro-Dateien)
                 parsed = False
                 try:
-                    from devispro.parsers.crb_sia import parse as crb_parse
-                    dev = crb_parse(str(sia_file))
+                    from devispro.parsers.devispro_sia import parse as devispro_parse
+                    dev = devispro_parse(str(sia_file))
                     if dev.positions:
                         for p in dev.positions:
                             positions.append({
@@ -357,11 +357,30 @@ def create_partner_app() -> "FastAPI":
                             })
                         parsed = True
                 except Exception as e:
-                    logger.debug(f"crb_parse fehlgeschlagen für {devis_id}: {e}")
+                    logger.debug(f"devispro_parse fehlgeschlagen für {devis_id}: {e}")
 
-                # Fallback: DevisPro-eigenes .sia-Format
+                # Fallback: CRB-SIA-Standard-Format (echtes SIA-451)
                 if not parsed:
-                    logger.debug(f"DevisPro-Format fallback für {devis_id}")
+                    try:
+                        from devispro.parsers.crb_sia import parse as crb_parse
+                        dev = crb_parse(str(sia_file))
+                        if dev.positions:
+                            for p in dev.positions:
+                                positions.append({
+                                    "pos_nr": p.pos_nr,
+                                    "text": p.text,
+                                    "menge": float(p.menge or 0),
+                                    "einheit": p.einheit or "",
+                                    "ep": float(p.ep or 0),
+                                    "total": float(p.betrag or 0),
+                                })
+                            parsed = True
+                    except Exception as e:
+                        logger.debug(f"crb_parse fehlgeschlagen für {devis_id}: {e}")
+
+                # Letzter Fallback: Heuristik-Parser
+                if not parsed:
+                    logger.debug(f"Heuristik-Fallback für {devis_id}")
                     positions = _parse_bepreist_simple(sia_file.read_text(encoding="utf-8", errors="replace"))
 
             # Wenn weder Text noch Beträge: melde Devis als unvoll

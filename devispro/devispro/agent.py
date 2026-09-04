@@ -368,9 +368,20 @@ def chat(message, context=None):
 
 
 def _load_devis(did, data_dir):
+    """Lädt ein Devis — versucht zuerst den DevisPro-Parser, dann CRB-SIA als Fallback."""
     if not did:
         return None
+    sia_path = history_mod.path_of(did, "bepreist.sia")
+    # Primär: DevisPro-Format (M16)
     try:
-        return crb.parse(history_mod.path_of(did, "bepreist.sia"))
+        from .parsers.devispro_sia import parse as devispro_parse
+        dev = devispro_parse(sia_path)
+        if dev and dev.positions:
+            return dev
+    except Exception:
+        pass
+    # Fallback: CRB-SIA-Standard-Format
+    try:
+        return crb.parse(sia_path)
     except Exception:
         return None
