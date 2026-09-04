@@ -50,24 +50,6 @@ jobs:
         pip install customtkinter darkdetect pillow pypdfium2 cryptography requests pandas openpyxl lxml fpdf segno fastapi 'uvicorn[standard]'
 
     - name: Build app bundle from source
-      run: |
-        set -e
-        APP="$HOME/Desktop/DevisPro.app"
-        rm -rf "$APP"
-        mkdir -p "$APP/Contents/Resources/devispro"
-        mkdir -p "$APP/Contents/Resources/kataloge"
-        cp -R "$GITHUB_WORKSPACE/devispro/." "$APP/Contents/Resources/devispro/"
-        if [ -d "$GITHUB_WORKSPACE/devispro/kataloge" ]; then
-          cp -R "$GITHUB_WORKSPACE/devispro/kataloge/." "$APP/Contents/Resources/kataloge/"
-        fi
-        cp "$GITHUB_WORKSPACE/.github/scripts/Info.plist.template" "$APP/Contents/Info.plist"
-        # Build version from tag if present
-        if [ "$GITHUB_REF_TYPE" = "tag" ]; then
-          sed -i '' "s|<string>1.4.0</string>|<string>${GITHUB_REF_NAME#v}</string>|g" "$APP/Contents/Info.plist"
-        fi
-        echo "App staged at: $APP ($(du -sh "$APP" | cut -f1))"
-
-    - name: Run sign_fix (sign + notarize)
       env:
         APPLE_ID: ${{ secrets.APPLE_ID }}
         APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
@@ -75,38 +57,16 @@ jobs:
         KEYCHAIN_PASSWORD: devpro-build-key
       run: |
         set -e
-        cd "$GITHUB_WORKSPACE"
-        # Sign-Fix-CI-Skript: CI-Variante benutzt $HOME statt hardcoded Mac-Pfade
-        cp .github/scripts/sign_fix_ci_v2.sh DevisPro_sign_fix_gh.command
-        chmod +x DevisPro_sign_fix_gh.command
-        sed -i '' "s|info@monterossa.ch|$APPLE_ID|g" DevisPro_sign_fix_gh.command
-        sed -i '' "s|T3VS7P5X5D|$APPLE_TEAM_ID|g" DevisPro_sign_fix_gh.command
-        sed -i '' "s|mezr-waka-hawr-qbwb|$APPLE_APP_PASSWORD|g" DevisPro_sign_fix_gh.command
-        sed -i '' "s|/Users/ferdinandrothlisberger/Library/Keychains/devispro3.keychain-db|$RUNNER_TEMP/devispro_keychain-db|g" DevisPro_sign_fix_gh.command
-        sed -i '' "s|\$HOME/devis-auto/_vps_key|$RUNNER_TEMP/devispro_keychain-db|g" DevisPro_sign_fix_gh.command
-        # Remove VPS-Deploy block (we do it separately below)
-        python3 - <<'PYEOF'
-        import re
-        p = "DevisPro_sign_fix_gh.command"
-        s = open(p).read()
-        s = re.sub(r"VPS=\"root@.*?systemctl reload nginx.*?DEPLOYED\"\n", "", s, flags=re.DOTALL)
-        s = re.sub(r"curl -sI https://devispro.de/.*?head -1\n", "", s)
-        open(p, "w").write(s)
-        PYEOF
-        bash DevisPro_sign_fix_gh.command 2>&1 | tail -30
-
-    - name: Verify spctl + codesign
-      run: |
-        APP="$HOME/Desktop/DevisPro.app"
-        spctl --assess --verbose=2 "$APP" 2>&1
-        codesign --verify --deep --strict "$APP" 2>&1
-        echo "Sign OK"
+        # Plan B: NUR Build + Ad-Hoc-Sign (KEIN Apple-Notarize, KEIN Developer-ID)
+        # Das Developer-ID-Sign + Apple-Notarization läuft LOKAL auf deinem Mac via
+        # sign_fix.command (siehe ~/devis-auto/DevisPro_sign_fix.command).
+        bash .github/scripts/ci_build_only.sh 2>&1 | tail -50
 
     - name: Upload .app artifact
       uses: actions/upload-artifact@v4
       with:
-        name: DevisPro-macOS
-        path: ~/Desktop/DevisPro.app
+        name: DevisPro-macOS-adhoc
+        path: DevisPro-macOS-adhoc.zip
         retention-days: 30
 
     - name: Deploy to VPS
@@ -115,22 +75,20 @@ jobs:
         VPS_HOST: ${{ secrets.VPS_HOST }}
       run: |
         set -e
-        ZIP="$GITHUB_WORKSPACE/DevisPro_Mac_notarized.zip"
-        ls -la "$ZIP"
         mkdir -p ~/.ssh
         echo "$VPS_SSH_KEY" > ~/.ssh/vps_key
         chmod 600 ~/.ssh/vps_key
         ssh-keyscan -H "$VPS_HOST" >> ~/.ssh/known_hosts 2>/dev/null || true
         scp -i ~/.ssh/vps_key -o StrictHostKeyChecking=no -o BatchMode=yes \
-          "$ZIP" "root@${VPS_HOST}:/opt/devispro_app/DevisPro_Mac.zip"
+          DevisPro-macOS-adhoc.zip "root@${VPS_HOST}:/opt/devispro_app/DevisPro_Mac.zip"
         ssh -i ~/.ssh/vps_key -o StrictHostKeyChecking=no -o BatchMode=yes \
           "root@${VPS_HOST}" "
             set -e
             cp /opt/devispro_app/DevisPro_Mac.zip /var/www/devispro/DevisPro_Mac.zip
             chmod 644 /var/www/devispro/DevisPro_Mac.zip
             DATE=\$(date +%Y-%m-%d)
-            cp /var/www/devispro/DevisPro_Mac.zip /var/www/devispro/DevisPro-\${DATE}.zip
-            chmod 644 /var/www/devispro/DevisPro-\${DATE}.zip
+            cp /var/www/devispro/DevisPro_Mac.zip /var/www/devispro/DevisPro-\${DATE}-ci-adhoc.zip
+            chmod 644 /var/www/devispro/DevisPro-\${DATE}-ci-adhoc.zip
             systemctl reload nginx
             echo DEPLOYED
           "
