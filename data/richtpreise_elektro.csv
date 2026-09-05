@@ -1,0 +1,29 @@
+artikel_id,bezeichnung,npk,einheit,ep_chf,kategorie
+E-5011,Verteilerkasten,5011,Stk,420.0,Elektro
+E-5012,Unterverteilung,5012,Stk,650.0,Elektro
+E-5021,Kabel NYM 3x1.5 verlegen,5021,m,5.5,Elektro
+E-5022,Kabel NYM 5x2.5 verlegen,5022,m,9.8,Elektro
+E-5023,Leerrohr verlegen,5023,m,4.2,Elektro
+E-5024,Erdschluss / Erdung,5024,Stk,180.0,Elektro
+E-5031,Unterputzdose,5031,Stk,8.5,Elektro
+E-5032,Abzweigdose,5032,Stk,12.0,Elektro
+E-5041,Schalter Unterputz,5041,Stk,18.0,Elektro
+E-5042,Steckdose Unterputz,5042,Stk,16.0,Elektro
+E-5043,Bewegungsmelder,5043,Stk,75.0,Elektro
+E-5044,Dimmer,5044,Stk,45.0,Elektro
+E-5051,Deckenleuchte LED,5051,Stk,120.0,Elektro
+E-5052,Einbaustrahler LED,5052,Stk,35.0,Elektro
+E-5053,Notbeleuchtung,5053,Stk,140.0,Elektro
+E-5061,Netzwerkdose CAT6,5061,Stk,28.0,Elektro
+E-5062,Datenkabel CAT6,5062,m,6.5,Elektro
+E-5063,Antennenanschluss,5063,Stk,60.0,Elektro
+E-5071,Herdanschluss,5071,Stk,95.0,Elektro
+E-5072,Wallbox EV,5072,Stk,750.0,Elektro
+E-5081,FI-Schalter 30mA,5081,Stk,55.0,Elektro
+E-5091,EKT-Pruefung Pauschal,5091,Paus,250.0,Elektro
+E-9001,Kabeltrosse,9001,m,2.2,Elektro
+E-9002,Kabelbinder,9002,Stk,0.3,Elektro
+E-9003,UP-Dose,9003,Stk,1.2,Elektro
+E-9004,Anfahrt / Auswaerts,9004,Pauschal,120.0,Elektro
+E-9005,Stundenlohn Elektriker,9005,h,95.0,Elektro
+E-9006,Messgeraet Pauschal,9006,Pauschal,80.0,Elektro

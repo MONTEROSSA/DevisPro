@@ -1,0 +1,228 @@
+{
+  "TRIAL-ISOCHECKISA": {
+    "firma": "Isocheck AG",
+    "email": "isa@isocheck.ch",
+    "pilot": true,
+    "gueltig_bis": "2026-11-08",
+    "letzte_rechnung": null,
+    "bezahlt": true,
+    "erinnerungen_gesendet": [],
+    "quelle": "pilot"
+  },
+  "TRIAL-MOCKTESTMO": {
+    "firma": "Mock Test AG",
+    "email": "mo@mock.ch",
+    "pilot": true,
+    "gueltig_bis": "2026-11-08",
+    "letzte_rechnung": null,
+    "bezahlt": true,
+    "erinnerungen_gesendet": [],
+    "quelle": "pilot"
+  },
+  "TRIAL-FINALMAIFEE": {
+    "firma": "Final Mail AG",
+    "email": "fee@finalmail.ch",
+    "pilot": true,
+    "gueltig_bis": "2026-11-08",
+    "letzte_rechnung": null,
+    "bezahlt": true,
+    "erinnerungen_gesendet": [],
+    "quelle": "pilot"
+  },
+  "TRIAL-ISOLIERMISO": {
+    "firma": "Isolier Mail AG",
+    "email": "iso@isolmail.ch",
+    "pilot": true,
+    "gueltig_bis": "2026-11-08",
+    "letzte_rechnung": null,
+    "bezahlt": true,
+    "erinnerungen_gesendet": [],
+    "quelle": "pilot"
+  },
+  "TRIAL-FRISCHMAFRO": {
+    "firma": "Frisch Mail AG",
+    "email": "fro@frischmail.ch",
+    "pilot": true,
+    "gueltig_bis": "2026-11-08",
+    "letzte_rechnung": null,
+    "bezahlt": true,
+    "erinnerungen_gesendet": [],
+    "quelle": "pilot"
+  },
+  "TRIAL-LIVEPRODLIO": {
+    "firma": "Liveprod AG",
+    "email": "lio@liveprod.ch",
+    "pilot": true,
+    "gueltig_bis": "2026-11-08",
+    "letzte_rechnung": null,
+    "bezahlt": true,
+    "erinnerungen_gesendet": [],
+    "quelle": "pilot"
+  },
+  "TRIAL-LEADCHECLENA": {
+    "firma": "Leadcheck AG",
+    "email": "lena@leadcheck.ch",
+    "pilot": true,
+    "gueltig_bis": "2026-11-08",
+    "letzte_rechnung": null,
+    "bezahlt": true,
+    "erinnerungen_gesendet": [],
+    "quelle": "pilot"
+  },
+  "TRIAL-VERIFYCOV": {
+    "firma": "Verify Co",
+    "email": "v@verify.ch",
+    "pilot": true,
+    "gueltig_bis": "2026-11-09",
+    "letzte_rechnung": null,
+    "bezahlt": true,
+    "erinnerungen_gesendet": [],
+    "quelle": "pilot"
+  },
+  "TRIAL-MONTEROSSA": {
+    "firma": "MONTEROSSA AG",
+    "email": "info@monterossa.ch",
+    "pilot": false,
+    "gueltig_bis": "2028-08-10",
+    "letzte_rechnung": {
+      "nr": "R-TRIAL-MONTEROSSA-20260811",
+      "betrag": 990.0,
+      "typ": "Jahresverlaengerung",
+      "datum": "2026-08-11"
+    },
+    "bezahlt": true,
+    "erinnerungen_gesendet": [],
+    "quelle": "verkauf"
+  },
+  "KMU-VERIFY": {
+    "firma": "Verify Maler AG",
+    "email": "verify@maler.ch",
+    "pilot": false,
+    "gueltig_bis": "2027-08-11",
+    "letzte_rechnung": {
+      "nr": "R-KMU-VERIFY-20260811",
+      "betrag": 3390.0,
+      "typ": "Erstlizenz",
+      "datum": "2026-08-11"
+    },
+    "bezahlt": false,
+    "erinnerungen_gesendet": [],
+    "quelle": "verkauf"
+  },
+  "KMU-DBG": {
+    "firma": "Debug Co",
+    "email": "d@b.ch",
+    "pilot": false,
+    "gueltig_bis": "2027-08-11",
+    "letzte_rechnung": {
+      "nr": "R-KMU-DBG-20260811",
+      "betrag": 3390.0,
+      "typ": "Erstlizenz",
+      "datum": "2026-08-11"
+    },
+    "bezahlt": false,
+    "erinnerungen_gesendet": [],
+    "quelle": "verkauf"
+  },
+  "KMU-VOK": {
+    "firma": "Vok Co",
+    "email": "v@v.ch",
+    "pilot": false,
+    "gueltig_bis": "2027-08-11",
+    "letzte_rechnung": {
+      "nr": "R-KMU-VOK-20260811",
+      "betrag": 3390.0,
+      "typ": "Erstlizenz",
+      "datum": "2026-08-11"
+    },
+    "bezahlt": false,
+    "erinnerungen_gesendet": [],
+    "quelle": "verkauf"
+  },
+  "KMU-FRISCH": {
+    "firma": "Frisch Maler AG",
+    "email": "f@maler.ch",
+    "pilot": false,
+    "gueltig_bis": "2027-08-11",
+    "letzte_rechnung": {
+      "nr": "R-KMU-FRISCH-20260811",
+      "betrag": 3390.0,
+      "typ": "Erstlizenz",
+      "datum": "2026-08-11"
+    },
+    "bezahlt": false,
+    "erinnerungen_gesendet": [],
+    "quelle": "verkauf"
+  },
+  "KMU-F1": {
+    "firma": "F1 AG",
+    "email": "f@f.ch",
+    "pilot": false,
+    "gueltig_bis": "2027-08-11",
+    "letzte_rechnung": {
+      "nr": "R-KMU-F1-20260811",
+      "betrag": 3390.0,
+      "typ": "Erstlizenz",
+      "datum": "2026-08-11"
+    },
+    "bezahlt": false,
+    "erinnerungen_gesendet": [],
+    "quelle": "verkauf"
+  },
+  "MONTEROSSA": {
+    "firma": "Monterossa AG",
+    "email": "info@monterossa.ch",
+    "pilot": false,
+    "gueltig_bis": "2027-08-11",
+    "letzte_rechnung": {
+      "nr": "R-MONTEROSSA-20260811",
+      "betrag": 3390.0,
+      "typ": "Erstlizenz",
+      "datum": "2026-08-11"
+    },
+    "bezahlt": false,
+    "erinnerungen_gesendet": [],
+    "quelle": "verkauf"
+  },
+  "TRIAL-TESTAGT": {
+    "firma": "Test AG",
+    "email": "t@t.ch",
+    "pilot": true,
+    "gueltig_bis": "2026-11-09",
+    "letzte_rechnung": null,
+    "bezahlt": true,
+    "erinnerungen_gesendet": [],
+    "quelle": "pilot"
+  },
+  "TRIAL-FRISCHAGFR": {
+    "firma": "Frisch AG",
+    "email": "fr@fr.ch",
+    "pilot": true,
+    "gueltig_bis": "2026-11-09",
+    "letzte_rechnung": null,
+    "bezahlt": true,
+    "erinnerungen_gesendet": [],
+    "quelle": "pilot"
+  },
+  "TRIAL-FRISCH2AF2": {
+    "firma": "Frisch2 AG",
+    "email": "f2@f2.ch",
+    "pilot": true,
+    "gueltig_bis": "2026-11-09",
+    "letzte_rechnung": null,
+    "bezahlt": true,
+    "erinnerungen_gesendet": [],
+    "quelle": "pilot"
+  },
+  "TRIAL-BAGKUNDE": {
+    "firma": "B AG",
+    "email": "kunde@b.ch",
+    "pilot": true,
+    "tarif": "devis",
+    "gueltig_bis": "2026-11-11",
+    "letzte_rechnung": null,
+    "bezahlt": true,
+    "erinnerungen_gesendet": [],
+    "quelle": "pilot"
+  }
+}

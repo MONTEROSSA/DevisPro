@@ -1,0 +1,26 @@
+artikel_id,bezeichnung,npk,einheit,ep_chf,kategorie
+P-3611,Fliesen Boden 30x30 verlegen,3611,m2,65.0,Plattenleger
+P-3612,Fliesen Wand verlegen,3612,m2,72.0,Plattenleger
+P-3613,Grossformat Boden,3613,m2,95.0,Plattenleger
+P-3614,Mosaik verlegen,3614,m2,110.0,Plattenleger
+P-3621,Naturstein Boden,3621,m2,140.0,Plattenleger
+P-3622,Naturstein Wand,3622,m2,155.0,Plattenleger
+P-3631,Fliesenkleber,3631,m2,8.5,Plattenleger
+P-3641,Fugenmoertel,3641,m2,5.5,Plattenleger
+P-3651,Verbundabdichtung,3651,m2,18.0,Plattenleger
+P-3661,Sockel fliesen,3661,m,12.0,Plattenleger
+P-3671,Treppe belegen,3671,Stk,180.0,Plattenleger
+P-3681,Altfliesen entfernen,3681,m2,22.0,Plattenleger
+P-3711,Parkett verlegen,3711,m2,85.0,Plattenleger
+P-3721,Laminat verlegen,3721,m2,38.0,Plattenleger
+P-3731,Vinyl / PVC,3731,m2,32.0,Plattenleger
+P-3741,Unterlagsboden,3741,m2,14.0,Plattenleger
+P-3751,Sockelleiste,3751,m,9.5,Plattenleger
+P-9001,Fliesen Boden 30x30,9001,m2,35.0,Plattenleger
+P-9002,Fliesen Wand,9002,m2,28.0,Plattenleger
+P-9003,Naturstein,9003,m2,95.0,Plattenleger
+P-9004,Kleber Sack,9004,Sack,14.5,Plattenleger
+P-9005,Fugen kg,9005,kg,3.8,Plattenleger
+P-9006,Anfahrt / Auswaerts,9006,Pauschal,120.0,Plattenleger
+P-9007,Stundenlohn Fliesenleger,9007,h,80.0,Plattenleger
+P-9008,Entsorgung Altfliesen,9008,Pauschal,50.0,Plattenleger

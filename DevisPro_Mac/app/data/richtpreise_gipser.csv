@@ -1,0 +1,24 @@
+artikel_id,bezeichnung,npk,einheit,ep_chf,kategorie
+G-2611,Innenputz Kalk,2611,m2,22.0,Gipser
+G-2612,Innenputz maschinell,2612,m2,19.5,Gipser
+G-2613,Aussenputz Mineral,2613,m2,28.0,Gipser
+G-2614,Oberputz Reibputz,2614,m2,16.0,Gipser
+G-2621,Daemmputz,2621,m2,32.0,Gipser
+G-2631,Putzgrund / Voranstrich,2631,m2,4.5,Gipser
+G-2641,Eckschutz,2641,m,5.5,Gipser
+G-2651,Fassade Struktur,2651,m2,34.0,Gipser
+G-2711,Trockenbau Wand Gipskarton,2711,m2,42.0,Gipser
+G-2712,Vorsatzschale,2712,m2,48.0,Gipser
+G-2713,Decke abgehaengt,2713,m2,55.0,Gipser
+G-2721,Daemmplatte,2721,m2,38.0,Gipser
+G-2731,Fuge spachteln,2731,m,4.5,Gipser
+G-2741,CD-Profil,2741,m,3.2,Gipser
+G-2751,Schallschutzwand,2751,m2,45.0,Gipser
+G-2761,Brandschutzplatte,2761,m2,52.0,Gipser
+G-9001,Gipsputz Sack 25kg,9001,Sack,11.5,Gipser
+G-9002,Gipskarton 12.5mm,9002,m2,14.5,Gipser
+G-9003,Daemmung Steinwolle,9003,m2,18.0,Gipser
+G-9004,Tiefgrund,9004,l,12.0,Gipser
+G-9005,Anfahrt / Auswaerts,9005,Pauschal,120.0,Gipser
+G-9006,Stundenlohn Geselle,9006,h,76.0,Gipser
+G-9007,Gerueststellung Tag,9007,Tag,85.0,Gipser

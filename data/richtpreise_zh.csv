@@ -1,0 +1,32 @@
+artikel_id,bezeichnung,npk,einheit,ep_chf,kategorie
+ART-2411,Abbruch von unbewehrtem Beton Staerke bis 20 cm,241.1110,m3,185.00,Baumeister
+ART-2412,Erstellen von Beton C25/30 Ortbeton,241.2110,m2,240.00,Baumeister
+ART-2417,Erdaushub Bodenklasse 3 mittels Bagger,241.7120,m3,95.00,Baumeister
+ART-2421,Mauerwerk aus Kalksandstein 24 cm Moertelgruppe II,242.1010,m2,165.00,Maurer
+ART-2424,Wand aus Hochlochziegel 11.5 cm verputzt,242.4010,m2,128.00,Maurer
+ART-2431,Aussenputz Mineralputz Koernung 2 mm,243.1010,m2,78.00,Putzer
+ART-2432,Innenputz Kalkputz einlagig,243.2010,m2,62.00,Putzer
+ART-2441,Bodenbelag Keramikplatten 30x30 cm verlegt,244.1010,m2,145.00,Bodenbelag
+ART-2443,Trennlage Entkopplung Boden,244.3010,m2,32.00,Bodenbelag
+ART-2512,Unterlagsboden Holzwerkstoff 22 mm,251.2010,m2,58.00,Zimmerei
+ART-2515,Holzstaenderwand beidseitig beplankt,251.5010,m2,135.00,Zimmerei
+ART-2524,Dacheindeckung Ziegeldach neu verlegen,252.4010,m2,118.00,Dachdecker
+ART-2521,Dachabdichtung Bitumen 2-lagig,252.1010,m2,89.00,Dachdecker
+ART-2551,Innentuer BLT Massivholz 2-fluegelig,255.1010,Stk,980.00,Schreiner
+ART-2553,Fenster Kunststoff 3-fach Verglasung,255.3010,Stk,640.00,Schreiner
+ART-2556,Einbauschrank nach Mass furniert,255.6010,m2,1150.00,Schreiner
+ART-2611,Elektroinstallation Grundausbau pro WE,261.1010,Stk,4200.00,Elektro
+ART-2615,Steckdose Unterputz installiert,261.5010,Stk,145.00,Elektro
+ART-2615b,Lichtschalter Unterputz installiert,261.5210,Stk,138.00,Elektro
+ART-2616,LED-Deckenleuchte inkl Montage,261.6010,Stk,210.00,Elektro
+ART-2631,Sanitaerinstallation Grundausbau pro WE,263.1010,Stk,3850.00,Sanitaer
+ART-2632,Wandtiefspueler WC komplett montiert,263.2010,Stk,720.00,Sanitaer
+ART-2633,Waschtisch 60 cm mit Armatur,263.3010,Stk,540.00,Sanitaer
+ART-2634,Dusche bodengleich inkl Ablauf,263.4010,Stk,1350.00,Sanitaer
+ART-2711,Innenanstrich Wand 2 Anstriche Dispersion,271.1010,m2,34.00,Maler
+ART-2712,Aussenanstrich Fassade 2 Anstriche,271.2010,m2,42.00,Maler
+ART-2715,Anstrich Holzbauteile lasierend,271.5010,m2,55.00,Maler
+ART-2531,Fallrohr aus Zink DN100 inkl Befestigung,253.1010,m2,85.00,Spengler
+ART-2811,Isolierglas 2-fach Aufbau Waermeschutz,281.1010,m2,210.00,Glas
+ART-2621,Heizungsverteilung Grundausbau pro WE,262.1010,Stk,3100.00,Heizung
+ART-2641,Lueftung Zu- und Abluft pro WE,264.1010,Stk,2750.00,Lueftung

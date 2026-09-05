@@ -1,0 +1,14 @@
+[
+  {
+    "nr": "K-001",
+    "name": "Bau AG",
+    "typ": "kunde",
+    "strasse": "",
+    "plz_ort": "",
+    "mwst_nr": "",
+    "mail": "",
+    "offen": 389.16,
+    "land": "CH",
+    "kreditlimit": 0.0
+  }
+]

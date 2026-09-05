@@ -1,0 +1,14 @@
+[
+  {
+    "nr": "A-001",
+    "bezeichnung": "Beton 30MPa",
+    "einheit": "m3",
+    "ek_preis": 125.0,
+    "vk_preis": 180.0,
+    "bestand": 1.0,
+    "mindestbestand": 2.0,
+    "lagerort": "",
+    "typ": "einfach",
+    "stueckliste": []
+  }
+]

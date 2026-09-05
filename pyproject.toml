@@ -1,0 +1,21 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "devispro"
+version = "0.1.0"
+description = "SIA-451-Devis automatisch mit Richtpreisen bepreisen (Sorba-Import), Kanton Zuerich."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+dependencies = []
+
+[project.optional-dependencies]
+llm = ["requests>=2.28"]
+
+[project.scripts]
+devispro = "devispro.cli:main"
+
+[tool.setuptools]
+packages = ["devispro", "devispro.parsers", "devispro.providers"]

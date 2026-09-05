@@ -38,22 +38,25 @@ PREISE = {
         "name": "DevisPro Solo",
         "price_chf": 79,
         "interval": "month",
-        "stripe_price_id": "price_solo_xxx",  # In Stripe erstellen
+        "stripe_price_id": "price_1UC0feKCyDtCv2vslncJkCt0",
+        "stripe_payment_link": "https://buy.stripe.com/test_7sY4gAb5t6kw5vc8I333W00",  # In UI erstellen
         "features": ["5 Devis/Mt inklusive", "Sorba-Import", "PDF + QR-Rechnung", "E-Mail-Support"],
     },
     "team": {
         "name": "DevisPro Team",
         "price_chf": 249,
         "interval": "month",
-        "stripe_price_id": "price_team_xxx",
+        "stripe_price_id": "price_1UCOlHKCyDtCv2vsr8wJHjc",
+        "stripe_payment_link": "https://buy.stripe.com/test_fZu3cw1uT24g5vc2jf33W03",  # In UI erstellen
         "features": ["25 Devis/Mt inklusive", "3 User", "KI-Agent", "Cloud-Sync", "Priority-Support"],
     },
     "business": {
         "name": "DevisPro Business",
         "price_chf": 599,
         "interval": "month",
-        "stripe_price_id": "price_business_xxx",
-        "features": ["Unlimited Devis", "5 User", "10 ERP-Anbindungen", "API-Zugang", "Account-Manager"],
+        "stripe_price_id": "price_1UCOmmKCyDtCv2vsD9iz4URv",
+        "stripe_payment_link": "https://buy.stripe.com/test_00wfZic9xbEQe1IcYj33W02",  # In UI erstellen
+        "features": ["Unbegrenzte Devis", "5 User", "10 ERP-Anbindungen", "API-Zugang", "Account-Manager"],
     },
 }
 

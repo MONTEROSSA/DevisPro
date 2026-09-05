@@ -1,0 +1,9 @@
+{
+  "id": "devis_0001",
+  "name": "devis_0001",
+  "datum": "2026-08-10 20:20",
+  "netto": 108682.5,
+  "status": "offen",
+  "method": "mock",
+  "kanton": "ZH"
+}

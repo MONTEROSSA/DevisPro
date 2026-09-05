@@ -1,0 +1,8 @@
+{
+  "host": "smtp.hostinger.com",
+  "user": "info@devispro.de",
+  "pass": "19Picasso65%%",
+  "von": "info@devispro.de",
+  "port": 465,
+  "tls": "ssl"
+}

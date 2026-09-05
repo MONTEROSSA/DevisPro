@@ -1,0 +1,3941 @@
+{
+ "entries": 2141,
+ "by_key": {
+  "CH|innenanstrich|m2": {
+   "n": 5,
+   "sum": 169.75,
+   "min": 33.95,
+   "max": 33.95
+  },
+  "ZH|innenanstrich|m2": {
+   "n": 3,
+   "sum": 108.84,
+   "min": 36.28,
+   "max": 36.28
+  },
+  "BE|innenanstrich|m2": {
+   "n": 3,
+   "sum": 103.64999999999999,
+   "min": 34.55,
+   "max": 34.55
+  },
+  "LU|innenanstrich|m2": {
+   "n": 3,
+   "sum": 103.64999999999999,
+   "min": 34.55,
+   "max": 34.55
+  },
+  "UR|innenanstrich|m2": {
+   "n": 3,
+   "sum": 98.46000000000001,
+   "min": 32.82,
+   "max": 32.82
+  },
+  "SZ|innenanstrich|m2": {
+   "n": 3,
+   "sum": 105.72,
+   "min": 35.24,
+   "max": 35.24
+  },
+  "OW|innenanstrich|m2": {
+   "n": 3,
+   "sum": 99.51,
+   "min": 33.17,
+   "max": 33.17
+  },
+  "NW|innenanstrich|m2": {
+   "n": 3,
+   "sum": 103.64999999999999,
+   "min": 34.55,
+   "max": 34.55
+  },
+  "GL|innenanstrich|m2": {
+   "n": 3,
+   "sum": 100.53,
+   "min": 33.51,
+   "max": 33.51
+  },
+  "ZG|innenanstrich|m2": {
+   "n": 3,
+   "sum": 109.85999999999999,
+   "min": 36.62,
+   "max": 36.62
+  },
+  "FR|innenanstrich|m2": {
+   "n": 3,
+   "sum": 101.58,
+   "min": 33.86,
+   "max": 33.86
+  },
+  "SO|innenanstrich|m2": {
+   "n": 3,
+   "sum": 100.53,
+   "min": 33.51,
+   "max": 33.51
+  },
+  "BS|innenanstrich|m2": {
+   "n": 3,
+   "sum": 114.0,
+   "min": 38.0,
+   "max": 38.0
+  },
+  "BL|innenanstrich|m2": {
+   "n": 3,
+   "sum": 106.77000000000001,
+   "min": 35.59,
+   "max": 35.59
+  },
+  "SH|innenanstrich|m2": {
+   "n": 3,
+   "sum": 107.78999999999999,
+   "min": 35.93,
+   "max": 35.93
+  },
+  "AR|innenanstrich|m2": {
+   "n": 3,
+   "sum": 101.58,
+   "min": 33.86,
+   "max": 33.86
+  },
+  "AI|innenanstrich|m2": {
+   "n": 3,
+   "sum": 99.51,
+   "min": 33.17,
+   "max": 33.17
+  },
+  "SG|innenanstrich|m2": {
+   "n": 3,
+   "sum": 103.64999999999999,
+   "min": 34.55,
+   "max": 34.55
+  },
+  "GR|innenanstrich|m2": {
+   "n": 3,
+   "sum": 97.44,
+   "min": 32.48,
+   "max": 32.48
+  },
+  "AG|innenanstrich|m2": {
+   "n": 3,
+   "sum": 103.64999999999999,
+   "min": 34.55,
+   "max": 34.55
+  },
+  "TG|innenanstrich|m2": {
+   "n": 3,
+   "sum": 101.58,
+   "min": 33.86,
+   "max": 33.86
+  },
+  "TI|innenanstrich|m2": {
+   "n": 3,
+   "sum": 96.39000000000001,
+   "min": 32.13,
+   "max": 32.13
+  },
+  "VD|innenanstrich|m2": {
+   "n": 3,
+   "sum": 99.51,
+   "min": 33.17,
+   "max": 33.17
+  },
+  "VS|innenanstrich|m2": {
+   "n": 3,
+   "sum": 93.27,
+   "min": 31.09,
+   "max": 31.09
+  },
+  "NE|innenanstrich|m2": {
+   "n": 3,
+   "sum": 98.46000000000001,
+   "min": 32.82,
+   "max": 32.82
+  },
+  "GE|innenanstrich|m2": {
+   "n": 3,
+   "sum": 116.10000000000001,
+   "min": 38.7,
+   "max": 38.7
+  },
+  "JU|innenanstrich|m2": {
+   "n": 3,
+   "sum": 97.44,
+   "min": 32.48,
+   "max": 32.48
+  },
+  "CH|aussenanstrich|m2": {
+   "n": 5,
+   "sum": 241.45,
+   "min": 48.29,
+   "max": 48.29
+  },
+  "ZH|aussenanstrich|m2": {
+   "n": 3,
+   "sum": 147.96,
+   "min": 49.32,
+   "max": 49.32
+  },
+  "BE|aussenanstrich|m2": {
+   "n": 3,
+   "sum": 140.91,
+   "min": 46.97,
+   "max": 46.97
+  },
+  "LU|aussenanstrich|m2": {
+   "n": 3,
+   "sum": 140.91,
+   "min": 46.97,
+   "max": 46.97
+  },
+  "UR|aussenanstrich|m2": {
+   "n": 3,
+   "sum": 133.85999999999999,
+   "min": 44.62,
+   "max": 44.62
+  },
+  "SZ|aussenanstrich|m2": {
+   "n": 3,
+   "sum": 143.73,
+   "min": 47.91,
+   "max": 47.91
+  },
+  "OW|aussenanstrich|m2": {
+   "n": 3,
+   "sum": 135.27,
+   "min": 45.09,
+   "max": 45.09
+  },
+  "NW|aussenanstrich|m2": {
+   "n": 3,
+   "sum": 140.91,
+   "min": 46.97,
+   "max": 46.97
+  },
+  "GL|aussenanstrich|m2": {
+   "n": 3,
+   "sum": 136.68,
+   "min": 45.56,
+   "max": 45.56
+  },
+  "ZG|aussenanstrich|m2": {
+   "n": 3,
+   "sum": 149.37,
+   "min": 49.79,
+   "max": 49.79
+  },
+  "FR|aussenanstrich|m2": {
+   "n": 3,
+   "sum": 138.09,
+   "min": 46.03,
+   "max": 46.03
+  },
+  "SO|aussenanstrich|m2": {
+   "n": 3,
+   "sum": 136.68,
+   "min": 45.56,
+   "max": 45.56
+  },
+  "BS|aussenanstrich|m2": {
+   "n": 3,
+   "sum": 155.01,
+   "min": 51.67,
+   "max": 51.67
+  },
+  "BL|aussenanstrich|m2": {
+   "n": 3,
+   "sum": 145.14000000000001,
+   "min": 48.38,
+   "max": 48.38
+  },
+  "SH|aussenanstrich|m2": {
+   "n": 3,
+   "sum": 146.55,
+   "min": 48.85,
+   "max": 48.85
+  },
+  "AR|aussenanstrich|m2": {
+   "n": 3,
+   "sum": 138.09,
+   "min": 46.03,
+   "max": 46.03
+  },
+  "AI|aussenanstrich|m2": {
+   "n": 3,
+   "sum": 135.27,
+   "min": 45.09,
+   "max": 45.09
+  },
+  "SG|aussenanstrich|m2": {
+   "n": 3,
+   "sum": 140.91,
+   "min": 46.97,
+   "max": 46.97
+  },
+  "GR|aussenanstrich|m2": {
+   "n": 3,
+   "sum": 132.45,
+   "min": 44.15,
+   "max": 44.15
+  },
+  "AG|aussenanstrich|m2": {
+   "n": 3,
+   "sum": 140.91,
+   "min": 46.97,
+   "max": 46.97
+  },
+  "TG|aussenanstrich|m2": {
+   "n": 3,
+   "sum": 138.09,
+   "min": 46.03,
+   "max": 46.03
+  },
+  "TI|aussenanstrich|m2": {
+   "n": 3,
+   "sum": 131.04,
+   "min": 43.68,
+   "max": 43.68
+  },
+  "VD|aussenanstrich|m2": {
+   "n": 3,
+   "sum": 135.27,
+   "min": 45.09,
+   "max": 45.09
+  },
+  "VS|aussenanstrich|m2": {
+   "n": 3,
+   "sum": 126.81,
+   "min": 42.27,
+   "max": 42.27
+  },
+  "NE|aussenanstrich|m2": {
+   "n": 3,
+   "sum": 133.85999999999999,
+   "min": 44.62,
+   "max": 44.62
+  },
+  "GE|aussenanstrich|m2": {
+   "n": 3,
+   "sum": 157.82999999999998,
+   "min": 52.61,
+   "max": 52.61
+  },
+  "JU|aussenanstrich|m2": {
+   "n": 3,
+   "sum": 132.45,
+   "min": 44.15,
+   "max": 44.15
+  },
+  "CH|grundanstrich|m2": {
+   "n": 5,
+   "sum": 109.35000000000001,
+   "min": 21.87,
+   "max": 21.87
+  },
+  "ZH|grundanstrich|m2": {
+   "n": 3,
+   "sum": 69.0,
+   "min": 23.0,
+   "max": 23.0
+  },
+  "BE|grundanstrich|m2": {
+   "n": 3,
+   "sum": 65.73,
+   "min": 21.91,
+   "max": 21.91
+  },
+  "LU|grundanstrich|m2": {
+   "n": 3,
+   "sum": 65.73,
+   "min": 21.91,
+   "max": 21.91
+  },
+  "UR|grundanstrich|m2": {
+   "n": 3,
+   "sum": 62.42999999999999,
+   "min": 20.81,
+   "max": 20.81
+  },
+  "SZ|grundanstrich|m2": {
+   "n": 3,
+   "sum": 67.02,
+   "min": 22.34,
+   "max": 22.34
+  },
+  "OW|grundanstrich|m2": {
+   "n": 3,
+   "sum": 63.09,
+   "min": 21.03,
+   "max": 21.03
+  },
+  "NW|grundanstrich|m2": {
+   "n": 3,
+   "sum": 65.73,
+   "min": 21.91,
+   "max": 21.91
+  },
+  "GL|grundanstrich|m2": {
+   "n": 3,
+   "sum": 63.75,
+   "min": 21.25,
+   "max": 21.25
+  },
+  "ZG|grundanstrich|m2": {
+   "n": 3,
+   "sum": 69.66,
+   "min": 23.22,
+   "max": 23.22
+  },
+  "FR|grundanstrich|m2": {
+   "n": 3,
+   "sum": 64.41,
+   "min": 21.47,
+   "max": 21.47
+  },
+  "SO|grundanstrich|m2": {
+   "n": 3,
+   "sum": 63.75,
+   "min": 21.25,
+   "max": 21.25
+  },
+  "BS|grundanstrich|m2": {
+   "n": 3,
+   "sum": 72.30000000000001,
+   "min": 24.1,
+   "max": 24.1
+  },
+  "BL|grundanstrich|m2": {
+   "n": 3,
+   "sum": 67.67999999999999,
+   "min": 22.56,
+   "max": 22.56
+  },
+  "SH|grundanstrich|m2": {
+   "n": 3,
+   "sum": 68.34,
+   "min": 22.78,
+   "max": 22.78
+  },
+  "AR|grundanstrich|m2": {
+   "n": 3,
+   "sum": 64.41,
+   "min": 21.47,
+   "max": 21.47
+  },
+  "AI|grundanstrich|m2": {
+   "n": 3,
+   "sum": 63.09,
+   "min": 21.03,
+   "max": 21.03
+  },
+  "SG|grundanstrich|m2": {
+   "n": 3,
+   "sum": 65.73,
+   "min": 21.91,
+   "max": 21.91
+  },
+  "GR|grundanstrich|m2": {
+   "n": 3,
+   "sum": 61.769999999999996,
+   "min": 20.59,
+   "max": 20.59
+  },
+  "AG|grundanstrich|m2": {
+   "n": 3,
+   "sum": 65.73,
+   "min": 21.91,
+   "max": 21.91
+  },
+  "TG|grundanstrich|m2": {
+   "n": 3,
+   "sum": 64.41,
+   "min": 21.47,
+   "max": 21.47
+  },
+  "TI|grundanstrich|m2": {
+   "n": 3,
+   "sum": 61.11,
+   "min": 20.37,
+   "max": 20.37
+  },
+  "VD|grundanstrich|m2": {
+   "n": 3,
+   "sum": 63.09,
+   "min": 21.03,
+   "max": 21.03
+  },
+  "VS|grundanstrich|m2": {
+   "n": 3,
+   "sum": 59.16,
+   "min": 19.72,
+   "max": 19.72
+  },
+  "NE|grundanstrich|m2": {
+   "n": 3,
+   "sum": 62.42999999999999,
+   "min": 20.81,
+   "max": 20.81
+  },
+  "GE|grundanstrich|m2": {
+   "n": 3,
+   "sum": 73.59,
+   "min": 24.53,
+   "max": 24.53
+  },
+  "JU|grundanstrich|m2": {
+   "n": 3,
+   "sum": 61.769999999999996,
+   "min": 20.59,
+   "max": 20.59
+  },
+  "CH|spachteln|m2": {
+   "n": 5,
+   "sum": 90.55,
+   "min": 18.11,
+   "max": 18.11
+  },
+  "ZH|spachteln|m2": {
+   "n": 3,
+   "sum": 57.900000000000006,
+   "min": 19.3,
+   "max": 19.3
+  },
+  "BE|spachteln|m2": {
+   "n": 3,
+   "sum": 55.17,
+   "min": 18.39,
+   "max": 18.39
+  },
+  "LU|spachteln|m2": {
+   "n": 3,
+   "sum": 55.17,
+   "min": 18.39,
+   "max": 18.39
+  },
+  "UR|spachteln|m2": {
+   "n": 3,
+   "sum": 52.41,
+   "min": 17.47,
+   "max": 17.47
+  },
+  "SZ|spachteln|m2": {
+   "n": 3,
+   "sum": 56.25,
+   "min": 18.75,
+   "max": 18.75
+  },
+  "OW|spachteln|m2": {
+   "n": 3,
+   "sum": 52.949999999999996,
+   "min": 17.65,
+   "max": 17.65
+  },
+  "NW|spachteln|m2": {
+   "n": 3,
+   "sum": 55.17,
+   "min": 18.39,
+   "max": 18.39
+  },
+  "GL|spachteln|m2": {
+   "n": 3,
+   "sum": 53.489999999999995,
+   "min": 17.83,
+   "max": 17.83
+  },
+  "ZG|spachteln|m2": {
+   "n": 3,
+   "sum": 58.47,
+   "min": 19.49,
+   "max": 19.49
+  },
+  "FR|spachteln|m2": {
+   "n": 3,
+   "sum": 54.06,
+   "min": 18.02,
+   "max": 18.02
+  },
+  "SO|spachteln|m2": {
+   "n": 3,
+   "sum": 53.489999999999995,
+   "min": 17.83,
+   "max": 17.83
+  },
+  "BS|spachteln|m2": {
+   "n": 3,
+   "sum": 60.66,
+   "min": 20.22,
+   "max": 20.22
+  },
+  "BL|spachteln|m2": {
+   "n": 3,
+   "sum": 56.82000000000001,
+   "min": 18.94,
+   "max": 18.94
+  },
+  "SH|spachteln|m2": {
+   "n": 3,
+   "sum": 57.36,
+   "min": 19.12,
+   "max": 19.12
+  },
+  "AR|spachteln|m2": {
+   "n": 3,
+   "sum": 54.06,
+   "min": 18.02,
+   "max": 18.02
+  },
+  "AI|spachteln|m2": {
+   "n": 3,
+   "sum": 52.949999999999996,
+   "min": 17.65,
+   "max": 17.65
+  },
+  "SG|spachteln|m2": {
+   "n": 3,
+   "sum": 55.17,
+   "min": 18.39,
+   "max": 18.39
+  },
+  "GR|spachteln|m2": {
+   "n": 3,
+   "sum": 51.84,
+   "min": 17.28,
+   "max": 17.28
+  },
+  "AG|spachteln|m2": {
+   "n": 3,
+   "sum": 55.17,
+   "min": 18.39,
+   "max": 18.39
+  },
+  "TG|spachteln|m2": {
+   "n": 3,
+   "sum": 54.06,
+   "min": 18.02,
+   "max": 18.02
+  },
+  "TI|spachteln|m2": {
+   "n": 3,
+   "sum": 51.300000000000004,
+   "min": 17.1,
+   "max": 17.1
+  },
+  "VD|spachteln|m2": {
+   "n": 3,
+   "sum": 52.949999999999996,
+   "min": 17.65,
+   "max": 17.65
+  },
+  "VS|spachteln|m2": {
+   "n": 3,
+   "sum": 49.650000000000006,
+   "min": 16.55,
+   "max": 16.55
+  },
+  "NE|spachteln|m2": {
+   "n": 3,
+   "sum": 52.41,
+   "min": 17.47,
+   "max": 17.47
+  },
+  "GE|spachteln|m2": {
+   "n": 3,
+   "sum": 61.769999999999996,
+   "min": 20.59,
+   "max": 20.59
+  },
+  "JU|spachteln|m2": {
+   "n": 3,
+   "sum": 51.84,
+   "min": 17.28,
+   "max": 17.28
+  },
+  "CH|tapezieren|m2": {
+   "n": 5,
+   "sum": 140.85000000000002,
+   "min": 28.17,
+   "max": 28.17
+  },
+  "ZH|tapezieren|m2": {
+   "n": 3,
+   "sum": 87.06,
+   "min": 29.02,
+   "max": 29.02
+  },
+  "BE|tapezieren|m2": {
+   "n": 3,
+   "sum": 82.92,
+   "min": 27.64,
+   "max": 27.64
+  },
+  "LU|tapezieren|m2": {
+   "n": 3,
+   "sum": 82.92,
+   "min": 27.64,
+   "max": 27.64
+  },
+  "UR|tapezieren|m2": {
+   "n": 3,
+   "sum": 78.78,
+   "min": 26.26,
+   "max": 26.26
+  },
+  "SZ|tapezieren|m2": {
+   "n": 3,
+   "sum": 84.57000000000001,
+   "min": 28.19,
+   "max": 28.19
+  },
+  "OW|tapezieren|m2": {
+   "n": 3,
+   "sum": 79.59,
+   "min": 26.53,
+   "max": 26.53
+  },
+  "NW|tapezieren|m2": {
+   "n": 3,
+   "sum": 82.92,
+   "min": 27.64,
+   "max": 27.64
+  },
+  "GL|tapezieren|m2": {
+   "n": 3,
+   "sum": 80.42999999999999,
+   "min": 26.81,
+   "max": 26.81
+  },
+  "ZG|tapezieren|m2": {
+   "n": 3,
+   "sum": 87.9,
+   "min": 29.3,
+   "max": 29.3
+  },
+  "FR|tapezieren|m2": {
+   "n": 3,
+   "sum": 81.27,
+   "min": 27.09,
+   "max": 27.09
+  },
+  "SO|tapezieren|m2": {
+   "n": 3,
+   "sum": 80.42999999999999,
+   "min": 26.81,
+   "max": 26.81
+  },
+  "BS|tapezieren|m2": {
+   "n": 3,
+   "sum": 91.19999999999999,
+   "min": 30.4,
+   "max": 30.4
+  },
+  "BL|tapezieren|m2": {
+   "n": 3,
+   "sum": 85.41,
+   "min": 28.47,
+   "max": 28.47
+  },
+  "SH|tapezieren|m2": {
+   "n": 3,
+   "sum": 86.25,
+   "min": 28.75,
+   "max": 28.75
+  },
+  "AR|tapezieren|m2": {
+   "n": 3,
+   "sum": 81.27,
+   "min": 27.09,
+   "max": 27.09
+  },
+  "AI|tapezieren|m2": {
+   "n": 3,
+   "sum": 79.59,
+   "min": 26.53,
+   "max": 26.53
+  },
+  "SG|tapezieren|m2": {
+   "n": 3,
+   "sum": 82.92,
+   "min": 27.64,
+   "max": 27.64
+  },
+  "GR|tapezieren|m2": {
+   "n": 3,
+   "sum": 77.94,
+   "min": 25.98,
+   "max": 25.98
+  },
+  "AG|tapezieren|m2": {
+   "n": 3,
+   "sum": 82.92,
+   "min": 27.64,
+   "max": 27.64
+  },
+  "TG|tapezieren|m2": {
+   "n": 3,
+   "sum": 81.27,
+   "min": 27.09,
+   "max": 27.09
+  },
+  "TI|tapezieren|m2": {
+   "n": 3,
+   "sum": 77.13,
+   "min": 25.71,
+   "max": 25.71
+  },
+  "VD|tapezieren|m2": {
+   "n": 3,
+   "sum": 79.59,
+   "min": 26.53,
+   "max": 26.53
+  },
+  "VS|tapezieren|m2": {
+   "n": 3,
+   "sum": 74.64,
+   "min": 24.88,
+   "max": 24.88
+  },
+  "NE|tapezieren|m2": {
+   "n": 3,
+   "sum": 78.78,
+   "min": 26.26,
+   "max": 26.26
+  },
+  "GE|tapezieren|m2": {
+   "n": 3,
+   "sum": 92.88,
+   "min": 30.96,
+   "max": 30.96
+  },
+  "JU|tapezieren|m2": {
+   "n": 3,
+   "sum": 77.94,
+   "min": 25.98,
+   "max": 25.98
+  },
+  "CH|bodenbelag|m2": {
+   "n": 5,
+   "sum": 315.25,
+   "min": 63.05,
+   "max": 63.05
+  },
+  "ZH|bodenbelag|m2": {
+   "n": 3,
+   "sum": 205.62,
+   "min": 68.54,
+   "max": 68.54
+  },
+  "BE|bodenbelag|m2": {
+   "n": 3,
+   "sum": 195.84,
+   "min": 65.28,
+   "max": 65.28
+  },
+  "LU|bodenbelag|m2": {
+   "n": 3,
+   "sum": 195.84,
+   "min": 65.28,
+   "max": 65.28
+  },
+  "UR|bodenbelag|m2": {
+   "n": 3,
+   "sum": 186.03,
+   "min": 62.01,
+   "max": 62.01
+  },
+  "SZ|bodenbelag|m2": {
+   "n": 3,
+   "sum": 199.74,
+   "min": 66.58,
+   "max": 66.58
+  },
+  "OW|bodenbelag|m2": {
+   "n": 3,
+   "sum": 188.01,
+   "min": 62.67,
+   "max": 62.67
+  },
+  "NW|bodenbelag|m2": {
+   "n": 3,
+   "sum": 195.84,
+   "min": 65.28,
+   "max": 65.28
+  },
+  "GL|bodenbelag|m2": {
+   "n": 3,
+   "sum": 189.96,
+   "min": 63.32,
+   "max": 63.32
+  },
+  "ZG|bodenbelag|m2": {
+   "n": 3,
+   "sum": 207.60000000000002,
+   "min": 69.2,
+   "max": 69.2
+  },
+  "FR|bodenbelag|m2": {
+   "n": 3,
+   "sum": 191.91,
+   "min": 63.97,
+   "max": 63.97
+  },
+  "SO|bodenbelag|m2": {
+   "n": 3,
+   "sum": 189.96,
+   "min": 63.32,
+   "max": 63.32
+  },
+  "BS|bodenbelag|m2": {
+   "n": 3,
+   "sum": 215.43,
+   "min": 71.81,
+   "max": 71.81
+  },
+  "BL|bodenbelag|m2": {
+   "n": 3,
+   "sum": 201.71999999999997,
+   "min": 67.24,
+   "max": 67.24
+  },
+  "SH|bodenbelag|m2": {
+   "n": 3,
+   "sum": 203.67000000000002,
+   "min": 67.89,
+   "max": 67.89
+  },
+  "AR|bodenbelag|m2": {
+   "n": 3,
+   "sum": 191.91,
+   "min": 63.97,
+   "max": 63.97
+  },
+  "AI|bodenbelag|m2": {
+   "n": 3,
+   "sum": 188.01,
+   "min": 62.67,
+   "max": 62.67
+  },
+  "SG|bodenbelag|m2": {
+   "n": 3,
+   "sum": 195.84,
+   "min": 65.28,
+   "max": 65.28
+  },
+  "GR|bodenbelag|m2": {
+   "n": 3,
+   "sum": 184.07999999999998,
+   "min": 61.36,
+   "max": 61.36
+  },
+  "AG|bodenbelag|m2": {
+   "n": 3,
+   "sum": 195.84,
+   "min": 65.28,
+   "max": 65.28
+  },
+  "TG|bodenbelag|m2": {
+   "n": 3,
+   "sum": 191.91,
+   "min": 63.97,
+   "max": 63.97
+  },
+  "TI|bodenbelag|m2": {
+   "n": 3,
+   "sum": 182.13,
+   "min": 60.71,
+   "max": 60.71
+  },
+  "VD|bodenbelag|m2": {
+   "n": 3,
+   "sum": 188.01,
+   "min": 62.67,
+   "max": 62.67
+  },
+  "VS|bodenbelag|m2": {
+   "n": 3,
+   "sum": 176.25,
+   "min": 58.75,
+   "max": 58.75
+  },
+  "NE|bodenbelag|m2": {
+   "n": 3,
+   "sum": 186.03,
+   "min": 62.01,
+   "max": 62.01
+  },
+  "GE|bodenbelag|m2": {
+   "n": 3,
+   "sum": 219.32999999999998,
+   "min": 73.11,
+   "max": 73.11
+  },
+  "JU|bodenbelag|m2": {
+   "n": 3,
+   "sum": 184.07999999999998,
+   "min": 61.36,
+   "max": 61.36
+  },
+  "CH|daemmung|m2": {
+   "n": 5,
+   "sum": 266.75,
+   "min": 53.35,
+   "max": 53.35
+  },
+  "ZH|daemmung|m2": {
+   "n": 3,
+   "sum": 169.53,
+   "min": 56.51,
+   "max": 56.51
+  },
+  "BE|daemmung|m2": {
+   "n": 3,
+   "sum": 161.46,
+   "min": 53.82,
+   "max": 53.82
+  },
+  "LU|daemmung|m2": {
+   "n": 3,
+   "sum": 161.46,
+   "min": 53.82,
+   "max": 53.82
+  },
+  "UR|daemmung|m2": {
+   "n": 3,
+   "sum": 153.39000000000001,
+   "min": 51.13,
+   "max": 51.13
+  },
+  "SZ|daemmung|m2": {
+   "n": 3,
+   "sum": 164.7,
+   "min": 54.9,
+   "max": 54.9
+  },
+  "OW|daemmung|m2": {
+   "n": 3,
+   "sum": 155.01,
+   "min": 51.67,
+   "max": 51.67
+  },
+  "NW|daemmung|m2": {
+   "n": 3,
+   "sum": 161.46,
+   "min": 53.82,
+   "max": 53.82
+  },
+  "GL|daemmung|m2": {
+   "n": 3,
+   "sum": 156.63,
+   "min": 52.21,
+   "max": 52.21
+  },
+  "ZG|daemmung|m2": {
+   "n": 3,
+   "sum": 171.14999999999998,
+   "min": 57.05,
+   "max": 57.05
+  },
+  "FR|daemmung|m2": {
+   "n": 3,
+   "sum": 158.22,
+   "min": 52.74,
+   "max": 52.74
+  },
+  "SO|daemmung|m2": {
+   "n": 3,
+   "sum": 156.63,
+   "min": 52.21,
+   "max": 52.21
+  },
+  "BS|daemmung|m2": {
+   "n": 3,
+   "sum": 177.60000000000002,
+   "min": 59.2,
+   "max": 59.2
+  },
+  "BL|daemmung|m2": {
+   "n": 3,
+   "sum": 166.32,
+   "min": 55.44,
+   "max": 55.44
+  },
+  "SH|daemmung|m2": {
+   "n": 3,
+   "sum": 167.91,
+   "min": 55.97,
+   "max": 55.97
+  },
+  "AR|daemmung|m2": {
+   "n": 3,
+   "sum": 158.22,
+   "min": 52.74,
+   "max": 52.74
+  },
+  "AI|daemmung|m2": {
+   "n": 3,
+   "sum": 155.01,
+   "min": 51.67,
+   "max": 51.67
+  },
+  "SG|daemmung|m2": {
+   "n": 3,
+   "sum": 161.46,
+   "min": 53.82,
+   "max": 53.82
+  },
+  "GR|daemmung|m2": {
+   "n": 3,
+   "sum": 151.77,
+   "min": 50.59,
+   "max": 50.59
+  },
+  "AG|daemmung|m2": {
+   "n": 3,
+   "sum": 161.46,
+   "min": 53.82,
+   "max": 53.82
+  },
+  "TG|daemmung|m2": {
+   "n": 3,
+   "sum": 158.22,
+   "min": 52.74,
+   "max": 52.74
+  },
+  "TI|daemmung|m2": {
+   "n": 3,
+   "sum": 150.14999999999998,
+   "min": 50.05,
+   "max": 50.05
+  },
+  "VD|daemmung|m2": {
+   "n": 3,
+   "sum": 155.01,
+   "min": 51.67,
+   "max": 51.67
+  },
+  "VS|daemmung|m2": {
+   "n": 3,
+   "sum": 145.32,
+   "min": 48.44,
+   "max": 48.44
+  },
+  "NE|daemmung|m2": {
+   "n": 3,
+   "sum": 153.39000000000001,
+   "min": 51.13,
+   "max": 51.13
+  },
+  "GE|daemmung|m2": {
+   "n": 3,
+   "sum": 180.84,
+   "min": 60.28,
+   "max": 60.28
+  },
+  "JU|daemmung|m2": {
+   "n": 3,
+   "sum": 151.77,
+   "min": 50.59,
+   "max": 50.59
+  },
+  "CH|verputzen|m2": {
+   "n": 5,
+   "sum": 208.75,
+   "min": 41.75,
+   "max": 41.75
+  },
+  "ZH|verputzen|m2": {
+   "n": 3,
+   "sum": 130.59,
+   "min": 43.53,
+   "max": 43.53
+  },
+  "BE|verputzen|m2": {
+   "n": 3,
+   "sum": 124.38,
+   "min": 41.46,
+   "max": 41.46
+  },
+  "LU|verputzen|m2": {
+   "n": 3,
+   "sum": 124.38,
+   "min": 41.46,
+   "max": 41.46
+  },
+  "UR|verputzen|m2": {
+   "n": 3,
+   "sum": 118.17,
+   "min": 39.39,
+   "max": 39.39
+  },
+  "SZ|verputzen|m2": {
+   "n": 3,
+   "sum": 126.87,
+   "min": 42.29,
+   "max": 42.29
+  },
+  "OW|verputzen|m2": {
+   "n": 3,
+   "sum": 119.39999999999999,
+   "min": 39.8,
+   "max": 39.8
+  },
+  "NW|verputzen|m2": {
+   "n": 3,
+   "sum": 124.38,
+   "min": 41.46,
+   "max": 41.46
+  },
+  "GL|verputzen|m2": {
+   "n": 3,
+   "sum": 120.66,
+   "min": 40.22,
+   "max": 40.22
+  },
+  "ZG|verputzen|m2": {
+   "n": 3,
+   "sum": 131.85000000000002,
+   "min": 43.95,
+   "max": 43.95
+  },
+  "FR|verputzen|m2": {
+   "n": 3,
+   "sum": 121.89000000000001,
+   "min": 40.63,
+   "max": 40.63
+  },
+  "SO|verputzen|m2": {
+   "n": 3,
+   "sum": 120.66,
+   "min": 40.22,
+   "max": 40.22
+  },
+  "BS|verputzen|m2": {
+   "n": 3,
+   "sum": 136.82999999999998,
+   "min": 45.61,
+   "max": 45.61
+  },
+  "BL|verputzen|m2": {
+   "n": 3,
+   "sum": 128.10000000000002,
+   "min": 42.7,
+   "max": 42.7
+  },
+  "SH|verputzen|m2": {
+   "n": 3,
+   "sum": 129.35999999999999,
+   "min": 43.12,
+   "max": 43.12
+  },
+  "AR|verputzen|m2": {
+   "n": 3,
+   "sum": 121.89000000000001,
+   "min": 40.63,
+   "max": 40.63
+  },
+  "AI|verputzen|m2": {
+   "n": 3,
+   "sum": 119.39999999999999,
+   "min": 39.8,
+   "max": 39.8
+  },
+  "SG|verputzen|m2": {
+   "n": 3,
+   "sum": 124.38,
+   "min": 41.46,
+   "max": 41.46
+  },
+  "GR|verputzen|m2": {
+   "n": 3,
+   "sum": 116.91,
+   "min": 38.97,
+   "max": 38.97
+  },
+  "AG|verputzen|m2": {
+   "n": 3,
+   "sum": 124.38,
+   "min": 41.46,
+   "max": 41.46
+  },
+  "TG|verputzen|m2": {
+   "n": 3,
+   "sum": 121.89000000000001,
+   "min": 40.63,
+   "max": 40.63
+  },
+  "TI|verputzen|m2": {
+   "n": 3,
+   "sum": 115.68,
+   "min": 38.56,
+   "max": 38.56
+  },
+  "VD|verputzen|m2": {
+   "n": 3,
+   "sum": 119.39999999999999,
+   "min": 39.8,
+   "max": 39.8
+  },
+  "VS|verputzen|m2": {
+   "n": 3,
+   "sum": 111.93,
+   "min": 37.31,
+   "max": 37.31
+  },
+  "NE|verputzen|m2": {
+   "n": 3,
+   "sum": 118.17,
+   "min": 39.39,
+   "max": 39.39
+  },
+  "GE|verputzen|m2": {
+   "n": 3,
+   "sum": 139.32,
+   "min": 46.44,
+   "max": 46.44
+  },
+  "JU|verputzen|m2": {
+   "n": 3,
+   "sum": 116.91,
+   "min": 38.97,
+   "max": 38.97
+  },
+  "CH|fliesenlegen|m2": {
+   "n": 5,
+   "sum": 582.0,
+   "min": 116.4,
+   "max": 116.4
+  },
+  "ZH|fliesenlegen|m2": {
+   "n": 3,
+   "sum": 376.38,
+   "min": 125.46,
+   "max": 125.46
+  },
+  "BE|fliesenlegen|m2": {
+   "n": 3,
+   "sum": 358.46999999999997,
+   "min": 119.49,
+   "max": 119.49
+  },
+  "LU|fliesenlegen|m2": {
+   "n": 3,
+   "sum": 358.46999999999997,
+   "min": 119.49,
+   "max": 119.49
+  },
+  "UR|fliesenlegen|m2": {
+   "n": 3,
+   "sum": 340.53000000000003,
+   "min": 113.51,
+   "max": 113.51
+  },
+  "SZ|fliesenlegen|m2": {
+   "n": 3,
+   "sum": 365.64,
+   "min": 121.88,
+   "max": 121.88
+  },
+  "OW|fliesenlegen|m2": {
+   "n": 3,
+   "sum": 344.13,
+   "min": 114.71,
+   "max": 114.71
+  },
+  "NW|fliesenlegen|m2": {
+   "n": 3,
+   "sum": 358.46999999999997,
+   "min": 119.49,
+   "max": 119.49
+  },
+  "GL|fliesenlegen|m2": {
+   "n": 3,
+   "sum": 347.70000000000005,
+   "min": 115.9,
+   "max": 115.9
+  },
+  "ZG|fliesenlegen|m2": {
+   "n": 3,
+   "sum": 379.95000000000005,
+   "min": 126.65,
+   "max": 126.65
+  },
+  "FR|fliesenlegen|m2": {
+   "n": 3,
+   "sum": 351.29999999999995,
+   "min": 117.1,
+   "max": 117.1
+  },
+  "SO|fliesenlegen|m2": {
+   "n": 3,
+   "sum": 347.70000000000005,
+   "min": 115.9,
+   "max": 115.9
+  },
+  "BS|fliesenlegen|m2": {
+   "n": 3,
+   "sum": 394.29,
+   "min": 131.43,
+   "max": 131.43
+  },
+  "BL|fliesenlegen|m2": {
+   "n": 3,
+   "sum": 369.21,
+   "min": 123.07,
+   "max": 123.07
+  },
+  "SH|fliesenlegen|m2": {
+   "n": 3,
+   "sum": 372.81,
+   "min": 124.27,
+   "max": 124.27
+  },
+  "AR|fliesenlegen|m2": {
+   "n": 3,
+   "sum": 351.29999999999995,
+   "min": 117.1,
+   "max": 117.1
+  },
+  "AI|fliesenlegen|m2": {
+   "n": 3,
+   "sum": 344.13,
+   "min": 114.71,
+   "max": 114.71
+  },
+  "SG|fliesenlegen|m2": {
+   "n": 3,
+   "sum": 358.46999999999997,
+   "min": 119.49,
+   "max": 119.49
+  },
+  "GR|fliesenlegen|m2": {
+   "n": 3,
+   "sum": 336.96,
+   "min": 112.32,
+   "max": 112.32
+  },
+  "AG|fliesenlegen|m2": {
+   "n": 3,
+   "sum": 358.46999999999997,
+   "min": 119.49,
+   "max": 119.49
+  },
+  "TG|fliesenlegen|m2": {
+   "n": 3,
+   "sum": 351.29999999999995,
+   "min": 117.1,
+   "max": 117.1
+  },
+  "TI|fliesenlegen|m2": {
+   "n": 3,
+   "sum": 333.36,
+   "min": 111.12,
+   "max": 111.12
+  },
+  "VD|fliesenlegen|m2": {
+   "n": 3,
+   "sum": 344.13,
+   "min": 114.71,
+   "max": 114.71
+  },
+  "VS|fliesenlegen|m2": {
+   "n": 3,
+   "sum": 322.62,
+   "min": 107.54,
+   "max": 107.54
+  },
+  "NE|fliesenlegen|m2": {
+   "n": 3,
+   "sum": 340.53000000000003,
+   "min": 113.51,
+   "max": 113.51
+  },
+  "GE|fliesenlegen|m2": {
+   "n": 3,
+   "sum": 401.46,
+   "min": 133.82,
+   "max": 133.82
+  },
+  "JU|fliesenlegen|m2": {
+   "n": 3,
+   "sum": 336.96,
+   "min": 112.32,
+   "max": 112.32
+  },
+  "CH|boeschung|m": {
+   "n": 5,
+   "sum": 121.25,
+   "min": 24.25,
+   "max": 24.25
+  },
+  "ZH|boeschung|m": {
+   "n": 3,
+   "sum": 80.42999999999999,
+   "min": 26.81,
+   "max": 26.81
+  },
+  "BE|boeschung|m": {
+   "n": 3,
+   "sum": 76.62,
+   "min": 25.54,
+   "max": 25.54
+  },
+  "LU|boeschung|m": {
+   "n": 3,
+   "sum": 76.62,
+   "min": 25.54,
+   "max": 25.54
+  },
+  "UR|boeschung|m": {
+   "n": 3,
+   "sum": 72.78,
+   "min": 24.26,
+   "max": 24.26
+  },
+  "SZ|boeschung|m": {
+   "n": 3,
+   "sum": 78.15,
+   "min": 26.05,
+   "max": 26.05
+  },
+  "OW|boeschung|m": {
+   "n": 3,
+   "sum": 73.53,
+   "min": 24.51,
+   "max": 24.51
+  },
+  "NW|boeschung|m": {
+   "n": 3,
+   "sum": 76.62,
+   "min": 25.54,
+   "max": 25.54
+  },
+  "GL|boeschung|m": {
+   "n": 3,
+   "sum": 74.31,
+   "min": 24.77,
+   "max": 24.77
+  },
+  "ZG|boeschung|m": {
+   "n": 3,
+   "sum": 81.21000000000001,
+   "min": 27.07,
+   "max": 27.07
+  },
+  "FR|boeschung|m": {
+   "n": 3,
+   "sum": 75.06,
+   "min": 25.02,
+   "max": 25.02
+  },
+  "SO|boeschung|m": {
+   "n": 3,
+   "sum": 74.31,
+   "min": 24.77,
+   "max": 24.77
+  },
+  "BS|boeschung|m": {
+   "n": 3,
+   "sum": 84.27,
+   "min": 28.09,
+   "max": 28.09
+  },
+  "BL|boeschung|m": {
+   "n": 3,
+   "sum": 78.9,
+   "min": 26.3,
+   "max": 26.3
+  },
+  "SH|boeschung|m": {
+   "n": 3,
+   "sum": 79.67999999999999,
+   "min": 26.56,
+   "max": 26.56
+  },
+  "AR|boeschung|m": {
+   "n": 3,
+   "sum": 75.06,
+   "min": 25.02,
+   "max": 25.02
+  },
+  "AI|boeschung|m": {
+   "n": 3,
+   "sum": 73.53,
+   "min": 24.51,
+   "max": 24.51
+  },
+  "SG|boeschung|m": {
+   "n": 3,
+   "sum": 76.62,
+   "min": 25.54,
+   "max": 25.54
+  },
+  "GR|boeschung|m": {
+   "n": 3,
+   "sum": 72.0,
+   "min": 24.0,
+   "max": 24.0
+  },
+  "AG|boeschung|m": {
+   "n": 3,
+   "sum": 76.62,
+   "min": 25.54,
+   "max": 25.54
+  },
+  "TG|boeschung|m": {
+   "n": 3,
+   "sum": 75.06,
+   "min": 25.02,
+   "max": 25.02
+  },
+  "TI|boeschung|m": {
+   "n": 3,
+   "sum": 71.25,
+   "min": 23.75,
+   "max": 23.75
+  },
+  "VD|boeschung|m": {
+   "n": 3,
+   "sum": 73.53,
+   "min": 24.51,
+   "max": 24.51
+  },
+  "VS|boeschung|m": {
+   "n": 3,
+   "sum": 68.94,
+   "min": 22.98,
+   "max": 22.98
+  },
+  "NE|boeschung|m": {
+   "n": 3,
+   "sum": 72.78,
+   "min": 24.26,
+   "max": 24.26
+  },
+  "GE|boeschung|m": {
+   "n": 3,
+   "sum": 85.80000000000001,
+   "min": 28.6,
+   "max": 28.6
+  },
+  "JU|boeschung|m": {
+   "n": 3,
+   "sum": 72.0,
+   "min": 24.0,
+   "max": 24.0
+  },
+  "CH|zaun|m": {
+   "n": 5,
+   "sum": 460.75,
+   "min": 92.15,
+   "max": 92.15
+  },
+  "ZH|zaun|m": {
+   "n": 3,
+   "sum": 305.67,
+   "min": 101.89,
+   "max": 101.89
+  },
+  "BE|zaun|m": {
+   "n": 3,
+   "sum": 291.12,
+   "min": 97.04,
+   "max": 97.04
+  },
+  "LU|zaun|m": {
+   "n": 3,
+   "sum": 291.12,
+   "min": 97.04,
+   "max": 97.04
+  },
+  "UR|zaun|m": {
+   "n": 3,
+   "sum": 276.54,
+   "min": 92.18,
+   "max": 92.18
+  },
+  "SZ|zaun|m": {
+   "n": 3,
+   "sum": 296.94,
+   "min": 98.98,
+   "max": 98.98
+  },
+  "OW|zaun|m": {
+   "n": 3,
+   "sum": 279.45000000000005,
+   "min": 93.15,
+   "max": 93.15
+  },
+  "NW|zaun|m": {
+   "n": 3,
+   "sum": 291.12,
+   "min": 97.04,
+   "max": 97.04
+  },
+  "GL|zaun|m": {
+   "n": 3,
+   "sum": 282.36,
+   "min": 94.12,
+   "max": 94.12
+  },
+  "ZG|zaun|m": {
+   "n": 3,
+   "sum": 308.58,
+   "min": 102.86,
+   "max": 102.86
+  },
+  "FR|zaun|m": {
+   "n": 3,
+   "sum": 285.27,
+   "min": 95.09,
+   "max": 95.09
+  },
+  "SO|zaun|m": {
+   "n": 3,
+   "sum": 282.36,
+   "min": 94.12,
+   "max": 94.12
+  },
+  "BS|zaun|m": {
+   "n": 3,
+   "sum": 320.21999999999997,
+   "min": 106.74,
+   "max": 106.74
+  },
+  "BL|zaun|m": {
+   "n": 3,
+   "sum": 299.85,
+   "min": 99.95,
+   "max": 99.95
+  },
+  "SH|zaun|m": {
+   "n": 3,
+   "sum": 302.76,
+   "min": 100.92,
+   "max": 100.92
+  },
+  "AR|zaun|m": {
+   "n": 3,
+   "sum": 285.27,
+   "min": 95.09,
+   "max": 95.09
+  },
+  "AI|zaun|m": {
+   "n": 3,
+   "sum": 279.45000000000005,
+   "min": 93.15,
+   "max": 93.15
+  },
+  "SG|zaun|m": {
+   "n": 3,
+   "sum": 291.12,
+   "min": 97.04,
+   "max": 97.04
+  },
+  "GR|zaun|m": {
+   "n": 3,
+   "sum": 273.63,
+   "min": 91.21,
+   "max": 91.21
+  },
+  "AG|zaun|m": {
+   "n": 3,
+   "sum": 291.12,
+   "min": 97.04,
+   "max": 97.04
+  },
+  "TG|zaun|m": {
+   "n": 3,
+   "sum": 285.27,
+   "min": 95.09,
+   "max": 95.09
+  },
+  "TI|zaun|m": {
+   "n": 3,
+   "sum": 270.71999999999997,
+   "min": 90.24,
+   "max": 90.24
+  },
+  "VD|zaun|m": {
+   "n": 3,
+   "sum": 279.45000000000005,
+   "min": 93.15,
+   "max": 93.15
+  },
+  "VS|zaun|m": {
+   "n": 3,
+   "sum": 261.99,
+   "min": 87.33,
+   "max": 87.33
+  },
+  "NE|zaun|m": {
+   "n": 3,
+   "sum": 276.54,
+   "min": 92.18,
+   "max": 92.18
+  },
+  "GE|zaun|m": {
+   "n": 3,
+   "sum": 326.04,
+   "min": 108.68,
+   "max": 108.68
+  },
+  "JU|zaun|m": {
+   "n": 3,
+   "sum": 273.63,
+   "min": 91.21,
+   "max": 91.21
+  },
+  "CH|erdarbeiten|m3": {
+   "n": 5,
+   "sum": 218.25,
+   "min": 43.65,
+   "max": 43.65
+  },
+  "ZH|erdarbeiten|m3": {
+   "n": 3,
+   "sum": 143.57999999999998,
+   "min": 47.86,
+   "max": 47.86
+  },
+  "BE|erdarbeiten|m3": {
+   "n": 3,
+   "sum": 136.74,
+   "min": 45.58,
+   "max": 45.58
+  },
+  "LU|erdarbeiten|m3": {
+   "n": 3,
+   "sum": 136.74,
+   "min": 45.58,
+   "max": 45.58
+  },
+  "UR|erdarbeiten|m3": {
+   "n": 3,
+   "sum": 129.89999999999998,
+   "min": 43.3,
+   "max": 43.3
+  },
+  "SZ|erdarbeiten|m3": {
+   "n": 3,
+   "sum": 139.47,
+   "min": 46.49,
+   "max": 46.49
+  },
+  "OW|erdarbeiten|m3": {
+   "n": 3,
+   "sum": 131.28,
+   "min": 43.76,
+   "max": 43.76
+  },
+  "NW|erdarbeiten|m3": {
+   "n": 3,
+   "sum": 136.74,
+   "min": 45.58,
+   "max": 45.58
+  },
+  "GL|erdarbeiten|m3": {
+   "n": 3,
+   "sum": 132.63,
+   "min": 44.21,
+   "max": 44.21
+  },
+  "ZG|erdarbeiten|m3": {
+   "n": 3,
+   "sum": 144.93,
+   "min": 48.31,
+   "max": 48.31
+  },
+  "FR|erdarbeiten|m3": {
+   "n": 3,
+   "sum": 134.01,
+   "min": 44.67,
+   "max": 44.67
+  },
+  "SO|erdarbeiten|m3": {
+   "n": 3,
+   "sum": 132.63,
+   "min": 44.21,
+   "max": 44.21
+  },
+  "BS|erdarbeiten|m3": {
+   "n": 3,
+   "sum": 150.42000000000002,
+   "min": 50.14,
+   "max": 50.14
+  },
+  "BL|erdarbeiten|m3": {
+   "n": 3,
+   "sum": 140.85000000000002,
+   "min": 46.95,
+   "max": 46.95
+  },
+  "SH|erdarbeiten|m3": {
+   "n": 3,
+   "sum": 142.2,
+   "min": 47.4,
+   "max": 47.4
+  },
+  "AR|erdarbeiten|m3": {
+   "n": 3,
+   "sum": 134.01,
+   "min": 44.67,
+   "max": 44.67
+  },
+  "AI|erdarbeiten|m3": {
+   "n": 3,
+   "sum": 131.28,
+   "min": 43.76,
+   "max": 43.76
+  },
+  "SG|erdarbeiten|m3": {
+   "n": 3,
+   "sum": 136.74,
+   "min": 45.58,
+   "max": 45.58
+  },
+  "GR|erdarbeiten|m3": {
+   "n": 3,
+   "sum": 128.52,
+   "min": 42.84,
+   "max": 42.84
+  },
+  "AG|erdarbeiten|m3": {
+   "n": 3,
+   "sum": 136.74,
+   "min": 45.58,
+   "max": 45.58
+  },
+  "TG|erdarbeiten|m3": {
+   "n": 3,
+   "sum": 134.01,
+   "min": 44.67,
+   "max": 44.67
+  },
+  "TI|erdarbeiten|m3": {
+   "n": 3,
+   "sum": 127.17,
+   "min": 42.39,
+   "max": 42.39
+  },
+  "VD|erdarbeiten|m3": {
+   "n": 3,
+   "sum": 131.28,
+   "min": 43.76,
+   "max": 43.76
+  },
+  "VS|erdarbeiten|m3": {
+   "n": 3,
+   "sum": 123.06,
+   "min": 41.02,
+   "max": 41.02
+  },
+  "NE|erdarbeiten|m3": {
+   "n": 3,
+   "sum": 129.89999999999998,
+   "min": 43.3,
+   "max": 43.3
+  },
+  "GE|erdarbeiten|m3": {
+   "n": 3,
+   "sum": 153.14999999999998,
+   "min": 51.05,
+   "max": 51.05
+  },
+  "JU|erdarbeiten|m3": {
+   "n": 3,
+   "sum": 128.52,
+   "min": 42.84,
+   "max": 42.84
+  },
+  "CH|maurerarbeit|h": {
+   "n": 5,
+   "sum": 460.75,
+   "min": 92.15,
+   "max": 92.15
+  },
+  "ZH|maurerarbeit|h": {
+   "n": 3,
+   "sum": 305.67,
+   "min": 101.89,
+   "max": 101.89
+  },
+  "BE|maurerarbeit|h": {
+   "n": 3,
+   "sum": 291.12,
+   "min": 97.04,
+   "max": 97.04
+  },
+  "LU|maurerarbeit|h": {
+   "n": 3,
+   "sum": 291.12,
+   "min": 97.04,
+   "max": 97.04
+  },
+  "UR|maurerarbeit|h": {
+   "n": 3,
+   "sum": 276.54,
+   "min": 92.18,
+   "max": 92.18
+  },
+  "SZ|maurerarbeit|h": {
+   "n": 3,
+   "sum": 296.94,
+   "min": 98.98,
+   "max": 98.98
+  },
+  "OW|maurerarbeit|h": {
+   "n": 3,
+   "sum": 279.45000000000005,
+   "min": 93.15,
+   "max": 93.15
+  },
+  "NW|maurerarbeit|h": {
+   "n": 3,
+   "sum": 291.12,
+   "min": 97.04,
+   "max": 97.04
+  },
+  "GL|maurerarbeit|h": {
+   "n": 3,
+   "sum": 282.36,
+   "min": 94.12,
+   "max": 94.12
+  },
+  "ZG|maurerarbeit|h": {
+   "n": 3,
+   "sum": 308.58,
+   "min": 102.86,
+   "max": 102.86
+  },
+  "FR|maurerarbeit|h": {
+   "n": 3,
+   "sum": 285.27,
+   "min": 95.09,
+   "max": 95.09
+  },
+  "SO|maurerarbeit|h": {
+   "n": 3,
+   "sum": 282.36,
+   "min": 94.12,
+   "max": 94.12
+  },
+  "BS|maurerarbeit|h": {
+   "n": 3,
+   "sum": 320.21999999999997,
+   "min": 106.74,
+   "max": 106.74
+  },
+  "BL|maurerarbeit|h": {
+   "n": 3,
+   "sum": 299.85,
+   "min": 99.95,
+   "max": 99.95
+  },
+  "SH|maurerarbeit|h": {
+   "n": 3,
+   "sum": 302.76,
+   "min": 100.92,
+   "max": 100.92
+  },
+  "AR|maurerarbeit|h": {
+   "n": 3,
+   "sum": 285.27,
+   "min": 95.09,
+   "max": 95.09
+  },
+  "AI|maurerarbeit|h": {
+   "n": 3,
+   "sum": 279.45000000000005,
+   "min": 93.15,
+   "max": 93.15
+  },
+  "SG|maurerarbeit|h": {
+   "n": 3,
+   "sum": 291.12,
+   "min": 97.04,
+   "max": 97.04
+  },
+  "GR|maurerarbeit|h": {
+   "n": 3,
+   "sum": 273.63,
+   "min": 91.21,
+   "max": 91.21
+  },
+  "AG|maurerarbeit|h": {
+   "n": 3,
+   "sum": 291.12,
+   "min": 97.04,
+   "max": 97.04
+  },
+  "TG|maurerarbeit|h": {
+   "n": 3,
+   "sum": 285.27,
+   "min": 95.09,
+   "max": 95.09
+  },
+  "TI|maurerarbeit|h": {
+   "n": 3,
+   "sum": 270.71999999999997,
+   "min": 90.24,
+   "max": 90.24
+  },
+  "VD|maurerarbeit|h": {
+   "n": 3,
+   "sum": 279.45000000000005,
+   "min": 93.15,
+   "max": 93.15
+  },
+  "VS|maurerarbeit|h": {
+   "n": 3,
+   "sum": 261.99,
+   "min": 87.33,
+   "max": 87.33
+  },
+  "NE|maurerarbeit|h": {
+   "n": 3,
+   "sum": 276.54,
+   "min": 92.18,
+   "max": 92.18
+  },
+  "GE|maurerarbeit|h": {
+   "n": 3,
+   "sum": 326.04,
+   "min": 108.68,
+   "max": 108.68
+  },
+  "JU|maurerarbeit|h": {
+   "n": 3,
+   "sum": 273.63,
+   "min": 91.21,
+   "max": 91.21
+  },
+  "CH|zimmerei|h": {
+   "n": 5,
+   "sum": 509.25,
+   "min": 101.85,
+   "max": 101.85
+  },
+  "ZH|zimmerei|h": {
+   "n": 3,
+   "sum": 326.49,
+   "min": 108.83,
+   "max": 108.83
+  },
+  "BE|zimmerei|h": {
+   "n": 3,
+   "sum": 310.95000000000005,
+   "min": 103.65,
+   "max": 103.65
+  },
+  "LU|zimmerei|h": {
+   "n": 3,
+   "sum": 310.95000000000005,
+   "min": 103.65,
+   "max": 103.65
+  },
+  "UR|zimmerei|h": {
+   "n": 3,
+   "sum": 295.40999999999997,
+   "min": 98.47,
+   "max": 98.47
+  },
+  "SZ|zimmerei|h": {
+   "n": 3,
+   "sum": 317.15999999999997,
+   "min": 105.72,
+   "max": 105.72
+  },
+  "OW|zimmerei|h": {
+   "n": 3,
+   "sum": 298.5,
+   "min": 99.5,
+   "max": 99.5
+  },
+  "NW|zimmerei|h": {
+   "n": 3,
+   "sum": 310.95000000000005,
+   "min": 103.65,
+   "max": 103.65
+  },
+  "GL|zimmerei|h": {
+   "n": 3,
+   "sum": 301.62,
+   "min": 100.54,
+   "max": 100.54
+  },
+  "ZG|zimmerei|h": {
+   "n": 3,
+   "sum": 329.61,
+   "min": 109.87,
+   "max": 109.87
+  },
+  "FR|zimmerei|h": {
+   "n": 3,
+   "sum": 304.74,
+   "min": 101.58,
+   "max": 101.58
+  },
+  "SO|zimmerei|h": {
+   "n": 3,
+   "sum": 301.62,
+   "min": 100.54,
+   "max": 100.54
+  },
+  "BS|zimmerei|h": {
+   "n": 3,
+   "sum": 342.06,
+   "min": 114.02,
+   "max": 114.02
+  },
+  "BL|zimmerei|h": {
+   "n": 3,
+   "sum": 320.28000000000003,
+   "min": 106.76,
+   "max": 106.76
+  },
+  "SH|zimmerei|h": {
+   "n": 3,
+   "sum": 323.4,
+   "min": 107.8,
+   "max": 107.8
+  },
+  "AR|zimmerei|h": {
+   "n": 3,
+   "sum": 304.74,
+   "min": 101.58,
+   "max": 101.58
+  },
+  "AI|zimmerei|h": {
+   "n": 3,
+   "sum": 298.5,
+   "min": 99.5,
+   "max": 99.5
+  },
+  "SG|zimmerei|h": {
+   "n": 3,
+   "sum": 310.95000000000005,
+   "min": 103.65,
+   "max": 103.65
+  },
+  "GR|zimmerei|h": {
+   "n": 3,
+   "sum": 292.29,
+   "min": 97.43,
+   "max": 97.43
+  },
+  "AG|zimmerei|h": {
+   "n": 3,
+   "sum": 310.95000000000005,
+   "min": 103.65,
+   "max": 103.65
+  },
+  "TG|zimmerei|h": {
+   "n": 3,
+   "sum": 304.74,
+   "min": 101.58,
+   "max": 101.58
+  },
+  "TI|zimmerei|h": {
+   "n": 3,
+   "sum": 289.17,
+   "min": 96.39,
+   "max": 96.39
+  },
+  "VD|zimmerei|h": {
+   "n": 3,
+   "sum": 298.5,
+   "min": 99.5,
+   "max": 99.5
+  },
+  "VS|zimmerei|h": {
+   "n": 3,
+   "sum": 279.84000000000003,
+   "min": 93.28,
+   "max": 93.28
+  },
+  "NE|zimmerei|h": {
+   "n": 3,
+   "sum": 295.40999999999997,
+   "min": 98.47,
+   "max": 98.47
+  },
+  "GE|zimmerei|h": {
+   "n": 3,
+   "sum": 348.27,
+   "min": 116.09,
+   "max": 116.09
+  },
+  "JU|zimmerei|h": {
+   "n": 3,
+   "sum": 292.29,
+   "min": 97.43,
+   "max": 97.43
+  },
+  "CH|elektroinstallation|h": {
+   "n": 5,
+   "sum": 582.0,
+   "min": 116.4,
+   "max": 116.4
+  },
+  "ZH|elektroinstallation|h": {
+   "n": 3,
+   "sum": 376.38,
+   "min": 125.46,
+   "max": 125.46
+  },
+  "BE|elektroinstallation|h": {
+   "n": 3,
+   "sum": 358.46999999999997,
+   "min": 119.49,
+   "max": 119.49
+  },
+  "LU|elektroinstallation|h": {
+   "n": 3,
+   "sum": 358.46999999999997,
+   "min": 119.49,
+   "max": 119.49
+  },
+  "UR|elektroinstallation|h": {
+   "n": 3,
+   "sum": 340.53000000000003,
+   "min": 113.51,
+   "max": 113.51
+  },
+  "SZ|elektroinstallation|h": {
+   "n": 3,
+   "sum": 365.64,
+   "min": 121.88,
+   "max": 121.88
+  },
+  "OW|elektroinstallation|h": {
+   "n": 3,
+   "sum": 344.13,
+   "min": 114.71,
+   "max": 114.71
+  },
+  "NW|elektroinstallation|h": {
+   "n": 3,
+   "sum": 358.46999999999997,
+   "min": 119.49,
+   "max": 119.49
+  },
+  "GL|elektroinstallation|h": {
+   "n": 3,
+   "sum": 347.70000000000005,
+   "min": 115.9,
+   "max": 115.9
+  },
+  "ZG|elektroinstallation|h": {
+   "n": 3,
+   "sum": 379.95000000000005,
+   "min": 126.65,
+   "max": 126.65
+  },
+  "FR|elektroinstallation|h": {
+   "n": 3,
+   "sum": 351.29999999999995,
+   "min": 117.1,
+   "max": 117.1
+  },
+  "SO|elektroinstallation|h": {
+   "n": 3,
+   "sum": 347.70000000000005,
+   "min": 115.9,
+   "max": 115.9
+  },
+  "BS|elektroinstallation|h": {
+   "n": 3,
+   "sum": 394.29,
+   "min": 131.43,
+   "max": 131.43
+  },
+  "BL|elektroinstallation|h": {
+   "n": 3,
+   "sum": 369.21,
+   "min": 123.07,
+   "max": 123.07
+  },
+  "SH|elektroinstallation|h": {
+   "n": 3,
+   "sum": 372.81,
+   "min": 124.27,
+   "max": 124.27
+  },
+  "AR|elektroinstallation|h": {
+   "n": 3,
+   "sum": 351.29999999999995,
+   "min": 117.1,
+   "max": 117.1
+  },
+  "AI|elektroinstallation|h": {
+   "n": 3,
+   "sum": 344.13,
+   "min": 114.71,
+   "max": 114.71
+  },
+  "SG|elektroinstallation|h": {
+   "n": 3,
+   "sum": 358.46999999999997,
+   "min": 119.49,
+   "max": 119.49
+  },
+  "GR|elektroinstallation|h": {
+   "n": 3,
+   "sum": 336.96,
+   "min": 112.32,
+   "max": 112.32
+  },
+  "AG|elektroinstallation|h": {
+   "n": 3,
+   "sum": 358.46999999999997,
+   "min": 119.49,
+   "max": 119.49
+  },
+  "TG|elektroinstallation|h": {
+   "n": 3,
+   "sum": 351.29999999999995,
+   "min": 117.1,
+   "max": 117.1
+  },
+  "TI|elektroinstallation|h": {
+   "n": 3,
+   "sum": 333.36,
+   "min": 111.12,
+   "max": 111.12
+  },
+  "VD|elektroinstallation|h": {
+   "n": 3,
+   "sum": 344.13,
+   "min": 114.71,
+   "max": 114.71
+  },
+  "VS|elektroinstallation|h": {
+   "n": 3,
+   "sum": 322.62,
+   "min": 107.54,
+   "max": 107.54
+  },
+  "NE|elektroinstallation|h": {
+   "n": 3,
+   "sum": 340.53000000000003,
+   "min": 113.51,
+   "max": 113.51
+  },
+  "GE|elektroinstallation|h": {
+   "n": 3,
+   "sum": 401.46,
+   "min": 133.82,
+   "max": 133.82
+  },
+  "JU|elektroinstallation|h": {
+   "n": 3,
+   "sum": 336.96,
+   "min": 112.32,
+   "max": 112.32
+  },
+  "CH|sanitaer|h": {
+   "n": 5,
+   "sum": 557.75,
+   "min": 111.55,
+   "max": 111.55
+  },
+  "ZH|sanitaer|h": {
+   "n": 3,
+   "sum": 366.9,
+   "min": 122.3,
+   "max": 122.3
+  },
+  "BE|sanitaer|h": {
+   "n": 3,
+   "sum": 349.44,
+   "min": 116.48,
+   "max": 116.48
+  },
+  "LU|sanitaer|h": {
+   "n": 3,
+   "sum": 349.44,
+   "min": 116.48,
+   "max": 116.48
+  },
+  "UR|sanitaer|h": {
+   "n": 3,
+   "sum": 331.95000000000005,
+   "min": 110.65,
+   "max": 110.65
+  },
+  "SZ|sanitaer|h": {
+   "n": 3,
+   "sum": 356.43,
+   "min": 118.81,
+   "max": 118.81
+  },
+  "OW|sanitaer|h": {
+   "n": 3,
+   "sum": 335.46,
+   "min": 111.82,
+   "max": 111.82
+  },
+  "NW|sanitaer|h": {
+   "n": 3,
+   "sum": 349.44,
+   "min": 116.48,
+   "max": 116.48
+  },
+  "GL|sanitaer|h": {
+   "n": 3,
+   "sum": 338.94,
+   "min": 112.98,
+   "max": 112.98
+  },
+  "ZG|sanitaer|h": {
+   "n": 3,
+   "sum": 370.40999999999997,
+   "min": 123.47,
+   "max": 123.47
+  },
+  "FR|sanitaer|h": {
+   "n": 3,
+   "sum": 342.45000000000005,
+   "min": 114.15,
+   "max": 114.15
+  },
+  "SO|sanitaer|h": {
+   "n": 3,
+   "sum": 338.94,
+   "min": 112.98,
+   "max": 112.98
+  },
+  "BS|sanitaer|h": {
+   "n": 3,
+   "sum": 384.39,
+   "min": 128.13,
+   "max": 128.13
+  },
+  "BL|sanitaer|h": {
+   "n": 3,
+   "sum": 359.90999999999997,
+   "min": 119.97,
+   "max": 119.97
+  },
+  "SH|sanitaer|h": {
+   "n": 3,
+   "sum": 363.42,
+   "min": 121.14,
+   "max": 121.14
+  },
+  "AR|sanitaer|h": {
+   "n": 3,
+   "sum": 342.45000000000005,
+   "min": 114.15,
+   "max": 114.15
+  },
+  "AI|sanitaer|h": {
+   "n": 3,
+   "sum": 335.46,
+   "min": 111.82,
+   "max": 111.82
+  },
+  "SG|sanitaer|h": {
+   "n": 3,
+   "sum": 349.44,
+   "min": 116.48,
+   "max": 116.48
+  },
+  "GR|sanitaer|h": {
+   "n": 3,
+   "sum": 328.46999999999997,
+   "min": 109.49,
+   "max": 109.49
+  },
+  "AG|sanitaer|h": {
+   "n": 3,
+   "sum": 349.44,
+   "min": 116.48,
+   "max": 116.48
+  },
+  "TG|sanitaer|h": {
+   "n": 3,
+   "sum": 342.45000000000005,
+   "min": 114.15,
+   "max": 114.15
+  },
+  "TI|sanitaer|h": {
+   "n": 3,
+   "sum": 324.99,
+   "min": 108.33,
+   "max": 108.33
+  },
+  "VD|sanitaer|h": {
+   "n": 3,
+   "sum": 335.46,
+   "min": 111.82,
+   "max": 111.82
+  },
+  "VS|sanitaer|h": {
+   "n": 3,
+   "sum": 314.49,
+   "min": 104.83,
+   "max": 104.83
+  },
+  "NE|sanitaer|h": {
+   "n": 3,
+   "sum": 331.95000000000005,
+   "min": 110.65,
+   "max": 110.65
+  },
+  "GE|sanitaer|h": {
+   "n": 3,
+   "sum": 391.38,
+   "min": 130.46,
+   "max": 130.46
+  },
+  "JU|sanitaer|h": {
+   "n": 3,
+   "sum": 328.46999999999997,
+   "min": 109.49,
+   "max": 109.49
+  },
+  "CH|spengler|h": {
+   "n": 5,
+   "sum": 533.5,
+   "min": 106.7,
+   "max": 106.7
+  },
+  "ZH|spengler|h": {
+   "n": 3,
+   "sum": 336.09000000000003,
+   "min": 112.03,
+   "max": 112.03
+  },
+  "BE|spengler|h": {
+   "n": 3,
+   "sum": 320.1,
+   "min": 106.7,
+   "max": 106.7
+  },
+  "LU|spengler|h": {
+   "n": 3,
+   "sum": 320.1,
+   "min": 106.7,
+   "max": 106.7
+  },
+  "UR|spengler|h": {
+   "n": 3,
+   "sum": 304.08,
+   "min": 101.36,
+   "max": 101.36
+  },
+  "SZ|spengler|h": {
+   "n": 3,
+   "sum": 326.49,
+   "min": 108.83,
+   "max": 108.83
+  },
+  "OW|spengler|h": {
+   "n": 3,
+   "sum": 307.29,
+   "min": 102.43,
+   "max": 102.43
+  },
+  "NW|spengler|h": {
+   "n": 3,
+   "sum": 320.1,
+   "min": 106.7,
+   "max": 106.7
+  },
+  "GL|spengler|h": {
+   "n": 3,
+   "sum": 310.5,
+   "min": 103.5,
+   "max": 103.5
+  },
+  "ZG|spengler|h": {
+   "n": 3,
+   "sum": 339.29999999999995,
+   "min": 113.1,
+   "max": 113.1
+  },
+  "FR|spengler|h": {
+   "n": 3,
+   "sum": 313.71,
+   "min": 104.57,
+   "max": 104.57
+  },
+  "SO|spengler|h": {
+   "n": 3,
+   "sum": 310.5,
+   "min": 103.5,
+   "max": 103.5
+  },
+  "BS|spengler|h": {
+   "n": 3,
+   "sum": 352.11,
+   "min": 117.37,
+   "max": 117.37
+  },
+  "BL|spengler|h": {
+   "n": 3,
+   "sum": 329.70000000000005,
+   "min": 109.9,
+   "max": 109.9
+  },
+  "SH|spengler|h": {
+   "n": 3,
+   "sum": 332.90999999999997,
+   "min": 110.97,
+   "max": 110.97
+  },
+  "AR|spengler|h": {
+   "n": 3,
+   "sum": 313.71,
+   "min": 104.57,
+   "max": 104.57
+  },
+  "AI|spengler|h": {
+   "n": 3,
+   "sum": 307.29,
+   "min": 102.43,
+   "max": 102.43
+  },
+  "SG|spengler|h": {
+   "n": 3,
+   "sum": 320.1,
+   "min": 106.7,
+   "max": 106.7
+  },
+  "GR|spengler|h": {
+   "n": 3,
+   "sum": 300.9,
+   "min": 100.3,
+   "max": 100.3
+  },
+  "AG|spengler|h": {
+   "n": 3,
+   "sum": 320.1,
+   "min": 106.7,
+   "max": 106.7
+  },
+  "TG|spengler|h": {
+   "n": 3,
+   "sum": 313.71,
+   "min": 104.57,
+   "max": 104.57
+  },
+  "TI|spengler|h": {
+   "n": 3,
+   "sum": 297.69,
+   "min": 99.23,
+   "max": 99.23
+  },
+  "VD|spengler|h": {
+   "n": 3,
+   "sum": 307.29,
+   "min": 102.43,
+   "max": 102.43
+  },
+  "VS|spengler|h": {
+   "n": 3,
+   "sum": 288.09000000000003,
+   "min": 96.03,
+   "max": 96.03
+  },
+  "NE|spengler|h": {
+   "n": 3,
+   "sum": 304.08,
+   "min": 101.36,
+   "max": 101.36
+  },
+  "GE|spengler|h": {
+   "n": 3,
+   "sum": 358.5,
+   "min": 119.5,
+   "max": 119.5
+  },
+  "JU|spengler|h": {
+   "n": 3,
+   "sum": 300.9,
+   "min": 100.3,
+   "max": 100.3
+  },
+  "CH|glaeser|m2": {
+   "n": 5,
+   "sum": 412.25,
+   "min": 82.45,
+   "max": 82.45
+  },
+  "ZH|glaeser|m2": {
+   "n": 3,
+   "sum": 266.61,
+   "min": 88.87,
+   "max": 88.87
+  },
+  "BE|glaeser|m2": {
+   "n": 3,
+   "sum": 253.92000000000002,
+   "min": 84.64,
+   "max": 84.64
+  },
+  "LU|glaeser|m2": {
+   "n": 3,
+   "sum": 253.92000000000002,
+   "min": 84.64,
+   "max": 84.64
+  },
+  "UR|glaeser|m2": {
+   "n": 3,
+   "sum": 241.20000000000002,
+   "min": 80.4,
+   "max": 80.4
+  },
+  "SZ|glaeser|m2": {
+   "n": 3,
+   "sum": 258.99,
+   "min": 86.33,
+   "max": 86.33
+  },
+  "OW|glaeser|m2": {
+   "n": 3,
+   "sum": 243.75,
+   "min": 81.25,
+   "max": 81.25
+  },
+  "NW|glaeser|m2": {
+   "n": 3,
+   "sum": 253.92000000000002,
+   "min": 84.64,
+   "max": 84.64
+  },
+  "GL|glaeser|m2": {
+   "n": 3,
+   "sum": 246.29999999999998,
+   "min": 82.1,
+   "max": 82.1
+  },
+  "ZG|glaeser|m2": {
+   "n": 3,
+   "sum": 269.13,
+   "min": 89.71,
+   "max": 89.71
+  },
+  "FR|glaeser|m2": {
+   "n": 3,
+   "sum": 248.82,
+   "min": 82.94,
+   "max": 82.94
+  },
+  "SO|glaeser|m2": {
+   "n": 3,
+   "sum": 246.29999999999998,
+   "min": 82.1,
+   "max": 82.1
+  },
+  "BS|glaeser|m2": {
+   "n": 3,
+   "sum": 279.29999999999995,
+   "min": 93.1,
+   "max": 93.1
+  },
+  "BL|glaeser|m2": {
+   "n": 3,
+   "sum": 261.51,
+   "min": 87.17,
+   "max": 87.17
+  },
+  "SH|glaeser|m2": {
+   "n": 3,
+   "sum": 264.06,
+   "min": 88.02,
+   "max": 88.02
+  },
+  "AR|glaeser|m2": {
+   "n": 3,
+   "sum": 248.82,
+   "min": 82.94,
+   "max": 82.94
+  },
+  "AI|glaeser|m2": {
+   "n": 3,
+   "sum": 243.75,
+   "min": 81.25,
+   "max": 81.25
+  },
+  "SG|glaeser|m2": {
+   "n": 3,
+   "sum": 253.92000000000002,
+   "min": 84.64,
+   "max": 84.64
+  },
+  "GR|glaeser|m2": {
+   "n": 3,
+   "sum": 238.68,
+   "min": 79.56,
+   "max": 79.56
+  },
+  "AG|glaeser|m2": {
+   "n": 3,
+   "sum": 253.92000000000002,
+   "min": 84.64,
+   "max": 84.64
+  },
+  "TG|glaeser|m2": {
+   "n": 3,
+   "sum": 248.82,
+   "min": 82.94,
+   "max": 82.94
+  },
+  "TI|glaeser|m2": {
+   "n": 3,
+   "sum": 236.13,
+   "min": 78.71,
+   "max": 78.71
+  },
+  "VD|glaeser|m2": {
+   "n": 3,
+   "sum": 243.75,
+   "min": 81.25,
+   "max": 81.25
+  },
+  "VS|glaeser|m2": {
+   "n": 3,
+   "sum": 228.51,
+   "min": 76.17,
+   "max": 76.17
+  },
+  "NE|glaeser|m2": {
+   "n": 3,
+   "sum": 241.20000000000002,
+   "min": 80.4,
+   "max": 80.4
+  },
+  "GE|glaeser|m2": {
+   "n": 3,
+   "sum": 284.37,
+   "min": 94.79,
+   "max": 94.79
+  },
+  "JU|glaeser|m2": {
+   "n": 3,
+   "sum": 238.68,
+   "min": 79.56,
+   "max": 79.56
+  },
+  "CH|metallbau|h": {
+   "n": 5,
+   "sum": 606.25,
+   "min": 121.25,
+   "max": 121.25
+  },
+  "ZH|metallbau|h": {
+   "n": 3,
+   "sum": 385.32,
+   "min": 128.44,
+   "max": 128.44
+  },
+  "BE|metallbau|h": {
+   "n": 3,
+   "sum": 366.96,
+   "min": 122.32,
+   "max": 122.32
+  },
+  "LU|metallbau|h": {
+   "n": 3,
+   "sum": 366.96,
+   "min": 122.32,
+   "max": 122.32
+  },
+  "UR|metallbau|h": {
+   "n": 3,
+   "sum": 348.63,
+   "min": 116.21,
+   "max": 116.21
+  },
+  "SZ|metallbau|h": {
+   "n": 3,
+   "sum": 374.31,
+   "min": 124.77,
+   "max": 124.77
+  },
+  "OW|metallbau|h": {
+   "n": 3,
+   "sum": 352.29,
+   "min": 117.43,
+   "max": 117.43
+  },
+  "NW|metallbau|h": {
+   "n": 3,
+   "sum": 366.96,
+   "min": 122.32,
+   "max": 122.32
+  },
+  "GL|metallbau|h": {
+   "n": 3,
+   "sum": 355.95000000000005,
+   "min": 118.65,
+   "max": 118.65
+  },
+  "ZG|metallbau|h": {
+   "n": 3,
+   "sum": 388.98,
+   "min": 129.66,
+   "max": 129.66
+  },
+  "FR|metallbau|h": {
+   "n": 3,
+   "sum": 359.64,
+   "min": 119.88,
+   "max": 119.88
+  },
+  "SO|metallbau|h": {
+   "n": 3,
+   "sum": 355.95000000000005,
+   "min": 118.65,
+   "max": 118.65
+  },
+  "BS|metallbau|h": {
+   "n": 3,
+   "sum": 403.65000000000003,
+   "min": 134.55,
+   "max": 134.55
+  },
+  "BL|metallbau|h": {
+   "n": 3,
+   "sum": 377.96999999999997,
+   "min": 125.99,
+   "max": 125.99
+  },
+  "SH|metallbau|h": {
+   "n": 3,
+   "sum": 381.63,
+   "min": 127.21,
+   "max": 127.21
+  },
+  "AR|metallbau|h": {
+   "n": 3,
+   "sum": 359.64,
+   "min": 119.88,
+   "max": 119.88
+  },
+  "AI|metallbau|h": {
+   "n": 3,
+   "sum": 352.29,
+   "min": 117.43,
+   "max": 117.43
+  },
+  "SG|metallbau|h": {
+   "n": 3,
+   "sum": 366.96,
+   "min": 122.32,
+   "max": 122.32
+  },
+  "GR|metallbau|h": {
+   "n": 3,
+   "sum": 344.94,
+   "min": 114.98,
+   "max": 114.98
+  },
+  "AG|metallbau|h": {
+   "n": 3,
+   "sum": 366.96,
+   "min": 122.32,
+   "max": 122.32
+  },
+  "TG|metallbau|h": {
+   "n": 3,
+   "sum": 359.64,
+   "min": 119.88,
+   "max": 119.88
+  },
+  "TI|metallbau|h": {
+   "n": 3,
+   "sum": 341.28000000000003,
+   "min": 113.76,
+   "max": 113.76
+  },
+  "VD|metallbau|h": {
+   "n": 3,
+   "sum": 352.29,
+   "min": 117.43,
+   "max": 117.43
+  },
+  "VS|metallbau|h": {
+   "n": 3,
+   "sum": 330.27,
+   "min": 110.09,
+   "max": 110.09
+  },
+  "NE|metallbau|h": {
+   "n": 3,
+   "sum": 348.63,
+   "min": 116.21,
+   "max": 116.21
+  },
+  "GE|metallbau|h": {
+   "n": 3,
+   "sum": 411.0,
+   "min": 137.0,
+   "max": 137.0
+  },
+  "JU|metallbau|h": {
+   "n": 3,
+   "sum": 344.94,
+   "min": 114.98,
+   "max": 114.98
+  },
+  "CH|gartenarbeit|h": {
+   "n": 5,
+   "sum": 339.5,
+   "min": 67.9,
+   "max": 67.9
+  },
+  "ZH|gartenarbeit|h": {
+   "n": 3,
+   "sum": 217.64999999999998,
+   "min": 72.55,
+   "max": 72.55
+  },
+  "BE|gartenarbeit|h": {
+   "n": 3,
+   "sum": 207.29999999999998,
+   "min": 69.1,
+   "max": 69.1
+  },
+  "LU|gartenarbeit|h": {
+   "n": 3,
+   "sum": 207.29999999999998,
+   "min": 69.1,
+   "max": 69.1
+  },
+  "UR|gartenarbeit|h": {
+   "n": 3,
+   "sum": 196.92000000000002,
+   "min": 65.64,
+   "max": 65.64
+  },
+  "SZ|gartenarbeit|h": {
+   "n": 3,
+   "sum": 211.44,
+   "min": 70.48,
+   "max": 70.48
+  },
+  "OW|gartenarbeit|h": {
+   "n": 3,
+   "sum": 199.02,
+   "min": 66.34,
+   "max": 66.34
+  },
+  "NW|gartenarbeit|h": {
+   "n": 3,
+   "sum": 207.29999999999998,
+   "min": 69.1,
+   "max": 69.1
+  },
+  "GL|gartenarbeit|h": {
+   "n": 3,
+   "sum": 201.09,
+   "min": 67.03,
+   "max": 67.03
+  },
+  "ZG|gartenarbeit|h": {
+   "n": 3,
+   "sum": 219.75,
+   "min": 73.25,
+   "max": 73.25
+  },
+  "FR|gartenarbeit|h": {
+   "n": 3,
+   "sum": 203.16,
+   "min": 67.72,
+   "max": 67.72
+  },
+  "SO|gartenarbeit|h": {
+   "n": 3,
+   "sum": 201.09,
+   "min": 67.03,
+   "max": 67.03
+  },
+  "BS|gartenarbeit|h": {
+   "n": 3,
+   "sum": 228.03000000000003,
+   "min": 76.01,
+   "max": 76.01
+  },
+  "BL|gartenarbeit|h": {
+   "n": 3,
+   "sum": 213.51,
+   "min": 71.17,
+   "max": 71.17
+  },
+  "SH|gartenarbeit|h": {
+   "n": 3,
+   "sum": 215.57999999999998,
+   "min": 71.86,
+   "max": 71.86
+  },
+  "AR|gartenarbeit|h": {
+   "n": 3,
+   "sum": 203.16,
+   "min": 67.72,
+   "max": 67.72
+  },
+  "AI|gartenarbeit|h": {
+   "n": 3,
+   "sum": 199.02,
+   "min": 66.34,
+   "max": 66.34
+  },
+  "SG|gartenarbeit|h": {
+   "n": 3,
+   "sum": 207.29999999999998,
+   "min": 69.1,
+   "max": 69.1
+  },
+  "GR|gartenarbeit|h": {
+   "n": 3,
+   "sum": 194.85000000000002,
+   "min": 64.95,
+   "max": 64.95
+  },
+  "AG|gartenarbeit|h": {
+   "n": 3,
+   "sum": 207.29999999999998,
+   "min": 69.1,
+   "max": 69.1
+  },
+  "TG|gartenarbeit|h": {
+   "n": 3,
+   "sum": 203.16,
+   "min": 67.72,
+   "max": 67.72
+  },
+  "TI|gartenarbeit|h": {
+   "n": 3,
+   "sum": 192.78000000000003,
+   "min": 64.26,
+   "max": 64.26
+  },
+  "VD|gartenarbeit|h": {
+   "n": 3,
+   "sum": 199.02,
+   "min": 66.34,
+   "max": 66.34
+  },
+  "VS|gartenarbeit|h": {
+   "n": 3,
+   "sum": 186.57,
+   "min": 62.19,
+   "max": 62.19
+  },
+  "NE|gartenarbeit|h": {
+   "n": 3,
+   "sum": 196.92000000000002,
+   "min": 65.64,
+   "max": 65.64
+  },
+  "GE|gartenarbeit|h": {
+   "n": 3,
+   "sum": 232.17000000000002,
+   "min": 77.39,
+   "max": 77.39
+  },
+  "JU|gartenarbeit|h": {
+   "n": 3,
+   "sum": 194.85000000000002,
+   "min": 64.95,
+   "max": 64.95
+  },
+  "CH|reinigung|h": {
+   "n": 5,
+   "sum": 266.75,
+   "min": 53.35,
+   "max": 53.35
+  },
+  "ZH|reinigung|h": {
+   "n": 3,
+   "sum": 169.53,
+   "min": 56.51,
+   "max": 56.51
+  },
+  "BE|reinigung|h": {
+   "n": 3,
+   "sum": 161.46,
+   "min": 53.82,
+   "max": 53.82
+  },
+  "LU|reinigung|h": {
+   "n": 3,
+   "sum": 161.46,
+   "min": 53.82,
+   "max": 53.82
+  },
+  "UR|reinigung|h": {
+   "n": 3,
+   "sum": 153.39000000000001,
+   "min": 51.13,
+   "max": 51.13
+  },
+  "SZ|reinigung|h": {
+   "n": 3,
+   "sum": 164.7,
+   "min": 54.9,
+   "max": 54.9
+  },
+  "OW|reinigung|h": {
+   "n": 3,
+   "sum": 155.01,
+   "min": 51.67,
+   "max": 51.67
+  },
+  "NW|reinigung|h": {
+   "n": 3,
+   "sum": 161.46,
+   "min": 53.82,
+   "max": 53.82
+  },
+  "GL|reinigung|h": {
+   "n": 3,
+   "sum": 156.63,
+   "min": 52.21,
+   "max": 52.21
+  },
+  "ZG|reinigung|h": {
+   "n": 3,
+   "sum": 171.14999999999998,
+   "min": 57.05,
+   "max": 57.05
+  },
+  "FR|reinigung|h": {
+   "n": 3,
+   "sum": 158.22,
+   "min": 52.74,
+   "max": 52.74
+  },
+  "SO|reinigung|h": {
+   "n": 3,
+   "sum": 156.63,
+   "min": 52.21,
+   "max": 52.21
+  },
+  "BS|reinigung|h": {
+   "n": 3,
+   "sum": 177.60000000000002,
+   "min": 59.2,
+   "max": 59.2
+  },
+  "BL|reinigung|h": {
+   "n": 3,
+   "sum": 166.32,
+   "min": 55.44,
+   "max": 55.44
+  },
+  "SH|reinigung|h": {
+   "n": 3,
+   "sum": 167.91,
+   "min": 55.97,
+   "max": 55.97
+  },
+  "AR|reinigung|h": {
+   "n": 3,
+   "sum": 158.22,
+   "min": 52.74,
+   "max": 52.74
+  },
+  "AI|reinigung|h": {
+   "n": 3,
+   "sum": 155.01,
+   "min": 51.67,
+   "max": 51.67
+  },
+  "SG|reinigung|h": {
+   "n": 3,
+   "sum": 161.46,
+   "min": 53.82,
+   "max": 53.82
+  },
+  "GR|reinigung|h": {
+   "n": 3,
+   "sum": 151.77,
+   "min": 50.59,
+   "max": 50.59
+  },
+  "AG|reinigung|h": {
+   "n": 3,
+   "sum": 161.46,
+   "min": 53.82,
+   "max": 53.82
+  },
+  "TG|reinigung|h": {
+   "n": 3,
+   "sum": 158.22,
+   "min": 52.74,
+   "max": 52.74
+  },
+  "TI|reinigung|h": {
+   "n": 3,
+   "sum": 150.14999999999998,
+   "min": 50.05,
+   "max": 50.05
+  },
+  "VD|reinigung|h": {
+   "n": 3,
+   "sum": 155.01,
+   "min": 51.67,
+   "max": 51.67
+  },
+  "VS|reinigung|h": {
+   "n": 3,
+   "sum": 145.32,
+   "min": 48.44,
+   "max": 48.44
+  },
+  "NE|reinigung|h": {
+   "n": 3,
+   "sum": 153.39000000000001,
+   "min": 51.13,
+   "max": 51.13
+  },
+  "GE|reinigung|h": {
+   "n": 3,
+   "sum": 180.84,
+   "min": 60.28,
+   "max": 60.28
+  },
+  "JU|reinigung|h": {
+   "n": 3,
+   "sum": 151.77,
+   "min": 50.59,
+   "max": 50.59
+  },
+  "CH|geruest|m2": {
+   "n": 5,
+   "sum": 59.65,
+   "min": 11.93,
+   "max": 11.93
+  },
+  "ZH|geruest|m2": {
+   "n": 3,
+   "sum": 36.660000000000004,
+   "min": 12.22,
+   "max": 12.22
+  },
+  "BE|geruest|m2": {
+   "n": 3,
+   "sum": 34.92,
+   "min": 11.64,
+   "max": 11.64
+  },
+  "LU|geruest|m2": {
+   "n": 3,
+   "sum": 34.92,
+   "min": 11.64,
+   "max": 11.64
+  },
+  "UR|geruest|m2": {
+   "n": 3,
+   "sum": 33.18,
+   "min": 11.06,
+   "max": 11.06
+  },
+  "SZ|geruest|m2": {
+   "n": 3,
+   "sum": 35.61,
+   "min": 11.87,
+   "max": 11.87
+  },
+  "OW|geruest|m2": {
+   "n": 3,
+   "sum": 33.51,
+   "min": 11.17,
+   "max": 11.17
+  },
+  "NW|geruest|m2": {
+   "n": 3,
+   "sum": 34.92,
+   "min": 11.64,
+   "max": 11.64
+  },
+  "GL|geruest|m2": {
+   "n": 3,
+   "sum": 33.87,
+   "min": 11.29,
+   "max": 11.29
+  },
+  "ZG|geruest|m2": {
+   "n": 3,
+   "sum": 37.019999999999996,
+   "min": 12.34,
+   "max": 12.34
+  },
+  "FR|geruest|m2": {
+   "n": 3,
+   "sum": 34.230000000000004,
+   "min": 11.41,
+   "max": 11.41
+  },
+  "SO|geruest|m2": {
+   "n": 3,
+   "sum": 33.87,
+   "min": 11.29,
+   "max": 11.29
+  },
+  "BS|geruest|m2": {
+   "n": 3,
+   "sum": 38.400000000000006,
+   "min": 12.8,
+   "max": 12.8
+  },
+  "BL|geruest|m2": {
+   "n": 3,
+   "sum": 35.97,
+   "min": 11.99,
+   "max": 11.99
+  },
+  "SH|geruest|m2": {
+   "n": 3,
+   "sum": 36.33,
+   "min": 12.11,
+   "max": 12.11
+  },
+  "AR|geruest|m2": {
+   "n": 3,
+   "sum": 34.230000000000004,
+   "min": 11.41,
+   "max": 11.41
+  },
+  "AI|geruest|m2": {
+   "n": 3,
+   "sum": 33.51,
+   "min": 11.17,
+   "max": 11.17
+  },
+  "SG|geruest|m2": {
+   "n": 3,
+   "sum": 34.92,
+   "min": 11.64,
+   "max": 11.64
+  },
+  "GR|geruest|m2": {
+   "n": 3,
+   "sum": 32.82,
+   "min": 10.94,
+   "max": 10.94
+  },
+  "AG|geruest|m2": {
+   "n": 3,
+   "sum": 34.92,
+   "min": 11.64,
+   "max": 11.64
+  },
+  "TG|geruest|m2": {
+   "n": 3,
+   "sum": 34.230000000000004,
+   "min": 11.41,
+   "max": 11.41
+  },
+  "TI|geruest|m2": {
+   "n": 3,
+   "sum": 32.49,
+   "min": 10.83,
+   "max": 10.83
+  },
+  "VD|geruest|m2": {
+   "n": 3,
+   "sum": 33.51,
+   "min": 11.17,
+   "max": 11.17
+  },
+  "VS|geruest|m2": {
+   "n": 3,
+   "sum": 31.44,
+   "min": 10.48,
+   "max": 10.48
+  },
+  "NE|geruest|m2": {
+   "n": 3,
+   "sum": 33.18,
+   "min": 11.06,
+   "max": 11.06
+  },
+  "GE|geruest|m2": {
+   "n": 3,
+   "sum": 39.12,
+   "min": 13.04,
+   "max": 13.04
+  },
+  "JU|geruest|m2": {
+   "n": 3,
+   "sum": 32.82,
+   "min": 10.94,
+   "max": 10.94
+  },
+  "CH|abbruch|m3": {
+   "n": 5,
+   "sum": 191.14999999999998,
+   "min": 38.23,
+   "max": 38.23
+  },
+  "ZH|abbruch|m3": {
+   "n": 3,
+   "sum": 121.22999999999999,
+   "min": 40.41,
+   "max": 40.41
+  },
+  "BE|abbruch|m3": {
+   "n": 3,
+   "sum": 115.47,
+   "min": 38.49,
+   "max": 38.49
+  },
+  "LU|abbruch|m3": {
+   "n": 3,
+   "sum": 115.47,
+   "min": 38.49,
+   "max": 38.49
+  },
+  "UR|abbruch|m3": {
+   "n": 3,
+   "sum": 109.68,
+   "min": 36.56,
+   "max": 36.56
+  },
+  "SZ|abbruch|m3": {
+   "n": 3,
+   "sum": 117.78,
+   "min": 39.26,
+   "max": 39.26
+  },
+  "OW|abbruch|m3": {
+   "n": 3,
+   "sum": 110.85000000000001,
+   "min": 36.95,
+   "max": 36.95
+  },
+  "NW|abbruch|m3": {
+   "n": 3,
+   "sum": 115.47,
+   "min": 38.49,
+   "max": 38.49
+  },
+  "GL|abbruch|m3": {
+   "n": 3,
+   "sum": 111.99,
+   "min": 37.33,
+   "max": 37.33
+  },
+  "ZG|abbruch|m3": {
+   "n": 3,
+   "sum": 122.39999999999999,
+   "min": 40.8,
+   "max": 40.8
+  },
+  "FR|abbruch|m3": {
+   "n": 3,
+   "sum": 113.16,
+   "min": 37.72,
+   "max": 37.72
+  },
+  "SO|abbruch|m3": {
+   "n": 3,
+   "sum": 111.99,
+   "min": 37.33,
+   "max": 37.33
+  },
+  "BS|abbruch|m3": {
+   "n": 3,
+   "sum": 127.02000000000001,
+   "min": 42.34,
+   "max": 42.34
+  },
+  "BL|abbruch|m3": {
+   "n": 3,
+   "sum": 118.92,
+   "min": 39.64,
+   "max": 39.64
+  },
+  "SH|abbruch|m3": {
+   "n": 3,
+   "sum": 120.09,
+   "min": 40.03,
+   "max": 40.03
+  },
+  "AR|abbruch|m3": {
+   "n": 3,
+   "sum": 113.16,
+   "min": 37.72,
+   "max": 37.72
+  },
+  "AI|abbruch|m3": {
+   "n": 3,
+   "sum": 110.85000000000001,
+   "min": 36.95,
+   "max": 36.95
+  },
+  "SG|abbruch|m3": {
+   "n": 3,
+   "sum": 115.47,
+   "min": 38.49,
+   "max": 38.49
+  },
+  "GR|abbruch|m3": {
+   "n": 3,
+   "sum": 108.53999999999999,
+   "min": 36.18,
+   "max": 36.18
+  },
+  "AG|abbruch|m3": {
+   "n": 3,
+   "sum": 115.47,
+   "min": 38.49,
+   "max": 38.49
+  },
+  "TG|abbruch|m3": {
+   "n": 3,
+   "sum": 113.16,
+   "min": 37.72,
+   "max": 37.72
+  },
+  "TI|abbruch|m3": {
+   "n": 3,
+   "sum": 107.37,
+   "min": 35.79,
+   "max": 35.79
+  },
+  "VD|abbruch|m3": {
+   "n": 3,
+   "sum": 110.85000000000001,
+   "min": 36.95,
+   "max": 36.95
+  },
+  "VS|abbruch|m3": {
+   "n": 3,
+   "sum": 103.92,
+   "min": 34.64,
+   "max": 34.64
+  },
+  "NE|abbruch|m3": {
+   "n": 3,
+   "sum": 109.68,
+   "min": 36.56,
+   "max": 36.56
+  },
+  "GE|abbruch|m3": {
+   "n": 3,
+   "sum": 129.32999999999998,
+   "min": 43.11,
+   "max": 43.11
+  },
+  "JU|abbruch|m3": {
+   "n": 3,
+   "sum": 108.53999999999999,
+   "min": 36.18,
+   "max": 36.18
+  },
+  "CH|transport|fahrt": {
+   "n": 5,
+   "sum": 582.0,
+   "min": 116.4,
+   "max": 116.4
+  },
+  "ZH|transport|fahrt": {
+   "n": 3,
+   "sum": 376.38,
+   "min": 125.46,
+   "max": 125.46
+  },
+  "BE|transport|fahrt": {
+   "n": 3,
+   "sum": 358.46999999999997,
+   "min": 119.49,
+   "max": 119.49
+  },
+  "LU|transport|fahrt": {
+   "n": 3,
+   "sum": 358.46999999999997,
+   "min": 119.49,
+   "max": 119.49
+  },
+  "UR|transport|fahrt": {
+   "n": 3,
+   "sum": 340.53000000000003,
+   "min": 113.51,
+   "max": 113.51
+  },
+  "SZ|transport|fahrt": {
+   "n": 3,
+   "sum": 365.64,
+   "min": 121.88,
+   "max": 121.88
+  },
+  "OW|transport|fahrt": {
+   "n": 3,
+   "sum": 344.13,
+   "min": 114.71,
+   "max": 114.71
+  },
+  "NW|transport|fahrt": {
+   "n": 3,
+   "sum": 358.46999999999997,
+   "min": 119.49,
+   "max": 119.49
+  },
+  "GL|transport|fahrt": {
+   "n": 3,
+   "sum": 347.70000000000005,
+   "min": 115.9,
+   "max": 115.9
+  },
+  "ZG|transport|fahrt": {
+   "n": 3,
+   "sum": 379.95000000000005,
+   "min": 126.65,
+   "max": 126.65
+  },
+  "FR|transport|fahrt": {
+   "n": 3,
+   "sum": 351.29999999999995,
+   "min": 117.1,
+   "max": 117.1
+  },
+  "SO|transport|fahrt": {
+   "n": 3,
+   "sum": 347.70000000000005,
+   "min": 115.9,
+   "max": 115.9
+  },
+  "BS|transport|fahrt": {
+   "n": 3,
+   "sum": 394.29,
+   "min": 131.43,
+   "max": 131.43
+  },
+  "BL|transport|fahrt": {
+   "n": 3,
+   "sum": 369.21,
+   "min": 123.07,
+   "max": 123.07
+  },
+  "SH|transport|fahrt": {
+   "n": 3,
+   "sum": 372.81,
+   "min": 124.27,
+   "max": 124.27
+  },
+  "AR|transport|fahrt": {
+   "n": 3,
+   "sum": 351.29999999999995,
+   "min": 117.1,
+   "max": 117.1
+  },
+  "AI|transport|fahrt": {
+   "n": 3,
+   "sum": 344.13,
+   "min": 114.71,
+   "max": 114.71
+  },
+  "SG|transport|fahrt": {
+   "n": 3,
+   "sum": 358.46999999999997,
+   "min": 119.49,
+   "max": 119.49
+  },
+  "GR|transport|fahrt": {
+   "n": 3,
+   "sum": 336.96,
+   "min": 112.32,
+   "max": 112.32
+  },
+  "AG|transport|fahrt": {
+   "n": 3,
+   "sum": 358.46999999999997,
+   "min": 119.49,
+   "max": 119.49
+  },
+  "TG|transport|fahrt": {
+   "n": 3,
+   "sum": 351.29999999999995,
+   "min": 117.1,
+   "max": 117.1
+  },
+  "TI|transport|fahrt": {
+   "n": 3,
+   "sum": 333.36,
+   "min": 111.12,
+   "max": 111.12
+  },
+  "VD|transport|fahrt": {
+   "n": 3,
+   "sum": 344.13,
+   "min": 114.71,
+   "max": 114.71
+  },
+  "VS|transport|fahrt": {
+   "n": 3,
+   "sum": 322.62,
+   "min": 107.54,
+   "max": 107.54
+  },
+  "NE|transport|fahrt": {
+   "n": 3,
+   "sum": 340.53000000000003,
+   "min": 113.51,
+   "max": 113.51
+  },
+  "GE|transport|fahrt": {
+   "n": 3,
+   "sum": 401.46,
+   "min": 133.82,
+   "max": 133.82
+  },
+  "JU|transport|fahrt": {
+   "n": 3,
+   "sum": 336.96,
+   "min": 112.32,
+   "max": 112.32
+  },
+  "ZÜRICH|allgemein|m3": {
+   "n": 4,
+   "sum": 28.0,
+   "min": 5.5,
+   "max": 8.5
+  },
+  "ZÜRICH|allgemein|m2": {
+   "n": 30,
+   "sum": 314.0,
+   "min": 4.5,
+   "max": 22.0
+  },
+  "ZÜRICH|allgemein|stk": {
+   "n": 22,
+   "sum": 220.0,
+   "min": 4.5,
+   "max": 14.5
+  },
+  "ZÜRICH|allgemein|paus": {
+   "n": 2,
+   "sum": 9.0,
+   "min": 4.5,
+   "max": 4.5
+  },
+  "AG|allgemein|m2": {
+   "n": 71,
+   "sum": 56465.0,
+   "min": 35.0,
+   "max": 1050.0
+  },
+  "AG|allgemein|h": {
+   "n": 16,
+   "sum": 2270.0,
+   "min": 120.0,
+   "max": 145.0
+  },
+  "AG|allgemein|pauschal": {
+   "n": 2,
+   "sum": 17000.0,
+   "min": 8500.0,
+   "max": 8500.0
+  },
+  "AG|allgemein|stk": {
+   "n": 2,
+   "sum": 840.0,
+   "min": 420.0,
+   "max": 420.0
+  }
+ }
+}

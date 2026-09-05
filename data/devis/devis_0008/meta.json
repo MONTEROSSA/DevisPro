@@ -1,0 +1,9 @@
+{
+  "id": "devis_0008",
+  "name": "CLI-Test",
+  "datum": "2026-08-13 18:09",
+  "netto": 30376.25,
+  "status": "offen",
+  "method": "portal",
+  "kanton": "Zürich"
+}

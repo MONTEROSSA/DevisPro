@@ -1,0 +1,455 @@
+{
+  "meta": {
+    "version": "SIA451",
+    "currency": "CHF",
+    "date": "20260312",
+    "project_id": "WDK2026",
+    "project_name": "Sanierung MFH Wiedikon ZH",
+    "devis_nr": "2026-014"
+  },
+  "addresses": [
+    {
+      "role": "Bauherrschaft",
+      "name": "Stiftung Wohnen Zuerich",
+      "street": "Wiedikerstrasse 123",
+      "city": "8003 Zuerich"
+    },
+    {
+      "role": "Planung",
+      "name": "Architektur Blatt & Stein AG",
+      "street": "Foerrlibuckstrasse 45",
+      "city": "8005 Zuerich"
+    }
+  ],
+  "chapters": [
+    [
+      "1",
+      "241",
+      "Baumeisterarbeiten"
+    ],
+    [
+      "1",
+      "242",
+      "Maurerarbeiten"
+    ],
+    [
+      "1",
+      "243",
+      "Putzerarbeiten"
+    ],
+    [
+      "1",
+      "244",
+      "Bodenbelagsarbeiten"
+    ],
+    [
+      "1",
+      "251",
+      "Zimmereiarbeiten"
+    ],
+    [
+      "1",
+      "252",
+      "Dachdeckerarbeiten"
+    ],
+    [
+      "1",
+      "255",
+      "Schreinerarbeiten"
+    ],
+    [
+      "1",
+      "261",
+      "Elektroinstallationen"
+    ],
+    [
+      "1",
+      "263",
+      "Sanitaere Arbeiten"
+    ],
+    [
+      "1",
+      "271",
+      "Anstricharbeiten"
+    ]
+  ],
+  "positions": [
+    {
+      "pos_nr": "241111000000",
+      "text": "Abbruch unbewehrter Beton bis 20 cm",
+      "menge": 18.5,
+      "einheit": "m3",
+      "ep": null,
+      "betrag": null,
+      "chapter": null,
+      "matched_artikel": null,
+      "confidence": null,
+      "requires_review": false,
+      "begruendung": ""
+    },
+    {
+      "pos_nr": "241211000000",
+      "text": "Erstellen von Beton C25/30 Ortbeton",
+      "menge": 96.0,
+      "einheit": "m2",
+      "ep": null,
+      "betrag": null,
+      "chapter": null,
+      "matched_artikel": null,
+      "confidence": null,
+      "requires_review": false,
+      "begruendung": ""
+    },
+    {
+      "pos_nr": "241712000000",
+      "text": "Erdaushub Bodenklasse 3 mittels Bagger",
+      "menge": 64.0,
+      "einheit": "m3",
+      "ep": null,
+      "betrag": null,
+      "chapter": null,
+      "matched_artikel": null,
+      "confidence": null,
+      "requires_review": false,
+      "begruendung": ""
+    },
+    {
+      "pos_nr": "242101000000",
+      "text": "Mauerwerk Kalksandstein 24 cm MG II",
+      "menge": 142.0,
+      "einheit": "m2",
+      "ep": null,
+      "betrag": null,
+      "chapter": null,
+      "matched_artikel": null,
+      "confidence": null,
+      "requires_review": false,
+      "begruendung": ""
+    },
+    {
+      "pos_nr": "242401000000",
+      "text": "Wand aus Hochlochziegel 11.5 cm verputzt",
+      "menge": 38.0,
+      "einheit": "m2",
+      "ep": null,
+      "betrag": null,
+      "chapter": null,
+      "matched_artikel": null,
+      "confidence": null,
+      "requires_review": false,
+      "begruendung": ""
+    },
+    {
+      "pos_nr": "243101000000",
+      "text": "Aussenputz Mineralputz Koernung 2 mm",
+      "menge": 210.0,
+      "einheit": "m2",
+      "ep": null,
+      "betrag": null,
+      "chapter": null,
+      "matched_artikel": null,
+      "confidence": null,
+      "requires_review": false,
+      "begruendung": ""
+    },
+    {
+      "pos_nr": "243201000000",
+      "text": "Innenputz Kalkputz einlagig",
+      "menge": 340.0,
+      "einheit": "m2",
+      "ep": null,
+      "betrag": null,
+      "chapter": null,
+      "matched_artikel": null,
+      "confidence": null,
+      "requires_review": false,
+      "begruendung": ""
+    },
+    {
+      "pos_nr": "244101000000",
+      "text": "Bodenbelag Keramik 30x30 cm verlegt",
+      "menge": 185.0,
+      "einheit": "m2",
+      "ep": null,
+      "betrag": null,
+      "chapter": null,
+      "matched_artikel": null,
+      "confidence": null,
+      "requires_review": false,
+      "begruendung": ""
+    },
+    {
+      "pos_nr": "244301000000",
+      "text": "Trennlage Entkopplung Boden",
+      "menge": 185.0,
+      "einheit": "m2",
+      "ep": null,
+      "betrag": null,
+      "chapter": null,
+      "matched_artikel": null,
+      "confidence": null,
+      "requires_review": false,
+      "begruendung": ""
+    },
+    {
+      "pos_nr": "251201000000",
+      "text": "Unterlagsboden Holzwerkstoff 22 mm",
+      "menge": 165.0,
+      "einheit": "m2",
+      "ep": null,
+      "betrag": null,
+      "chapter": null,
+      "matched_artikel": null,
+      "confidence": null,
+      "requires_review": false,
+      "begruendung": ""
+    },
+    {
+      "pos_nr": "251501000000",
+      "text": "Holzstaenderwand beidseitig beplankt",
+      "menge": 72.0,
+      "einheit": "m2",
+      "ep": null,
+      "betrag": null,
+      "chapter": null,
+      "matched_artikel": null,
+      "confidence": null,
+      "requires_review": false,
+      "begruendung": ""
+    },
+    {
+      "pos_nr": "252401000000",
+      "text": "Dacheindeckung Ziegeldach neu verlegen",
+      "menge": 240.0,
+      "einheit": "m2",
+      "ep": null,
+      "betrag": null,
+      "chapter": null,
+      "matched_artikel": null,
+      "confidence": null,
+      "requires_review": false,
+      "begruendung": ""
+    },
+    {
+      "pos_nr": "252101000000",
+      "text": "Dachabdichtung Bitumen 2-lagig",
+      "menge": 95.0,
+      "einheit": "m2",
+      "ep": null,
+      "betrag": null,
+      "chapter": null,
+      "matched_artikel": null,
+      "confidence": null,
+      "requires_review": false,
+      "begruendung": ""
+    },
+    {
+      "pos_nr": "255101000000",
+      "text": "Innentuer BLT Massivholz 2-fluegelig",
+      "menge": 12.0,
+      "einheit": "Stk",
+      "ep": null,
+      "betrag": null,
+      "chapter": null,
+      "matched_artikel": null,
+      "confidence": null,
+      "requires_review": false,
+      "begruendung": ""
+    },
+    {
+      "pos_nr": "255301000000",
+      "text": "Fenster Kunststoff 3-fach Verglasung",
+      "menge": 28.0,
+      "einheit": "Stk",
+      "ep": null,
+      "betrag": null,
+      "chapter": null,
+      "matched_artikel": null,
+      "confidence": null,
+      "requires_review": false,
+      "begruendung": ""
+    },
+    {
+      "pos_nr": "255601000000",
+      "text": "Einbauschrank nach Mass furniert",
+      "menge": 9.0,
+      "einheit": "m2",
+      "ep": null,
+      "betrag": null,
+      "chapter": null,
+      "matched_artikel": null,
+      "confidence": null,
+      "requires_review": false,
+      "begruendung": ""
+    },
+    {
+      "pos_nr": "261101000000",
+      "text": "Elektro Grundausbau pro WE",
+      "menge": 14.0,
+      "einheit": "Stk",
+      "ep": null,
+      "betrag": null,
+      "chapter": null,
+      "matched_artikel": null,
+      "confidence": null,
+      "requires_review": false,
+      "begruendung": ""
+    },
+    {
+      "pos_nr": "261501000000",
+      "text": "Steckdose Unterputz installiert",
+      "menge": 120.0,
+      "einheit": "Stk",
+      "ep": null,
+      "betrag": null,
+      "chapter": null,
+      "matched_artikel": null,
+      "confidence": null,
+      "requires_review": false,
+      "begruendung": ""
+    },
+    {
+      "pos_nr": "261521000000",
+      "text": "Lichtschalter Unterputz installiert",
+      "menge": 64.0,
+      "einheit": "Stk",
+      "ep": null,
+      "betrag": null,
+      "chapter": null,
+      "matched_artikel": null,
+      "confidence": null,
+      "requires_review": false,
+      "begruendung": ""
+    },
+    {
+      "pos_nr": "261601000000",
+      "text": "LED-Deckenleuchte inkl Montage",
+      "menge": 48.0,
+      "einheit": "Stk",
+      "ep": null,
+      "betrag": null,
+      "chapter": null,
+      "matched_artikel": null,
+      "confidence": null,
+      "requires_review": false,
+      "begruendung": ""
+    },
+    {
+      "pos_nr": "263101000000",
+      "text": "Sanitaer Grundausbau pro WE",
+      "menge": 14.0,
+      "einheit": "Stk",
+      "ep": null,
+      "betrag": null,
+      "chapter": null,
+      "matched_artikel": null,
+      "confidence": null,
+      "requires_review": false,
+      "begruendung": ""
+    },
+    {
+      "pos_nr": "263201000000",
+      "text": "Wandtiefspueler WC komplett montiert",
+      "menge": 18.0,
+      "einheit": "Stk",
+      "ep": null,
+      "betrag": null,
+      "chapter": null,
+      "matched_artikel": null,
+      "confidence": null,
+      "requires_review": false,
+      "begruendung": ""
+    },
+    {
+      "pos_nr": "263301000000",
+      "text": "Waschtisch 60 cm mit Armatur",
+      "menge": 22.0,
+      "einheit": "Stk",
+      "ep": null,
+      "betrag": null,
+      "chapter": null,
+      "matched_artikel": null,
+      "confidence": null,
+      "requires_review": false,
+      "begruendung": ""
+    },
+    {
+      "pos_nr": "263401000000",
+      "text": "Dusche bodengleich inkl Ablauf",
+      "menge": 16.0,
+      "einheit": "Stk",
+      "ep": null,
+      "betrag": null,
+      "chapter": null,
+      "matched_artikel": null,
+      "confidence": null,
+      "requires_review": false,
+      "begruendung": ""
+    },
+    {
+      "pos_nr": "271101000000",
+      "text": "Innenanstrich Wand 2x Dispersion",
+      "menge": 520.0,
+      "einheit": "m2",
+      "ep": null,
+      "betrag": null,
+      "chapter": null,
+      "matched_artikel": null,
+      "confidence": null,
+      "requires_review": false,
+      "begruendung": ""
+    },
+    {
+      "pos_nr": "271201000000",
+      "text": "Aussenanstrich Fassade 2 Anstriche",
+      "menge": 210.0,
+      "einheit": "m2",
+      "ep": null,
+      "betrag": null,
+      "chapter": null,
+      "matched_artikel": null,
+      "confidence": null,
+      "requires_review": false,
+      "begruendung": ""
+    },
+    {
+      "pos_nr": "271501000000",
+      "text": "Anstrich Holzbauteile lasierend",
+      "menge": 60.0,
+      "einheit": "m2",
+      "ep": null,
+      "betrag": null,
+      "chapter": null,
+      "matched_artikel": null,
+      "confidence": null,
+      "requires_review": false,
+      "begruendung": ""
+    },
+    {
+      "pos_nr": "288900000000",
+      "text": "Photovoltaikanlage 8 kWp auf Flachdach",
+      "menge": 1.0,
+      "einheit": "Stk",
+      "ep": null,
+      "betrag": null,
+      "chapter": null,
+      "matched_artikel": null,
+      "confidence": null,
+      "requires_review": false,
+      "begruendung": ""
+    },
+    {
+      "pos_nr": "299100000000",
+      "text": "Baustellenbewachung mit Webcam",
+      "menge": 1.0,
+      "einheit": "Pauschal",
+      "ep": null,
+      "betrag": null,
+      "chapter": null,
+      "matched_artikel": null,
+      "confidence": null,
+      "requires_review": false,
+      "begruendung": ""
+    }
+  ]
+}

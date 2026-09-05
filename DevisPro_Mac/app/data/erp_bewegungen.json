@@ -1,0 +1,18 @@
+[
+  {
+    "datum": "2026-08-13",
+    "artikel_nr": "A-001",
+    "typ": "wareneingang",
+    "menge": 10.0,
+    "ref": "",
+    "notiz": ""
+  },
+  {
+    "datum": "2026-08-13",
+    "artikel_nr": "A-001",
+    "typ": "wareneingang",
+    "menge": -14.0,
+    "ref": "",
+    "notiz": ""
+  }
+]

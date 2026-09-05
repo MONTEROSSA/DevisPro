@@ -1,0 +1,9 @@
+{
+  "id": "devis_0005",
+  "name": "Import",
+  "datum": "2026-08-11 21:43",
+  "netto": 120.0,
+  "status": "offen",
+  "method": "mock",
+  "kanton": "ZH"
+}

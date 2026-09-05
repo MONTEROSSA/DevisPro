@@ -1,0 +1,31 @@
+artikel_id,bezeichnung,npk,einheit,ep_chf,kategorie
+GEL-0001,Abbruch unbewehrter Beton bis 20 cm,,m3,120.00,allgemein
+GEL-0002,Erstellen von Beton C25/30 Ortbeton,,m2,32.00,allgemein
+GEL-0003,Erdaushub Bodenklasse 3 mittels Bagger,,m3,95.00,allgemein
+GEL-0004,Mauerwerk Kalksandstein 24 cm MG II,,m2,32.00,allgemein
+GEL-0005,Wand aus Hochlochziegel 11.5 cm verputzt,,m2,95.00,allgemein
+GEL-0006,Aussenputz Mineralputz Koernung 2 mm,,m2,95.00,allgemein
+GEL-0007,Innenputz Kalkputz einlagig,,m2,35.00,allgemein
+GEL-0008,Bodenbelag Keramik 30x30 cm verlegt,,m2,120.00,allgemein
+GEL-0009,Trennlage Entkopplung Boden,,m2,95.00,allgemein
+GEL-0010,Unterlagsboden Holzwerkstoff 22 mm,,m2,120.00,allgemein
+GEL-0011,Holzstaenderwand beidseitig beplankt,,m2,85.00,allgemein
+GEL-0012,Dacheindeckung Ziegeldach neu verlegen,,m2,120.00,allgemein
+GEL-0013,Dachabdichtung Bitumen 2-lagig,,m2,32.00,allgemein
+GEL-0014,Innentuer BLT Massivholz 2-fluegelig,,Stk,35.00,allgemein
+GEL-0015,Fenster Kunststoff 3-fach Verglasung,,Stk,35.00,allgemein
+GEL-0016,Einbauschrank nach Mass furniert,,m2,35.00,allgemein
+GEL-0017,Elektro Grundausbau pro WE,,Stk,35.00,allgemein
+GEL-0018,Steckdose Unterputz installiert,,Stk,85.00,allgemein
+GEL-0019,Lichtschalter Unterputz installiert,,Stk,28.00,allgemein
+GEL-0020,LED-Deckenleuchte inkl Montage,,Stk,32.00,allgemein
+GEL-0021,Sanitaer Grundausbau pro WE,,Stk,85.00,allgemein
+GEL-0022,Wandtiefspueler WC komplett montiert,,Stk,95.00,allgemein
+GEL-0023,Waschtisch 60 cm mit Armatur,,Stk,35.00,allgemein
+GEL-0024,Dusche bodengleich inkl Ablauf,,Stk,32.00,allgemein
+GEL-0025,Innenanstrich Wand 2x Dispersion,,m2,35.00,allgemein
+GEL-0026,Aussenanstrich Fassade 2 Anstriche,,m2,35.00,allgemein
+GEL-0027,Anstrich Holzbauteile lasierend,,m2,35.00,allgemein
+GEL-0028,Photovoltaikanlage 8 kWp auf Flachdach,,Stk,35.00,allgemein
+GEL-0029,Baustellenbewachung mit Webcam,,Pauschal,28.00,allgemein
+GEL-0029,Baustellenbewachung mit Webcam,,Paus,28.00,allgemein

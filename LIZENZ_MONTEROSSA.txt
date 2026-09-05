@@ -1,0 +1,49 @@
+DevisPro – Lizenz- und Nutzungsbedingungen
+===========================================
+Ein Produkt der Monterossa AG, Schweiz · info@monterossa.ch · devispro.ch
+
+1. LIZENZGEGENSTAND
+-------------------
+DevisPro ist eine lokal installierte Software zur automatischen Bepreisung
+von SIA-451-Devis (Sorba-Import kompatibel) für Schweizer Bau-KMU.
+
+2. LIZENZMODELL
+---------------
+• Einmalkauf: 2'400 CHF (lokale Installation beim KMU).
+• Jahresgebühr: 990 CHF (Wartung, Updates, Benchmark-Netzwerk).
+• Pilot: 3 Monate gratis (erst nach Eingabe von Firma + E-Mail),
+  danach 500 CHF Rabatt auf die erste Jahresgebühr.
+• Die Lizenz ist an einem Standort gebunden und ohne jährlichen
+  Freischalt-Code nicht nutzbar (RSA-signiert).
+• Nach Zahlungseingang bestätigt der Anbieter und stellt den
+  Freischalt-Code automatisch aus.
+
+3. NUTZUNGSRECHTE
+-----------------
+Dem KMU wird ein einfaches, nicht übertragbares Recht eingeräumt,
+DevisPro am lizenzierten Standort zu betreiben. Eine Mehrfach- oder
+Netzwerknutzung über den Standort hinaus bedarf einer separaten
+Lizenzvereinbarung.
+
+4. KEIN RECHT AUF QUELLCODE
+---------------------------
+Der Quellcode bleibt Eigentum der Monterossa AG. Ein Einsichts- oder
+Änderungsrecht des KMU besteht nicht, sofern nicht separat vertraglich
+vereinbart (z.B. White-Label-Partner).
+
+5. GEWÄHRLEISTUNG
+-----------------
+DevisPro wird «wie vorhanden» geliefert. Die Berechnungen sind als
+Hilfsmittel gedacht; die fachliche Prüfung durch das KMU bleibt
+verbindlich. Haftung auf Fehlerfolgeschäden ist ausgeschlossen.
+
+6. DATENSCHUTZ
+--------------
+DevisPro verarbeitet alle Kundendaten ausschliesslich lokal. Es werden
+keine Daten an Dritte oder in die Cloud übertragen.
+
+7. SUPPORT
+----------
+info@monterossa.ch · Antwort werktags innert 1 Werktag.
+
+© Monterossa AG. Alle Rechte vorbehalten.

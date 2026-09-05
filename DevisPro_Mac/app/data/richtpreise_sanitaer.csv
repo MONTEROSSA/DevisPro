@@ -1,0 +1,28 @@
+artikel_id,bezeichnung,npk,einheit,ep_chf,kategorie
+S-4011,Wasserleitung PE verlegen,4011,m,28.0,Sanitaer
+S-4012,Wasserleitung Kupfer,4012,m,42.0,Sanitaer
+S-4013,Steigleitung,4013,m,55.0,Sanitaer
+S-4021,Abwasserleitung KG,4021,m,35.0,Sanitaer
+S-4022,Fallrohr,4022,m,30.0,Sanitaer
+S-4023,Gebaeudeentwaesserung,4023,m,48.0,Sanitaer
+S-4031,Gasleitung,4031,m,38.0,Sanitaer
+S-4041,Absperrarmatur,4041,Stk,65.0,Sanitaer
+S-4042,Rueckschlagventil,4042,Stk,85.0,Sanitaer
+S-4051,WC Keramik,4051,Stk,320.0,Sanitaer
+S-4052,Lavabo,4052,Stk,280.0,Sanitaer
+S-4053,Badewanne,4053,Stk,950.0,Sanitaer
+S-4054,Dusche komplett,4054,Stk,680.0,Sanitaer
+S-4055,Urinal,4055,Stk,350.0,Sanitaer
+S-4061,Pumpe Grundfos,4061,Stk,450.0,Sanitaer
+S-4062,Zirkulationspumpe,4062,Stk,380.0,Sanitaer
+S-4071,Rohrreinigung,4071,Stk,90.0,Sanitaer
+S-4081,Dichtungssatz,4081,Stk,12.0,Sanitaer
+S-4091,Rohrisolierung,4091,m,8.5,Sanitaer
+S-9001,Pressfitting,9001,Stk,6.5,Sanitaer
+S-9002,Kupferrohr 22mm,9002,m,9.8,Sanitaer
+S-9003,KG-Rohr 110,9003,m,14.5,Sanitaer
+S-9004,Sanitaerzelle komplett,9004,Stk,1800.0,Sanitaer
+S-9005,Silikon,9005,Stk,8.0,Sanitaer
+S-9006,Anfahrt / Auswaerts,9006,Pauschal,120.0,Sanitaer
+S-9007,Stundenlohn Installateur,9007,h,88.0,Sanitaer
+S-9008,Entsorgung Altbestand,9008,Pauschal,50.0,Sanitaer
