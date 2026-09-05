@@ -1,0 +1,5 @@
+# Crontab-Eintraege fuer DevisPro Backup-System
+# Jeden Tag um 02:00 Backup erstellen + auf VPS hochladen
+0 2 * * * bash /Users/ferdinandrothlisberger/devis-auto/DevisPro_Backup_VPS.sh >> /Users/ferdinandrothlisberger/devispro_backup_cron.log 2>&1
+# Jede Stunde pruefen ob Backup-Verzeichnis genug Platz hat (clean up alte Backups)
+0 * * * * ssh -i /Users/ferdinandrothlisberger/devis-auto/_vps_key -o StrictHostKeyChecking=no root@187.77.79.26 "cd /var/www/devispro/backups_userdata && ls -t *.dpbk.* 2>/dev/null | tail -n +31 | xargs -r rm -f"
