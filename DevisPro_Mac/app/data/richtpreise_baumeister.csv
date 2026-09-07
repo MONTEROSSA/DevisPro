@@ -1,0 +1,29 @@
+artikel_id,bezeichnung,npk,einheit,ep_chf,kategorie
+B-2111,Aushub Boden mechanisch,2111,m3,18.5,Baumeister
+B-2112,Bodenaushub,2112,m3,22.0,Baumeister
+B-2121,Erdplanum,2121,m2,4.5,Baumeister
+B-2131,Baugrubenverbau,2131,m2,14.0,Baumeister
+B-2211,Abbruch Mauerwerk,2211,m3,45.0,Baumeister
+B-2212,Abbruch Beton,2212,m3,55.0,Baumeister
+B-2221,Entsorgung Bauschutt,2221,t,35.0,Baumeister
+B-2311,Fundament betonieren,2311,m3,185.0,Baumeister
+B-2312,Stahlbeton C25/30,2312,m3,240.0,Baumeister
+B-2321,Schalung Holz,2321,m2,38.0,Baumeister
+B-2331,Bewehrung B500,2331,kg,1.85,Baumeister
+B-2341,Beton glaetten,2341,m2,12.0,Baumeister
+B-2411,Mauerwerk Ziegel 24cm,2411,m2,95.0,Baumeister
+B-2412,Mauerwerk Kalksandstein,2412,m2,88.0,Baumeister
+B-2413,Mauerwerk Porenbeton,2413,m2,82.0,Baumeister
+B-2421,Maurermoertel,2421,m2,6.5,Baumeister
+B-2431,Stuerze / Stoecke,2431,Stk,45.0,Baumeister
+B-2441,Perimeterdaemmung,2441,m2,42.0,Baumeister
+B-2511,Betonwerkstein Platten,2511,m2,65.0,Baumeister
+B-2512,Betonwerkstein Treppe,2512,Stk,850.0,Baumeister
+B-9001,Kies 0-32,9001,m3,28.0,Baumeister
+B-9002,Zement Sack 25kg,9002,Sack,9.5,Baumeister
+B-9003,Baustahl B500,9003,kg,1.45,Baumeister
+B-9004,Schalholz,9004,m2,12.0,Baumeister
+B-9005,Anfahrt / Auswaerts,9005,Pauschal,120.0,Baumeister
+B-9006,Gerueststellung Tag,9006,Tag,85.0,Baumeister
+B-9007,Stundenlohn Geselle,9007,h,78.0,Baumeister
+B-9008,Entsorgung Bauschutt pauschal,9008,Pauschal,60.0,Baumeister

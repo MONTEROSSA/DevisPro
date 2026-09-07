@@ -1,0 +1,72 @@
+SSIA451  CHF8.1  2026-03-12
+ABauherrschafStiftung Wohnen Zuerich                 Wiedikerstrasse 123                     8003 Zuerich                  
+APlanung     Architektur Blatt & Stein AG            Förrlibuckstrasse 45                    8005 Zuerich                  
+L1241       Baumeisterarbeiten                                
+L1242       Maurerarbeiten                                    
+L1243       Putzerarbeiten                                    
+L1244       Bodenbelagsarbeiten                               
+L1251       Zimmereiarbeiten                                  
+L1252       Dachdeckerarbeiten                                
+L1255       Schreinerarbeiten                                 
+L1261       Elektroinstallationen                             
+L1263       Sanitaere Arbeiten                                
+L1271       Anstricharbeiten                                  
+T241.1110    Abbruch von unbewehrtem Beton, Staerke bis 20 cm                                
+P241.1110    18.50       m3                                
+T241.2110    Erstellen von Beton C25/30, Ortbeton                                            
+P241.2110    96.00       m2                                
+T241.7120    Erdaushub Bodenklasse 3, mittels Bagger                                         
+P241.7120    64.00       m3                                
+T242.1010    Mauerwerk aus Kalksandstein 24 cm, in Mörtelgruppe II                           
+P242.1010    142.00      m2                                
+T242.4010    Wand aus Hochlochziegel 11.5 cm, verputzt                                       
+P242.4010    38.00       m2                                
+T243.1010    Aussenputz Mineralputz, Körnung 2 mm                                            
+P243.1010    210.00      m2                                
+T243.2010    Innenputz Kalkputz, einlagig                                                    
+P243.2010    340.00      m2                                
+T244.1010    Bodenbelag aus Keramikplatten 30x30 cm, verlegt                                 
+P244.1010    185.00      m2                                
+T244.3010    Trennlagen / Entkopplung Boden                                                  
+P244.3010    185.00      m2                                
+T251.2010    Unterlagsboden aus Holzwerkstoff, 22 mm                                         
+P251.2010    165.00      m2                                
+T251.5010    Holzständerwand beidseitig beplankt                                             
+P251.5010    72.00       m2                                
+T252.4010    Dacheindeckung Ziegeldach, neu verlegen                                         
+P252.4010    240.00      m2                                
+T252.1010    Dachabdichtung Bitumen, 2-lagig                                                 
+P252.1010    95.00       m2                                
+T255.1010    Innentür BLT, Massivholz, 2-flügelig                                            
+P255.1010    12.00       Stk                               
+T255.3010    Fenster Kunststoff, 3-fach Verglasung                                           
+P255.3010    28.00       Stk                               
+T255.6010    Einbauschrank nach Mass, furniert                                               
+P255.6010    9.00        m2                                
+T261.1010    Elektroinstallation Grundausbau pro WE                                          
+P261.1010    14.00       Stk                               
+T261.5010    Steckdose Unterputz, installiert                                                
+P261.5010    120.00      Stk                               
+T261.5210    Lichtschalter Unterputz, installiert                                            
+P261.5210    64.00       Stk                               
+T261.6010    LED-Deckenleuchte inkl. Montage                                                 
+P261.6010    48.00       Stk                               
+T263.1010    Sanitärinstallation Grundausbau pro WE                                          
+P263.1010    14.00       Stk                               
+T263.2010    Wandtiefspüler WC, komplett montiert                                            
+P263.2010    18.00       Stk                               
+T263.3010    Waschtisch 60 cm mit Armatur                                                    
+P263.3010    22.00       Stk                               
+T263.4010    Dusche bodengleich, inkl. Ablauf                                                
+P263.4010    16.00       Stk                               
+T271.1010    Innenanstrich Wand, 2 Anstriche Dispersion                                      
+P271.1010    520.00      m2                                
+T271.2010    Aussenanstrich Fassade, 2 Anstriche                                             
+P271.2010    210.00      m2                                
+T271.5010    Anstrich Holzbauteile, lasierend                                                
+P271.5010    60.00       m2                                
+T288.9000    Photovoltaikanlage 8 kWp auf Flachdach                                          
+P288.9000    1.00        Stk                               
+T299.1000    Baustellenbewachung mit Webcam                                                  
+P299.1000    1.00        Pauschal                          
+E

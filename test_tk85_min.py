@@ -1,0 +1,12 @@
+import subprocess, sys, time, tkinter as tk
+# minimales fenster mit system python (tk 8.5)
+root = tk.Tk()
+root.title("TEST TK85")
+root.geometry("400x300")
+tk.Label(root, text="Hallo").pack()
+root.update_idletasks()
+print("winfo_exists:", root.winfo_exists())
+print("winfo_viewable:", root.winfo_viewable())
+print("groesse:", root.winfo_width(), "x", root.winfo_height())
+root.quit(); root.destroy()
+print("FERTIG")

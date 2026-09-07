@@ -1,0 +1,7 @@
+PosNr;Titel;Kurztext;Einheit;Preis;Hauptgruppe;Untergruppe;Kanton;Region
+01.01.01;Aushub maschinell, weicher Boden;Aushub weich;m3;28.50;Erdarbeiten;Aushub;ZH;Mittelland
+01.01.02;Aushub maschinell, harter Boden;Aushub hart;m3;42.00;Erdarbeiten;Aushub;BE;Mittelland
+02.01.01;Beton C30/37, SIA 262;Beton C30/37;m3;210.00;Betonarbeiten;Sichtbeton;ZH;Mittelland
+02.01.02;Beton C35/45, SIA 262;Beton C35/45;m3;225.00;Betonarbeiten;Sichtbeton;ZH;Mittelland
+03.01.01;Mauerwerk Kalksandstein 20 N/mm²;KS 20;m2;92.00;Mauerwerk;Kalksandstein;ZH;Mittelland
+03.01.02;Mauerwerk Hochlochziegel 12 N/mm²;HLZ 12;m2;78.00;Mauerwerk;Ziegel;BE;Mittelland

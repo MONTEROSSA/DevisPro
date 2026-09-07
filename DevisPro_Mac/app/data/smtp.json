@@ -1,0 +1,8 @@
+{
+  "host": "",
+  "user": "",
+  "pass": "",
+  "von": "info@devispro.de",
+  "port": 465,
+  "tls": "ssl"
+}

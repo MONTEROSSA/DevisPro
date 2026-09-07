@@ -1,0 +1,27 @@
+[
+  {
+    "nr": "RECH-00001",
+    "typ": "rechnung",
+    "partner_nr": "K-001",
+    "partner_name": "Bau AG",
+    "datum": "2026-08-13",
+    "faellig": "2026-09-12",
+    "positionen": [
+      {
+        "artikel_nr": "A-001",
+        "bezeichnung": "Beton",
+        "menge": 2,
+        "einheit": "m3",
+        "ep": 180.0,
+        "rabatt_pct": 0.0,
+        "mwst_satz": "normale",
+        "betrag": 360.0
+      }
+    ],
+    "zahlungen": [],
+    "bezahlt": false,
+    "projekt": "",
+    "notiz": "",
+    "status": ""
+  }
+]

@@ -1,0 +1,28 @@
+artikel_id,bezeichnung,npk,einheit,ep_chf,kategorie
+F-3111,Fenster Kunststoff 1-fluegelig,3111,Stk,320.0,FensterTueren
+F-3112,Fenster Kunststoff 2-fluegelig,3112,Stk,520.0,FensterTueren
+F-3113,Fenster Holz,3113,Stk,480.0,FensterTueren
+F-3114,Fenster Alu/Metall,3114,Stk,680.0,FensterTueren
+F-3121,Fenstertausch inkl. Einbau,3121,Stk,180.0,FensterTueren
+F-3131,Isolierglas Verglasung,3131,m2,95.0,FensterTueren
+F-3141,Fensterbank aussen,3141,m,28.0,FensterTueren
+F-3151,Rollladen elektrisch,3151,Stk,240.0,FensterTueren
+F-3161,Insektenschutz,3161,Stk,85.0,FensterTueren
+F-3211,Tuer Holz innen,3211,Stk,380.0,FensterTueren
+F-3212,Tuer Massiv Eiche,3212,Stk,650.0,FensterTueren
+F-3221,Aussentuer Alu,3221,Stk,980.0,FensterTueren
+F-3222,Garagentor elektrisch,3222,Stk,1500.0,FensterTueren
+F-3231,Tuerfutter,3231,Stk,95.0,FensterTueren
+F-3241,Tuerzarge Stahl,3241,Stk,120.0,FensterTueren
+F-3251,Tuerblatt austauschen,3251,Stk,220.0,FensterTueren
+F-3261,Tuer-Schloss,3261,Stk,85.0,FensterTueren
+F-3271,Torantrieb,3271,Stk,650.0,FensterTueren
+F-3311,Schiebetor,3311,Stk,1800.0,FensterTueren
+F-3321,Sektionaltor,3321,Stk,2200.0,FensterTueren
+F-9001,Dichtungsprofil,9001,m,3.5,FensterTueren
+F-9002,Beschlag,9002,Stk,45.0,FensterTueren
+F-9003,Isolierglas 2-fach,9003,m2,75.0,FensterTueren
+F-9004,Silikon,9004,Stk,8.0,FensterTueren
+F-9005,Anfahrt / Auswaerts,9005,Pauschal,120.0,FensterTueren
+F-9006,Stundenlohn Monteur,9006,h,82.0,FensterTueren
+F-9007,Entsorgung Altfluegel,9007,Pauschal,60.0,FensterTueren

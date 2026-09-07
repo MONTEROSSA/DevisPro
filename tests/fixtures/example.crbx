@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CRB Version="2.0">
+  <Kopf>
+    <Projekt>Sanierung Villenstrasse 12, Zuerich</Projekt>
+    <ProjektNr>2026-084</ProjektNr>
+  </Kopf>
+  <Positionen>
+    <Position PosArt="Z">
+      <PosNr>1</PosNr>
+      <Bezeichnung>Malerarbeiten</Bezeichnung>
+    </Position>
+    <Position PosArt="E">
+      <PosNr>1.1</PosNr>
+      <Bezeichnung><Text>Innenanstrich Wand 2 Anstriche</Text></Bezeichnung>
+      <Menge>40.000</Menge>
+      <Einheit>m2</Einheit>
+      <EPreis>35.00</EPreis>
+      <BPreis>1400.00</BPreis>
+    </Position>
+    <Position PosArt="E">
+      <PosNr>1.2</PosNr>
+      <Bezeichnung>Spachteln und Grundieren</Bezeichnung>
+      <Menge>20.000</Menge>
+      <Einheit>m2</Einheit>
+      <EPreis>28.50</EPreis>
+    </Position>
+    <Position>
+      <PosNr>2</PosNr>
+      <Bezeichnung>Gerueststellung</Bezeichnung>
+      <Menge>1.000</Menge>
+      <Einheit>Pauschal</Einheit>
+      <EPreis>850.00</EPreis>
+      <BPreis>850.00</BPreis>
+    </Position>
+  </Positionen>
+</CRB>

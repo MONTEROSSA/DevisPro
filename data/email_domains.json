@@ -1,0 +1,11 @@
+{
+  "default_sender": "info@devispro.de",
+  "aktiv": ["devispro.de", "monterossa.ch"],
+  "hinweis": "info@devispro.de ist die Haupt-Mailadresse des Kunden (Hostinger). info@monterossa.ch ist die Firmenmail der Monterossa AG. devispro.ch gehoert dem Kunden NICHT und wird nicht als Absender verwendet.",
+  "mx_ziel": "mx1.hostinger.com / mx2.hostinger.com (Prioritaet 5/10)",
+  "spf": "v=spf1 include:_spf.mail.hostinger.com ~all  [Typ: TXT, Name: @]",
+  "dkim": "Hostinger liefert 3 CNAME-Eintraege (hostingermail-a/b/c._domainkey.devispro.de -> *.dkim.mail.hostinger.com). Automatisch im hPanel angelegt.",
+  "dmarc": "v=DMARC1; p=quarantine; rua=mailto:info@devispro.de  [Typ: TXT, Name: _dmarc]  (aktuell in Hostinger: p=none)",
+  "imap": "imap.hostinger.com:993 (SSL), Nutzer info@devispro.de",
+  "smtp": "smtp.hostinger.com:465 (SSL), Nutzer info@devispro.de"
+}

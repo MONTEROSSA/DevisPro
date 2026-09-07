@@ -1,0 +1,25 @@
+# DevisPro — Erste Schritte (macOS)
+
+## 1. Entpacken
+DevisPro_Mac.zip entpacken (Doppelklick). Es entsteht der Ordner „DevisPro_Mac“.
+
+## 2. Starten
+Im Ordner „DevisPro_Mac“ die Datei **Installieren.command** starten:
+
+- **Einfachster Weg:** Rechtsklick auf „Installieren.command“ → **„Öffnen“** → im erscheinenden
+  Dialog **„Trotzdem öffnen“** klicken.
+  (Beim allerersten Start fragt macOS aus Sicherheitsgründen nach — das ist normal für
+  nicht im App-Store veröffentlichte Programme. Ein Klick auf „Öffnen“ genügt, danach
+  merkt sich macOS die Freigabe.)
+
+- **Alternative (Terminal):** Im Ordner „DevisPro_Mac“ ein Terminal öffnen und eingeben:
+  `bash Installieren.command`
+
+## 3. Nutzen
+DevisPro öffnet automatisch im Browser unter:  **http://localhost:5070**
+Dort Devis importieren, bepreisen, ERP testen, Bedienungsanleitung öffnen.
+
+Alle Daten bleiben lokal auf Ihrem Mac (DSGVO-konform, keine Cloud).
+
+## Support
+Monterossa AG · info@devispro.de · www.monterossa.ch

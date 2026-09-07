@@ -1,0 +1,70 @@
+#!/usr/bin/env python3
+import subprocess, os, plistlib, shutil, glob
+
+KEYCHAIN=os.path.expanduser("~/Library/Keychains/devispro3.keychain-db")
+PW="devispro2026"
+CERT="Developer ID Application: Ferdinand Ferdinand Röthlisberger (T3VS7P5X5D)"
+SRC="/Users/ferdinandrothlisberger/Desktop/DevisPro.app"
+WORK="/Users/ferdinandrothlisberger/devis-auto/_signFIX"
+APP=os.path.join(WORK,"DevisPro.app")
+SIGNED=os.path.join(WORK,"s.zip")
+NOTAR="/Users/ferdinandrothlisberger/devis-auto/DevisPro_Mac_notarized.zip"
+
+def run(cmd):
+    if isinstance(cmd,str): cmd=cmd.split()
+    r=subprocess.run(cmd, capture_output=True, text=True)
+    return r.returncode, r.stdout, r.stderr
+
+print("UNLOCK", run(["security","unlock-keychain","-p",PW,KEYCHAIN])[0]==0)
+
+shutil.rmtree(WORK, ignore_errors=True); os.makedirs(WORK)
+shutil.copytree(SRC, APP)
+nd=os.path.join(APP,"DevisPro.app")
+if os.path.isdir(nd): shutil.rmtree(nd)
+run(["find",APP,"-name","._*","-delete"])
+run(["xattr","-cr",APP])
+
+# APP Info.plist: CFBundlePackageType=APPL (DER FIX)
+ip=os.path.join(APP,"Contents","Info.plist")
+d=plistlib.load(open(ip,"rb"))
+d["CFBundlePackageType"]="APPL"
+plistlib.dump(d, open(ip,"wb"))
+print("APP PackageType:", d.get("CFBundlePackageType"))
+
+# BNDL plists NUR tcl/tk ordner (nicht python3.11)
+RT=os.path.join(APP,"Contents","MacOS","python-runtime","lib")
+for name in ["itcl4.3.5","thread3.0.4","tcl9.0","tk9.0","tcl9","tcl8.6","tk8.5"]:
+    dd=os.path.join(RT,name)
+    if os.path.isdir(dd) and not os.path.exists(os.path.join(dd,"Info.plist")):
+        plistlib.dump({"CFBundleName":name,"CFBundlePackageType":"BNDL","CFBundleInfoDictionaryVersion":"6.0"},
+                      open(os.path.join(dd,"Info.plist"),"wb"))
+print("BNDL OK (nur tcl/tk)")
+
+# binaries einzeln
+for f in glob.glob(APP+"/**/*", recursive=True):
+    if f.endswith((".dylib",".so")) or f.endswith(".framework"):
+        run(["codesign","--force","--options","runtime","--timestamp","--keychain",KEYCHAIN,"-s",CERT,f])
+
+rc,o,e=run(["codesign","--deep","--force","--options","runtime","--timestamp","--keychain",KEYCHAIN,"-s",CERT,APP])
+print("SIGN", "OK" if rc==0 else e[:200])
+
+os.chdir(WORK); run(["rm","-f",SIGNED]); run(["zip","-r","-q",SIGNED,"DevisPro.app"])
+print("zip bytes", os.path.getsize(SIGNED))
+r=subprocess.run(["xcrun","notarytool","submit",SIGNED,"--wait","--apple-id","info@monterossa.ch","--password","mezr-waka-hawr-qbwb","--team-id","T3VS7P5X5D"], capture_output=True, text=True)
+print("NOTARY:", "ACCEPTED" if "status: Accepted" in r.stdout else r.stdout[-300:])
+
+rc,o,e=run(["xcrun","stapler","staple",APP])
+print("STAPLE:", (o or e).strip()[-60:])
+
+if os.path.exists(NOTAR): os.remove(NOTAR)
+run(["zip","-r","-q",NOTAR,"DevisPro.app"])
+print("final bytes", os.path.getsize(NOTAR))
+
+T="/tmp/spFIX"; shutil.rmtree(T, ignore_errors=True); os.makedirs(T); os.chdir(T)
+run(["unzip","-q",NOTAR])
+A=os.path.join(T,"DevisPro.app")
+rc,o,e=run(["spctl","-a","-vv",A])
+ok = "accepted" in o.lower()
+print("SPTCL:", "ACCEPTED" if ok else "REJECTED: "+o.strip()[:200])
+print("SPTCL_RESULT", "PASS" if ok else "FAIL")
+print("DONE")

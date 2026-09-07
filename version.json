@@ -1,0 +1,29 @@
+{
+  "version": "1.6.0",
+  "channel": "stable",
+  "released": "2026-09-07",
+  "download_url": "https://devispro.de",
+  "notes": {
+    "de": [
+      "Stripe-Integration LIVE: 3 echte Online-Zahlungslinks (Solo 79 / Team 249 / Business 599 CHF/Mt) — DevisPro wird zur vollständigen SaaS-Plattform mit Webhook-validierter Lizenz-Aktivierung",
+      "Vollständiger Pay-per-Devis Flow: Stripe-Payment → Webhook → Lizenz-Aktivierung per Email → App aktiviert sich automatisch",
+      "Subscription-Lifecycle: Auto-Cancel, Payment-Failure-Recovery, License-Extension, Replay-safe HMAC-SHA256 Webhook-Signaturen",
+      "10/10 Stripe-Tests grün — Pay-Path in Produktion testbar ohne Live-Key",
+      "Repo-Hygiene: Stripe-Test-Keys sicher aus History entfernt, bleiben lokal erhalten"
+    ],
+    "fr": [
+      "Intégration Stripe EN DIRECT : 3 liens de paiement en ligne (Solo 79 / Team 249 / Business 599 CHF/Mois) — DevisPro devient une plateforme SaaS complète avec activation de licence validée par webhook",
+      "Flux Pay-per-Devis complet : Stripe-Payment → Webhook → activation de licence par email → l'app s'active automatiquement",
+      "Cycle de vie abonnement : annulation automatique, récupération échec paiement, extension licence, signatures webhook HMAC-SHA256 replay-safe",
+      "10/10 tests Stripe verts — Pay-Path testable en production sans clé live",
+      "Hygiène du dépôt : clés de test Stripe retirées de l'historique en toute sécurité, conservées localement"
+    ],
+    "it": [
+      "Integrazione Stripe LIVE: 3 link di pagamento online reali (Solo 79 / Team 249 / Business 599 CHF/Mese) — DevisPro diventa una piattaforma SaaS completa con attivazione licenza validata via webhook",
+      "Flusso Pay-per-Devis completo: Stripe-Payment → Webhook → attivazione licenza via email → app si attiva automaticamente",
+      "Lifecycle abbonamento: auto-cancel, recupero errore pagamento, estensione licenza, firme webhook HMAC-SHA256 replay-safe",
+      "10/10 test Stripe verdi — Pay-Path testabile in produzione senza chiave live",
+      "Igiene del repo: chiavi di test Stripe rimosse dalla cronologia in modo sicuro, conservate localmente"
+    ]
+  }
+}

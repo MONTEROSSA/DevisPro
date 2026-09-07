@@ -1,0 +1,51 @@
+artikel_id,bezeichnung,npk,einheit,ep_chf,kategorie
+M-2401,"Altanstrich entfernen, Spritzverfahren",2411,m2,12.5,Maler
+M-2411,Abbruch / Entfernen Altanstrich Wand,241111,m2,11.8,Maler
+M-2412,"Untergrund reinigen, waschen",2412,m2,6.4,Maler
+M-2421,Alte Tapete abloesen,2421,m2,9.2,Maler
+M-3421,Waende spachteln / glaetten,3421,m2,14.5,Maler
+M-34211,"Wand spachteln, einfach",342110,m2,13.9,Maler
+M-34212,"Wand spachteln, mehrlagig",342120,m2,18.7,Maler
+M-34213,"Risse sichern, Armierungsgewebe",342130,m,7.8,Maler
+M-34213b,Risssanierung / Risse armieren,342130,m,8.4,Maler
+M-3422,Wand grundieren,3422,m2,5.6,Maler
+M-34221,Tiefgrund / Grundierung Wand,342210,m2,5.4,Maler
+M-34222,Isolieranstrich (Nikotin/Schimmel),342220,m2,11.3,Maler
+M-3423,"Innenanstrich Wand, 2-fach",3423,m2,16.9,Maler
+M-34231,Innenanstrich Wand deckend,342310,m2,17.5,Maler
+M-34232,Innenanstrich Decke,342320,m2,18.9,Maler
+M-34233,Farbanstrich strukturiert,342330,m2,22.4,Maler
+M-34234,Latexfarbe glaenzend,342340,m2,19.8,Maler
+M-3424,Altfarbe abwaschen / vorbehandeln,3424,m2,8.9,Maler
+M-34241,"Altfarbe entfernen, manuell",342410,m2,13.2,Maler
+M-3425,Profilieren / Struktur,3425,m,9.5,Maler
+M-34251,Profilieren Stuck / Gesimse,342510,m,10.2,Maler
+M-3426,Abkleben / Schutzmassnahmen,3426,m2,4.1,Maler
+M-34261,Abdecken / Schutz Vorarbeit,342610,Stk,35.0,Maler
+M-34261b,Heizkoerper und Rohre abdecken,342610,Stk,38.0,Maler
+M-3427,"Dispersionsfarbe, hochwertig",3427,m2,21.0,Maler
+M-3428,Wandanstrich strukturiert (Rollputz),3428,m2,24.5,Maler
+M-3429,"Decke weiss, 2-fach",3429,m2,17.0,Maler
+M-3431,"Fassade Aussenanstrich, mineralisch",3431,m2,26.8,Maler
+M-3432,Fassade Dispersionsanstrich,3432,m2,24.5,Maler
+M-3433,Fassade Putz erneuern,3433,m2,32.0,Maler
+M-3441,Holzfenster Anstrich aussen,3441,Stk,48.0,Maler
+M-3442,Tuersims / Holz grundieren,3442,m2,19.5,Maler
+M-3443,"Holz lasieren, 2-fach",3443,m2,28.0,Maler
+M-3451,Metallanstrich (Heizkoerper),3451,Stk,42.0,Maler
+M-3452,Gitter / Zaun streichen,3452,m2,22.5,Maler
+M-3461,"Tapezieren, Vliestapete",3461,m2,14.0,Maler
+M-3462,"Tapezieren, Raufaser",3462,m2,15.5,Maler
+M-3463,"Tapezieren, Glasgewebe",3463,m2,17.0,Maler
+M-3471,Bodenanstrich / Epoxid,3471,m2,29.0,Maler
+M-3481,Beschriftung / Signatur,3481,Stk,65.0,Maler
+M-9001,"Farbe Dispersionsfarbe weiss, inkl. Material",9001,l,18.5,Maler
+M-9002,Grundierung / Tiefgrund,9002,l,14.2,Maler
+M-9003,Spachtelmasse / Gips,9003,kg,2.8,Maler
+M-9004,"Tapete Vlies, mittlere Qualitaet",9004,m2,5.9,Maler
+M-9005,Abdeckfolie / Schutz,9005,m2,1.2,Maler
+M-9006,"Gerueststellung, pro Tag",9006,Tag,85.0,Maler
+M-9007,Anfahrt / Auswaertsentgelt,9007,Pauschal,120.0,Maler
+M-9008,Stundenlohn Geselle,9008,h,78.0,Maler
+M-9009,Stundenlohn Hilfsarbeit,9009,h,52.0,Maler
+M-9010,Entsorgung Farbreste / Abfall,9010,Pauschal,45.0,Maler

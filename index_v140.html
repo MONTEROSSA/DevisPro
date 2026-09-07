@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="de-CH">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DevisPro — Devis in Minuten statt Stunden. SIA-451-Import für Schweizer Bau-KMU</title>
+<meta name="description" content="DevisPro v1.4.0: Importiert Ihr Architekten-Devis (SIA-451, Sorba, GAEB), füllt automatisch mit Ihren Preisen, ergänzt fehlende Positionen mit CH-Marktrichtpreisen. 4 Profit-Module: Verbandskataloge NPK/BKS/HLKS/CRB, Cloud-Sync, ERP-Ecosystem, Marktplatz. Offerte in 5 Minuten statt 3–4 Stunden. Daten bleiben lokal.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0D1117;
+  --bg2:#161B22;
+  --card:rgba(255,255,255,.045);
+  --card-border:rgba(255,255,255,.09);
+  --anthrazit:#1F2933;
+  --text:#E8EDF2;
+  --muted:#9BA7B4;
+  --orange:#FF6A1A;
+  --amber:#FFB347;
+  --gruen:#3DD68C;
+  --mono:'JetBrains Mono',monospace;
+  --head:'Inter Tight',sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;font-size:18px;line-height:1.6;-webkit-font-smoothing:antialiased}
+h1,h2,h3{font-family:var(--head);line-height:1.12;letter-spacing:-.015em}
+.wrap{max-width:1180px;margin:0 auto;padding:0 28px}
+section{padding:96px 0;position:relative}
+.mono{font-family:var(--mono)}
+
+/* ---------- Navbar ---------- */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(13,17,23,.72);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid rgba(255,255,255,.07)}
+.nav-in{max-width:1180px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:70px;padding:0 28px}
+.logo{display:flex;align-items:center;gap:12px;font-family:var(--head);font-weight:700;font-size:22px;color:var(--text);text-decoration:none}
+.logo .ch{color:var(--orange)}
+.logo small{display:block;font-size:9px;color:var(--muted);letter-spacing:.22em;text-transform:uppercase;font-weight:400}
+.nav-links{display:flex;gap:32px;list-style:none}
+.nav-links a{color:var(--muted);text-decoration:none;font-size:15px;font-weight:500;transition:color .25s}
+.nav-links a:hover{color:var(--text)}
+.btn{display:inline-block;border-radius:6px;padding:14px 24px;font-weight:600;font-size:16px;text-decoration:none;transition:transform .25s,background .25s,box-shadow .25s;cursor:pointer;border:none}
+.btn-primary{background:linear-gradient(135deg,var(--orange),#E85A10);color:#fff;box-shadow:0 4px 20px rgba(255,106,26,.35)}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(255,106,26,.5)}
+.btn-ghost{background:rgba(255,255,255,.06);color:var(--text);border:1px solid var(--card-border)}
+.btn-ghost:hover{transform:translateY(-2px);background:rgba(255,255,255,.1)}
+.btn-nav{padding:10px 20px;font-size:15px}
+
+/* ---------- Hero ---------- */
+.hero{padding:180px 0 110px;background:
+ radial-gradient(700px 420px at 78% -8%,rgba(255,106,26,.16),transparent 65%),
+ radial-gradient(520px 380px at 12% 12%,rgba(255,179,71,.07),transparent 60%),
+ linear-gradient(var(--bg),var(--bg))}
+.hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:64px;align-items:center}
+.badge{display:inline-flex;align-items:center;gap:10px;font-family:var(--mono);font-size:13px;color:var(--amber);border:1px solid rgba(255,179,71,.3);background:rgba(255,179,71,.07);padding:7px 14px;border-radius:99px;margin-bottom:26px}
+.badge .dot{width:8px;height:8px;border-radius:50%;background:var(--gruen);animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
+.hero h1{font-size:clamp(38px,4.6vw,58px);font-weight:800}
+.hero h1 em{font-style:normal;background:linear-gradient(90deg,var(--orange),var(--amber));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.hero p.sub{margin:26px 0 36px;font-size:21px;color:var(--muted);max-width:540px}
+.timeflip{display:flex;align-items:center;gap:18px;margin:30px 0 8px;font-family:var(--mono)}
+.tf-box{border:1px solid var(--card-border);background:rgba(255,255,255,.04);border-radius:12px;padding:14px 20px;text-align:center}
+.tf-box .n{font-size:26px;font-weight:600}
+.tf-box .l{font-size:11px;color:var(--muted);letter-spacing:.08em;text-transform:uppercase}
+.tf-old .n{text-decoration:line-through;color:var(--muted)}
+.tf-arrow{font-size:26px;color:var(--orange);animation:nudge 1.6s infinite ease-in-out}
+@keyframes nudge{0%,100%{transform:translateX(0)}50%{transform:translateX(7px)}}
+.tf-new{border-color:rgba(61,214,140,.45);background:rgba(61,214,140,.08)}
+.tf-new .n{color:var(--gruen)}
+.cta-row{display:flex;gap:16px;flex-wrap:wrap;margin-top:34px}
+.hero-note{font-size:14px;color:var(--muted);margin-top:16px}
+
+/* glass card */
+.glass{background:var(--card);border:1px solid var(--card-border);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-radius:16px;box-shadow:0 20px 60px rgba(0,0,0,.35)}
+
+/* ---------- Demo window ---------- */
+.demo-window{overflow:hidden;position:relative}
+.demo-bar{display:flex;align-items:center;gap:8px;padding:13px 16px;border-bottom:1px solid var(--card-border);background:rgba(255,255,255,.03)}
+.demo-bar i{width:11px;height:11px;border-radius:50%;display:block}
+.demo-bar i:nth-child(1){background:#FF5F56}
+.demo-bar i:nth-child(2){background:#FFBD2E}
+.demo-bar i:nth-child(3){background:#27C93F}
+.demo-bar span{margin-left:10px;font-family:var(--mono);font-size:12px;color:var(--muted)}
+.demo-body{padding:24px 26px;font-family:var(--mono);font-size:13.5px;line-height:1.85;color:var(--text)}
+.demo-body .devis{color:var(--orange)}
+.demo-body .ok{color:var(--gruen)}
+.demo-body .lbl{color:var(--muted)}
+.demo-total{margin-top:18px;padding-top:18px;border-top:1px dashed var(--card-border);display:flex;justify-content:space-between;font-family:var(--mono);font-size:15px}
+.demo-total b{color:var(--orange)}
+
+/* ---------- Section heads ---------- */
+.sec-head{max-width:780px;margin-bottom:60px}
+.sec-head .eyebrow{font-family:var(--mono);font-size:13px;color:var(--orange);letter-spacing:.18em;text-transform:uppercase;margin-bottom:16px;display:block}
+.sec-head h2{font-size:clamp(32px,3.6vw,46px);font-weight:800;margin-bottom:18px}
+.sec-head p{font-size:19px;color:var(--muted)}
+
+/* ---------- Features ---------- */
+.features{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.f-card{padding:32px 28px;border-radius:14px;background:var(--card);border:1px solid var(--card-border);transition:transform .25s,border-color .25s}
+.f-card:hover{transform:translateY(-3px);border-color:rgba(255,106,26,.4)}
+.f-card h3{font-size:20px;font-weight:700;margin-bottom:10px}
+.f-card p{font-size:15px;color:var(--muted);line-height:1.55}
+.f-icon{width:44px;height:44px;border-radius:10px;background:linear-gradient(135deg,rgba(255,106,26,.15),rgba(255,179,71,.05));border:1px solid rgba(255,106,26,.2);display:flex;align-items:center;justify-content:center;font-size:22px;margin-bottom:20px;color:var(--orange)}
+
+/* ---------- Moats (neu v1.4.0) ---------- */
+.moats-section{background:linear-gradient(180deg,transparent 0,rgba(255,106,26,.03) 50%,transparent 100%)}
+.moats{display:grid;grid-template-columns:repeat(2,1fr);gap:20px}
+.moat-card{padding:28px 26px;border-radius:14px;background:var(--card);border:1px solid var(--card-border);position:relative;overflow:hidden}
+.moat-card::before{content:"";position:absolute;top:0;left:0;width:3px;height:100%;background:var(--orange)}
+.moat-card .moat-tag{display:inline-block;font-family:var(--mono);font-size:11px;color:var(--orange);letter-spacing:.12em;text-transform:uppercase;margin-bottom:14px;border:1px solid rgba(255,106,26,.3);background:rgba(255,106,26,.07);padding:4px 10px;border-radius:99px}
+.moat-card h3{font-size:22px;font-weight:700;margin-bottom:10px}
+.moat-card p{font-size:15px;color:var(--muted);line-height:1.55}
+.moat-card .gain{margin-top:14px;font-size:13px;color:var(--gruen);font-family:var(--mono)}
+
+/* ---------- Vergleich ---------- */
+.compare{background:var(--bg2);border:1px solid var(--card-border);border-radius:14px;overflow:hidden}
+.compare table{width:100%;border-collapse:collapse}
+.compare th, .compare td{padding:18px 22px;text-align:left;font-size:16px;border-bottom:1px solid var(--card-border)}
+.compare th{background:rgba(255,255,255,.03);font-weight:600;color:var(--muted);font-size:14px;text-transform:uppercase;letter-spacing:.08em}
+.compare td:first-child{color:var(--muted);width:34%}
+.compare td:nth-child(2){color:var(--text);width:33%;text-decoration:line-through;text-decoration-color:rgba(255,255,255,.2)}
+.compare td:nth-child(3){color:var(--gruen);font-weight:600}
+.compare tbody tr:last-child td{border-bottom:none}
+
+/* ---------- Preise ---------- */
+.tiers{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.tier{padding:36px 30px;border-radius:16px;background:var(--card);border:1px solid var(--card-border);position:relative}
+.tier.popular{border-color:rgba(255,106,26,.5);background:linear-gradient(180deg,rgba(255,106,26,.05) 0,var(--card) 40%)}
+.tier.popular::before{content:"Beliebt";position:absolute;top:-12px;left:24px;background:var(--orange);color:#fff;font-size:12px;font-weight:700;padding:5px 12px;border-radius:99px;letter-spacing:.08em}
+.tier h3{font-size:24px;font-weight:700;margin-bottom:6px}
+.tier .price{font-family:var(--mono);font-size:34px;font-weight:700;color:var(--orange);margin:14px 0 6px}
+.tier .price small{font-size:14px;color:var(--muted);font-weight:400}
+.tier ul{list-style:none;margin-top:20px}
+.tier li{padding:9px 0;font-size:15px;color:var(--text);position:relative;padding-left:24px}
+.tier li::before{content:"✓";position:absolute;left:0;color:var(--gruen);font-weight:700}
+.tier .cta{display:block;text-align:center;margin-top:24px;padding:12px;border:1px solid var(--card-border);border-radius:8px;color:var(--text);text-decoration:none;font-weight:600;font-size:15px;transition:background .2s}
+.tier .cta:hover{background:rgba(255,255,255,.05)}
+.tier.popular .cta{background:var(--orange);border-color:var(--orange);color:#fff}
+.tier.popular .cta:hover{background:#E85A10}
+
+/* ---------- Vertrauen ---------- */
+.trust{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.trust-card{padding:30px 26px;border-radius:14px;background:var(--card);border:1px solid var(--card-border)}
+.trust-card h3{font-size:20px;font-weight:700;margin-bottom:12px}
+.trust-card p{font-size:15px;color:var(--muted);line-height:1.55}
+
+/* ---------- Tags ---------- */
+.tags{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-top:60px;padding-top:50px;border-top:1px solid var(--card-border)}
+.tag{font-family:var(--mono);font-size:13px;color:var(--muted);padding:8px 14px;border:1px solid var(--card-border);border-radius:99px;background:rgba(255,255,255,.02)}
+
+/* ---------- Final CTA ---------- */
+.final{padding:120px 0;text-align:center;background:radial-gradient(800px 500px at 50% 50%,rgba(255,106,26,.1),transparent 60%)}
+.final h2{font-size:clamp(36px,4vw,52px);font-weight:800;margin-bottom:24px}
+.final p{font-size:20px;color:var(--muted);max-width:640px;margin:0 auto 36px}
+
+/* ---------- Download Section ---------- */
+.downloads{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;max-width:680px;margin:48px auto 0}
+.dl-card{padding:24px 26px;border-radius:14px;background:var(--card);border:1px solid var(--card-border);text-align:center;text-decoration:none;color:var(--text);transition:border-color .2s,transform .2s}
+.dl-card:hover{border-color:var(--orange);transform:translateY(-3px)}
+.dl-card .os{font-size:15px;color:var(--muted);margin-bottom:8px}
+.dl-card .size{font-family:var(--mono);font-size:13px;color:var(--amber);margin-bottom:12px}
+.dl-card .platform{font-size:24px;font-weight:700;margin-bottom:6px}
+.dl-card .note{font-size:13px;color:var(--muted)}
+.dl-card.primary{border-color:rgba(255,106,26,.5);background:linear-gradient(180deg,rgba(255,106,26,.06) 0,var(--card) 60%)}
+.dl-note{text-align:center;margin-top:20px;font-size:14px;color:var(--muted)}
+
+/* ---------- Footer ---------- */
+footer{padding:60px 0 40px;border-top:1px solid var(--card-border);background:var(--bg2)}
+.foot{display:grid;grid-template-columns:1.5fr 1fr 1fr;gap:48px}
+.foot h4{font-size:14px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--text);margin-bottom:18px}
+.foot ul{list-style:none}
+.foot li{padding:6px 0;font-size:15px;color:var(--muted)}
+.foot a{color:var(--muted);text-decoration:none;transition:color .2s}
+.foot a:hover{color:var(--orange)}
+.foot-bottom{margin-top:50px;padding-top:30px;border-top:1px solid var(--card-border);display:flex;justify-content:space-between;align-items:center;font-size:13px;color:var(--muted)}
+
+/* ---------- Responsive ---------- */
+@media (max-width:960px){
+  .hero{padding:140px 0 80px}
+  .hero-grid{grid-template-columns:1fr;gap:48px}
+  .features,.moats,.tiers,.trust{grid-template-columns:1fr}
+  .foot{grid-template-columns:1fr;gap:32px}
+  .downloads{grid-template-columns:1fr}
+  .nav-links{display:none}
+}
+
+/* ---------- Ad-Hoc Notice ---------- */
+.adhoc-notice{background:rgba(255,179,71,.07);border:1px solid rgba(255,179,71,.3);border-radius:8px;padding:14px 18px;font-size:13px;color:var(--amber);margin:30px auto 0;max-width:680px;text-align:center;line-height:1.5}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-in">
+    <a href="#" class="logo">devis<span class="ch">pro</span><small>SIA-451 · Schweiz</small></a>
+    <ul class="nav-links">
+      <li><a href="#funktionen">Funktionen</a></li>
+      <li><a href="#moats">Profit-Module</a></li>
+      <li><a href="#preise">Preise</a></li>
+      <li><a href="#vertrauen">Vertrauen</a></li>
+    </ul>
+    <a href="#download" class="btn btn-primary btn-nav">Gratis testen</a>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="wrap">
+    <div class="hero-grid">
+      <div>
+        <span class="badge"><span class="dot"></span>Version 1.4.0 · 4 Profit-Module · läuft lokal · ohne Cloud-Zwang</span>
+        <h1>Offerte fertig, bevor der <em>Kaffee kalt</em> ist.</h1>
+        <p class="sub">DevisPro v1.4.0 importiert das Architekten-Devis (SIA-451, Sorba, GAEB), füllt es automatisch mit Ihren Preisen und ergänzt fehlende Positionen mit geprüften CH-Marktrichtpreisen. Mit 4 integrierten Profit-Modulen, die Ihre Konkurrenz nicht hat.</p>
+        <div class="timeflip">
+          <div class="tf-box tf-old"><div class="n">3 Std</div><div class="l">von Hand</div></div>
+          <div class="tf-arrow">→</div>
+          <div class="tf-box tf-new"><div class="n">5 Min</div><div class="l">mit DevisPro</div></div>
+          <div style="font-family:var(--mono);font-size:13px;color:var(--gruen);margin-left:8px">−97% Aufwand</div>
+        </div>
+        <div class="cta-row">
+          <a href="#download" class="btn btn-primary">Jetzt gratis testen</a>
+          <a href="#moats" class="btn btn-ghost">4 Profit-Module ansehen →</a>
+        </div>
+        <p class="hero-note">Ohne Kreditkarte · in 30 Sekunden startklar · 5 Devis gratis</p>
+      </div>
+      <div class="glass demo-window">
+        <div class="demo-bar">
+          <i></i><i></i><i></i>
+          <span>devispro — Import: Offerte_Hausmeister_AG.sorba</span>
+        </div>
+        <div class="demo-body">
+          <div class="lbl">⇣ Sorba-Datei hier ablegen (.sorba / .gaeb / .xlsx / PDF)</div>
+          <br>
+          <div>01 Positionen erkennen … <span class="ok"><b>142 Positionen</b></span></div>
+          <div>02 Bauwerkseinrichtung <span class="ok"><b>18 Pos. übernommen</b></span></div>
+          <div>03 Maurerarbeiten <span class="ok"><b>41 Pos. übernommen</b></span></div>
+          <div>04 Gipserarbeiten — Preis fehlt <span class="ok"><b>Richtpreis eingesetzt</b></span></div>
+          <div>05 Ihre Konditionen anwenden … <span class="ok"><b>Marge 18.4%</b></span></div>
+          <div class="demo-total"><span>Devis total inkl. MwSt 8.1%</span><b>CHF 184'260.—</b></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="funktionen">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">FUNKTIONEN</span>
+      <h2>Alles, was zwischen Architekten-Devis und signierter Offerte liegt.</h2>
+      <p>Sie müssen nicht mehr stundenlang Devis ausfüllen und Preise heraussuchen. DevisPro macht die Arbeit, Sie entscheiden.</p>
+    </div>
+    <div class="features">
+      <div class="f-card">
+        <div class="f-icon">⇣</div>
+        <h3>SIA-451 / Sorba / GAEB-Import</h3>
+        <p>Importieren Sie Offerten im Format Ihrer Branche: SIA-451, Sorba, Bauweb, GAEB, ÖNorm, XRechnung sowie CSV/Excel. Ein Ordner mit PDFs rein — DevisPro erkennt Positionen, übernimmt Mengen. Kein Abtippen, keine verlorenen Positionen.</p>
+      </div>
+      <div class="f-card">
+        <div class="f-icon">⚡</div>
+        <h3>Automatisches Befüllen</h3>
+        <p>Ihre Ansätze, Ihre Rabatte, Ihre Konditionen — automatisch in jede übernommene Position eingetragen. Das Devis des Architekten wird in Minuten zu Ihrer Offerte, formatiert nach Schweizer Standard.</p>
+      </div>
+      <div class="f-card">
+        <div class="f-icon">📊</div>
+        <h3>Richtpreis-Datenbank</h3>
+        <p>Fehlt eine Position? DevisPro schlägt geprüfte CH-Marktrichtpreise vor — 7 Gewerke abgedeckt. Sie bestätigen oder überschreiben. So bleibt kein Devis liegen, weil eine Zahl fehlt.</p>
+      </div>
+      <div class="f-card">
+        <div class="f-icon">⇄</div>
+        <h3>13 Buchhaltungs-Exporte</h3>
+        <p>DevisPro spricht die Sprache Ihres Treuhänders: Abacus, Proffix, BMD, DATEV, Banana, SAP, Lexoffice, SevDesk, WinOffice, RamCO und Mobit — plus CSV, Excel und XML. Kein Nachformatieren, keine Doppelerfassung.</p>
+      </div>
+      <div class="f-card">
+        <div class="f-icon">%</div>
+        <h3>Margen-Copilot</h3>
+        <p>Sie sehen vor dem Versand, was nach Material, Fremdleistungen, Subunternehmer-Anteil und MwSt wirklich an Ihrem Betrieb hängen bleibt. Varianten nebeneinander vergleichen — jedes Devis wird zur bewussten Geschäftsentscheidung.</p>
+      </div>
+      <div class="f-card">
+        <div class="f-icon">€</div>
+        <h3>Mahnwesen & Rechnungen mit Swiss-QR</h3>
+        <p>Vom Devis zur Rechnung mit SIX-konformem QR-Einzahlungsschein, MwSt 8.1%. Automatisches Mahnwesen verfolgt offene Beträge, bis das Geld auf dem Konto ist. Auch vom Smartphone per WhatsApp-Versand.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="moats" class="moats-section">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">NEU IN v1.4.0</span>
+      <h2>4 Profit-Module, die Ihre Konkurrenz nicht hat.</h2>
+      <p>DevisPro v1.4.0 bringt vier echte Wettbewerbsvorteile — jedes einzelne ist ein Grund mehr, warum Bau-KMU von Branchen-Software wie Bauwise oder bauMax zu DevisPro wechseln.</p>
+    </div>
+    <div class="moats">
+      <div class="moat-card">
+        <span class="moat-tag">Moat 1 · Kataloge</span>
+        <h3>Verbandskataloge NPK / BKS / HLKS / CRB</h3>
+        <p>Integrierte Richtpreis-Kataloge der Schweizer Bauverbände. Importieren Sie ganze Kataloge per CSV/XLSX, durchsuchen Sie nach Positionen, lassen Sie sich geprüfte Marktpreise pro Kanton und Region vorschlagen. Kein mühsames Herumtelefonieren mehr beim Preisfehlen.</p>
+        <div class="gain">→ Spart 1–2 Stunden pro Devis bei fehlenden Positionen</div>
+      </div>
+      <div class="moat-card">
+        <span class="moat-tag">Moat 2 · Marktplatz</span>
+        <h3>DevisPro-Marktplatz für Subunternehmer</h3>
+        <p>Suchen und finden Sie Subunternehmer in Ihrer Region, vergleichen Sie Profile, tauschen Sie Offerten aus. Werden Sie selbst gefunden — wenn Sie freie Kapazitäten haben. Bauwirtschaft wird transparent und lokal.</p>
+        <div class="gain">→ 30% schnellere Vergabe von Sub-Aufträgen</div>
+      </div>
+      <div class="moat-card">
+        <span class="moat-tag">Moat 3 · Cloud-Sync</span>
+        <h3>Optionale Cloud-Synchronisation (Sie entscheiden)</h3>
+        <p>Ihre Daten bleiben standardmäßig lokal — aber wenn du mit dem Partner-Architekten oder Subunternehmer zusammenarbeitest, synchronisieren Sie ausgewählte Devis per Ende-zu-Ende-Verschlüsselung in die Cloud. Anbieter Ihrer Wahl: Dropbox, Google Drive, OneDrive oder eigener Server.</p>
+        <div class="gain">→ Teamwork ohne Daten-Hoheit abzugeben</div>
+      </div>
+      <div class="moat-card">
+        <span class="moat-tag">Moat 4 · ERP-Ecosystem</span>
+        <h3>Direktanbindung an Abacus, Proffix, SAP & 7 weitere</h3>
+        <p>Native Schnittstellen zu 10 ERP-Systemen — kein Mittelsmann, kein CSV-Export-Import-Tanz. Devise werden direkt in der Buchhaltung verbucht, Rechnungen automatisch zugeordnet. Bidirektional, mit Konfliktlösung.</p>
+        <div class="gain">→ Buchhaltung ohne Doppelerfassung — echt</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">DER UNTERSCHIED</span>
+      <h2>Früher gegen heute.</h2>
+      <p>Dasselbe Architekten-Devis, zwei Wege. Einer kostet Ihren Samstag.</p>
+    </div>
+    <div class="compare">
+      <table>
+        <thead><tr><th></th><th>Devis von Hand</th><th>Mit DevisPro v1.4.0</th></tr></thead>
+        <tbody>
+          <tr><td>Zeitaufwand pro Devis</td><td>ca. 3–4 Stunden</td><td>ca. 5 Minuten</td></tr>
+          <tr><td>Sorba / GAEB / XRechnung-Import</td><td>Abtippen von Hand</td><td>Automatisch erkannt</td></tr>
+          <tr><td>Eigene Preise einsetzen</td><td>Position für Position suchen</td><td>Einmal erfassen, immer dabei</td></tr>
+          <tr><td>Fehlende Positionen</td><td>Preis mühsam heraussuchen</td><td>Verbandskataloge NPK/BKS/HLKS/CRB</td></tr>
+          <tr><td>Subunternehmer finden</td><td>Telefonbuch & Google</td><td>Marktplatz mit Profilen</td></tr>
+          <tr><td>Teamwork mit Architekten</td><td>E-Mail-Pingpong mit PDF</td><td>Cloud-Sync, optional & verschlüsselt</td></tr>
+          <tr><td>Margen-Kontrolle vor Versand</td><td>Bauchgefühl</td><td>Margen-Copilot, live</td></tr>
+          <tr><td>Buchhaltungsexport</td><td>Abtipp-Liste für den Treuhänder</td><td>10 ERP-Direktanbindungen, 1 Klick</td></tr>
+          <tr><td>Rechnung & Mahnwesen</td><td>Separates Tool oder Papier</td><td>Swiss-QR inklusive</td></tr>
+          <tr><td>Wo sind meine Daten?</td><td>Auf dem eigenen Rechner</td><td>Auf dem eigenen Rechner — bleibt so</td></tr>
+          <tr><td>Offline arbeitsfähig</td><td>Ja</td><td>Ja, vollständig</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section id="preise">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">PREISMODELL</span>
+      <h2>Zahlen Sie nur, was zu Ihrem Betrieb passt.</h2>
+      <p>Erst testen, dann entscheiden. Alle Funktionen — inklusive der 4 Profit-Module — sind in jeder Stufe enthalten. Sie zahlen pro Volumen.</p>
+    </div>
+    <div class="tiers">
+      <div class="tier">
+        <h3>Gratis starten</h3>
+        <div class="price">CHF 0 <small>— für immer</small></div>
+        <p style="color:var(--muted);font-size:14px;margin-top:-4px">Zum Ausprobieren — für immer kostenlos</p>
+        <ul>
+          <li>5 Devis gratis, kein Zeitlimit</li>
+          <li>Alle 4 Profit-Module freigeschaltet</li>
+          <li>SIA-451-, Sorba-, GAEB-Import</li>
+          <li>Verbandskataloge NPK/BKS/HLKS/CRB</li>
+          <li>Daten bleiben lokal, offline-fähig</li>
+          <li>In 30 Sekunden startklar</li>
+        </ul>
+        <a href="#download" class="cta">Kostenlos herunterladen</a>
+      </div>
+      <div class="tier popular">
+        <h3>Pay-per-Devis</h3>
+        <div class="price">CHF 89 <small>/ Devis</small></div>
+        <p style="color:var(--muted);font-size:14px;margin-top:-4px">Nur zahlen, wenn tatsächlich kalkuliert wird</p>
+        <ul>
+          <li>Unbegrenzte Devis, alle Module</li>
+          <li>Alle Import- und Exportformate</li>
+          <li>Margen-Copilot & Variantenvergleich</li>
+          <li>10 Buchhaltungs-Exporte + 3 ERP-Direkt</li>
+          <li>Rechnungen mit Swiss-QR & Mahnwesen</li>
+          <li>Pakete: mehrere Devis günstiger</li>
+        </ul>
+        <a href="mailto:info@devispro.de?subject=Pay-per-Devis%20aktivieren&amp;body=Ich%20möchte%20Pay-per-Devis%20aktivieren.%20Bitte%20Kontakt%20aufnehmen." class="cta">Pay-per-Devis starten</a>
+      </div>
+      <div class="tier">
+        <h3>Lizenz</h3>
+        <div class="price">CHF 2'400 + 990 <small>/ Jahr</small></div>
+        <p style="color:var(--muted);font-size:14px;margin-top:-4px">Einmalkauf plus Wartung — oder monatlich</p>
+        <ul>
+          <li>Unbegrenzte Devis, alle Module</li>
+          <li>Cloud-Sync, Marktplatz, alle Kataloge</li>
+          <li>10 ERP-Direktanbindungen (Abacus, Proffix, SAP…)</li>
+          <li>Mehrsprachig DE/FR/IT, Multiwährung</li>
+          <li>Priorisierter Schweizer Support</li>
+          <li>Oder: <b style="color:var(--orange)">CHF 350/Mt</b>, monatlich kündbar</li>
+        </ul>
+        <a href="mailto:info@devispro.de?subject=Lizenz-Angebot&amp;body=Bitte%20senden%20Sie%20mir%20ein%20Angebot%20für%20die%20Lizenz." class="cta">Angebot anfordern</a>
+      </div>
+    </div>
+    <p style="text-align:center;margin-top:36px;color:var(--muted);font-size:15px">Alle Preise exkl. MwSt. Kein Cloud-Zwang, keine versteckten Kosten. Monatlich kündbar.</p>
+  </div>
+</section>
+
+<section id="vertrauen">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">VERTRAUEN</span>
+      <h2>Vertrauen ist gut, Kontrolle ist besser.</h2>
+      <p>Für Bau-KMU in der Schweiz ist eines wichtiger als jedes Feature: dass die Daten dem Betrieb gehören.</p>
+    </div>
+    <div class="trust">
+      <div class="trust-card">
+        <h3>SIA-451-konform</h3>
+        <p>Positionierung, Gliederung und Offerten-Aufbau nach SIA 451. Das stärkste Fach-Argument der Schweiz — in jedem Devis sichtbar. Import und Ausgabe normkonform.</p>
+      </div>
+      <div class="trust-card">
+        <h3>Daten bleiben lokal</h3>
+        <p>DevisPro läuft auf Ihrem Rechner. Devis, Rechnungen, QR-Codes und Stammdaten bleiben bei Ihnen — nicht auf einem fremden Server. Kein Cloud-Zwang, kein Datenabfluss, konform zur LPD. Optional Cloud-Sync, voll verschlüsselt.</p>
+      </div>
+      <div class="trust-card">
+        <h3>Schweizer Support</h3>
+        <p>Support aus der Schweiz, auf Deutsch, Französisch und Italienisch. Wer ans Telefon geht, kennt Sorba, Treuhänder und Baustellenalltag — kein Ticket-System in einem anderen Kontinent.</p>
+      </div>
+    </div>
+    <div class="tags">
+      <span class="tag">SIA-451</span>
+      <span class="tag">Sorba</span>
+      <span class="tag">GAEB</span>
+      <span class="tag">ÖNorm</span>
+      <span class="tag">XRechnung</span>
+      <span class="tag">CSV / Excel</span>
+      <span class="tag">OCR-Ordnerimport</span>
+      <span class="tag">LPD-konform</span>
+      <span class="tag">Swiss-QR (SIX)</span>
+      <span class="tag">MwSt 8.1%</span>
+      <span class="tag">DE / FR / IT</span>
+      <span class="tag">CHF / EUR / USD / GBP</span>
+      <span class="tag">NPK · BKS · HLKS · CRB</span>
+      <span class="tag">Offline-fähig</span>
+    </div>
+  </div>
+</section>
+
+<section id="download">
+  <div class="wrap">
+    <div class="sec-head" style="text-align:center;margin:0 auto 0">
+      <span class="eyebrow">JETZT HERUNTERLADEN</span>
+      <h2>Der nächste Devis dauert 5 Minuten, nicht 3 Stunden.</h2>
+      <p>5 Devis gratis, ohne Kreditkarte, in 30 Sekunden startklar. Danach Pay-per-Devis oder Lizenz — wie es zu Ihrem Betrieb passt.</p>
+    </div>
+    <div class="downloads">
+      <a class="dl-card primary" href="https://devispro.de/DevisPro-2026-09-03-adhoc.zip">
+        <div class="os">macOS · ad-hoc signiert</div>
+        <div class="size">46 MB · v1.4.0</div>
+        <div class="platform">🍎 macOS</div>
+        <div class="note">Für Apple Silicon & Intel</div>
+      </a>
+      <a class="dl-card" href="https://github.com/MONTEROSSA/DevisPro/releases">
+        <div class="os">Windows · GitHub Build</div>
+        <div class="size">52 MB · v1.4.0</div>
+        <div class="platform">🪟 Windows</div>
+        <div class="note">PyInstaller Build · Auto-Update folgt</div>
+      </a>
+    </div>
+    <div class="adhoc-notice">
+      <b>Hinweis macOS-Build:</b> Diese Version ist <b>ad-hoc signiert</b> (kein Apple Developer-ID-Zertifikat lokal verfügbar).
+      Beim ersten Öffnen: Rechtsklick → "Öffnen" → "Bestätigen". Oder im Terminal: <code style="font-family:var(--mono);background:rgba(255,255,255,.04);padding:2px 6px;border-radius:4px">xattr -d com.apple.quarantine ~/Downloads/DevisPro_Mac.app</code><br>
+      Das offizielle Developer-ID-signierte Release folgt in den nächsten Stunden via GitHub Actions.
+    </div>
+    <p class="dl-note">macOS: Apple Silicon & Intel · Windows: 10/11 · Daten bleiben lokal · Keine Telemetrie</p>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="foot">
+      <div>
+        <a href="#" class="logo" style="margin-bottom:14px">devis<span class="ch">pro</span><small>v1.4.0 · SIA-451 · Schweiz</small></a>
+        <p style="color:var(--muted);font-size:14px;margin-top:14px">Das ehrliche Schweizer SIA-451-Devis-Tool für Bau-KMU. Lokal, offline-fähig, mit geprüften Marktrichtpreisen.</p>
+      </div>
+      <div>
+        <h4>Produkt</h4>
+        <ul>
+          <li><a href="#funktionen">Funktionen</a></li>
+          <li><a href="#moats">4 Profit-Module</a></li>
+          <li><a href="#preise">Preise</a></li>
+          <li><a href="#vertrauen">Vertrauen</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Kontakt</h4>
+        <ul>
+          <li><a href="mailto:info@devispro.de">info@devispro.de</a></li>
+          <li><a href="https://www.devispro.de">www.devispro.de</a></li>
+          <li><a href="tel:+41415344890">+41 41 534 48 90</a></li>
+          <li>Schweiz · Support DE/FR/IT</li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 DevisPro · Monterossa · Alle Rechte vorbehalten</span>
+      <span>LPD-konform · CH-Datenschutz · Schweizer Support</span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

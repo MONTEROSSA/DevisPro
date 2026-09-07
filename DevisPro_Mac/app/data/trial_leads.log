@@ -1,0 +1,6 @@
+{"zeit": "2026-08-11T22:24:26", "firma": "Test AG", "ansprechpartner": "T", "email": "t@t.ch", "kanton": "ZH", "gewerk": "Maler", "gueltig_bis": "2026-11-09", "kunde_id": "TRIAL-TESTAGT"}
+{"zeit": "2026-08-11T22:24:46", "firma": "Frisch AG", "ansprechpartner": "F", "email": "fr@fr.ch", "kanton": "ZH", "gewerk": "Maler", "gueltig_bis": "2026-11-09", "kunde_id": "TRIAL-FRISCHAGFR"}
+{"zeit": "2026-08-11T22:26:19", "firma": "Frisch2 AG", "ansprechpartner": "F", "email": "f2@f2.ch", "kanton": "ZH", "gewerk": "Maler", "gueltig_bis": "2026-11-09", "kunde_id": "TRIAL-FRISCH2AF2"}
+{"zeit": "2026-08-13T18:33:52", "quelle": "check", "email": "kunde@b.ch", "firma": "", "kanton": "", "gewerk": "", "projekt": "Hotelbau"}
+{"zeit": "2026-08-13T18:33:53", "firma": "B AG", "ansprechpartner": "M", "email": "kunde@b.ch", "kanton": "ZH", "gewerk": "Maler", "gueltig_bis": "2026-11-11", "kunde_id": "TRIAL-BAGKUNDE"}
+{"zeit": "2026-08-13T18:36:56", "quelle": "check", "email": "kunde@b.ch", "firma": "", "kanton": "", "gewerk": "", "projekt": "Hotelbau"}

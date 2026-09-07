@@ -1,0 +1,7 @@
+PosNr;Titel;Kurztext;Einheit;Preis;Kategorie;Unterkategorie;DIN;Vorgabe
+01.01.01;Erdaushub maschinell Bodenklasse 1-3;Erdaushub 1-3;m3;26.20;Erdarbeiten;Aushub;DIN 18300;
+01.01.02;Erdaushub maschinell Bodenklasse 4-5;Erdaushub 4-5;m3;38.50;Erdarbeiten;Aushub;DIN 18300;
+02.01.01;Beton C25/30 nach DIN EN 206;Beton C25/30;m3;188.00;Betonarbeiten;Normalbeton;DIN EN 206;
+02.01.02;Beton C30/37 nach DIN EN 206;Beton C30/37;m3;198.00;Betonarbeiten;Normalbeton;DIN EN 206;
+03.01.01;Mauerwerk Kalksandstein 12 N/mm²;KS 12;m2;82.00;Mauerwerk;Kalksandstein;DIN EN 771-2;
+03.01.02;Mauerwerk Porenbeton PP 0,4;Porenbeton PP4;m2;71.00;Mauerwerk;Leichtbeton;DIN EN 771-4;

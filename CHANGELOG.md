@@ -6,6 +6,35 @@ Format basiert auf [Keep a Changelog](https://keepachangelog.com/de/1.0.0/).
 
 ---
 
+## [1.6.0] - 2026-09-07 (in Vorbereitung)
+
+### 🎯 Major: Stripe-Integration LIVE
+
+#### Added — M28-M30: Echte Online-Zahlungen
+- **Stripe-Integration** (`devispro/billing.py`, ~250 Zeilen)
+  - 3 Stripe-Payment-Links LIVE (Solo 79, Team 249, Business 599 CHF/Mt)
+  - Webhook-Validierung (HMAC-SHA256, replay-safe)
+  - License-Activation via Email
+  - Subscription-Cancel + Payment-Failure Handling
+  - Test-Suite: 10/10 grün (`tests/test_billing_stripe.py`)
+- **Pricing-Tabelle**: Solo 79 / Team 249 / Business 599 / Enterprise custom
+- **Stripe Restricted Test Key** konfiguriert (`rk_test_...` für lNJX)
+- **Live Payment-Links**:
+  - Solo: https://buy.stripe.com/test_7sY4gAb5t6kw5vc8I333W00
+  - Team: https://buy.stripe.com/test_fZu3cw1uT24g5vc2jf33W03
+  - Business: https://buy.stripe.com/test_dRm14n5hT6kwgfud4hf33W04
+
+#### Security — M30.1: Repo-Hygiene
+- `.gitignore` erweitert um `devispro/_test_*.py` + `_solo_test*.py` patterns
+- Stripe-Test-Keys aus Repo-History entfernt (filter-branch cleanup)
+- Keys bleiben LOKAL auf Developer-Maschine erhalten
+
+#### Infrastructure
+- VPS-Backup automatisiert (Cron-Job, SSH-Key-basiert)
+- GitHub-Actions Workflow (Mac + Windows Builds)
+
+---
+
 ## [1.5.0] - 2026-09-04 (in Vorbereitung)
 
 ### 🎯 Major: Killer-Features für Markt-Dominanz

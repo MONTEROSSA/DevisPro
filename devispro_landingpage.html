@@ -1,0 +1,287 @@
+<!doctype html>
+<html lang="de"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>devispro · Devis in 3 Minuten statt 3 Stunden – für Maler, Sanitär & GU</title>
+<style>
+ *{box-sizing:border-box;margin:0;padding:0}
+ body{font-family:-apple-system,BlinkMacSystemFont,system-ui,sans-serif;color:#16202c;line-height:1.6;
+   background:#fff}
+ .wrap{max-width:1080px;margin:0 auto;padding:0 1.2rem}
+ nav{position:sticky;top:0;background:rgba(255,255,255,.95);backdrop-filter:blur(8px);
+   border-bottom:1px solid #eef1f5;z-index:50}
+ nav .wrap{display:flex;align-items:center;justify-content:space-between;height:62px}
+ .logo{font-weight:800;font-size:1.15rem;color:#1d4ed8;letter-spacing:-.02em}
+ nav a{color:#3a4a5c;text-decoration:none;font-weight:600;margin-left:1.4rem;font-size:.92rem}
+ .btn{display:inline-block;background:#1d4ed8;color:#fff;padding:.7rem 1.3rem;border-radius:9px;
+   text-decoration:none;font-weight:700;border:0;cursor:pointer;font-size:.95rem;transition:.15s}
+ .btn:hover{background:#1747b8;transform:translateY(-1px)}
+ .btn.green{background:#16a34a}.btn.green:hover{background:#138a3e}
+ .btn.lg{padding:.95rem 2rem;font-size:1.05rem}
+ .hero{padding:4.5rem 0 3.5rem;background:linear-gradient(160deg,#eef4ff 0%,#f7faff 60%,#fff 100%)}
+ .hero h1{font-size:2.9rem;line-height:1.1;letter-spacing:-.03em;max-width:760px}
+ .hero h1 b{color:#1d4ed8}
+ .hero p.sub{font-size:1.2rem;color:#4a5a6c;margin:1.2rem 0 2rem;max-width:620px}
+ .pill{display:inline-block;background:#fff;border:1px solid #d8e2f5;color:#1d4ed8;
+   padding:.35rem .8rem;border-radius:999px;font-weight:600;font-size:.85rem;margin-right:.5rem;margin-bottom:.6rem}
+ section{padding:3.5rem 0}
+ h2{font-size:2rem;letter-spacing:-.02em;margin-bottom:.6rem}
+ h2 .bl{display:inline-block;border-bottom:3px solid #1d4ed8;padding-bottom:.2rem}
+ .lead{color:#4a5a6c;font-size:1.08rem;max-width:680px;margin-bottom:2rem}
+ .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:1.4rem}
+ .card{border:1px solid #e6ebf2;border-radius:14px;padding:1.6rem;background:#fff}
+ .card .n{width:42px;height:42px;border-radius:10px;background:#eef4ff;color:#1d4ed8;
+   display:flex;align-items:center;justify-content:center;font-weight:800;font-size:1.2rem;margin-bottom:1rem}
+ .card h3{font-size:1.15rem;margin-bottom:.5rem}
+ .card p{color:#56657a;font-size:.95rem}
+ .trades{display:flex;flex-wrap:wrap;gap:.6rem;margin-top:1.5rem}
+ .trades span{background:#f1f5fb;border:1px solid #e2e9f3;border-radius:8px;padding:.5rem .9rem;font-weight:600;color:#33485f}
+ .calc{background:#0f1f3d;color:#fff;border-radius:20px;padding:2.4rem;margin-top:1rem}
+ .calc h3{color:#fff;font-size:1.4rem;margin-bottom:.3rem}
+ .calc p.h{color:#9fb3d4;margin-bottom:1.5rem;font-size:.95rem}
+ .fields{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem}
+ .fields label{display:block;font-size:.82rem;color:#9fb3d4;margin-bottom:.35rem;font-weight:600}
+ .fields input{width:100%;padding:.7rem .8rem;border-radius:9px;border:1px solid #2a3d5e;
+   background:#0a1730;color:#fff;font-size:1rem}
+ .fields input:focus{outline:2px solid #1d4ed8}
+ .result{margin-top:1.8rem;display:grid;grid-template-columns:repeat(4,1fr);gap:1rem}
+ .result .b{background:#16294a;border-radius:12px;padding:1.1rem;text-align:center}
+ .result .v{font-size:1.55rem;font-weight:800;color:#4ade80}
+ .result .l{font-size:.78rem;color:#9fb3d4;margin-top:.3rem}
+ .be{margin-top:1.4rem;background:#16294a;border-radius:12px;padding:1rem 1.3rem;font-size:1.02rem}
+ .be b{color:#4ade80}
+ .ex{background:#f6f9ff;border-radius:18px;padding:2.2rem}
+ .ex .row{display:grid;grid-template-columns:1fr 1fr;gap:2rem;align-items:center}
+ .price{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem;margin-top:1rem}
+ .plan{border:2px solid #e6ebf2;border-radius:16px;padding:1.8rem;text-align:center;background:#fff}
+ .plan.feat{border-color:#1d4ed8;box-shadow:0 10px 30px rgba(29,78,216,.12)}
+ .plan .p{font-size:2rem;font-weight:800;color:#16202c}
+ .plan .pl{color:#56657a;font-size:.9rem;margin-bottom:1rem}
+ .plan ul{text-align:left;list-style:none;margin:1rem 0;font-size:.92rem;color:#33485f}
+ .plan li{padding:.3rem 0}
+ .quote{background:#1d4ed8;color:#fff;border-radius:20px;padding:2.6rem;font-size:1.25rem;
+   font-style:italic;line-height:1.5;text-align:center}
+ .quote .a{font-style:normal;font-weight:700;margin-top:1rem;font-size:1rem;opacity:.9}
+ .faq details{border:1px solid #e6ebf2;border-radius:11px;padding:0 1.2rem;margin-bottom:.8rem;background:#fff}
+ .faq summary{font-weight:700;cursor:pointer;padding:1rem 0;list-style:none}
+ .faq summary::-webkit-details-marker{display:none}
+ .faq details p{padding:0 0 1rem;color:#56657a}
+ .cta{padding:4rem 0;text-align:center;background:linear-gradient(160deg,#eef4ff,#fff)}
+ .cta h2{font-size:2.3rem}
+ footer{padding:2.5rem 0;background:#0f1f3d;color:#9fb3d4;font-size:.88rem}
+ footer a{color:#cfe0ff;text-decoration:none}
+ .small{font-size:.85rem;color:#7a8aa0}
+ @media(max-width:820px){.hero h1{font-size:2.1rem}.grid3,.fields,.result,.price,.ex .row{grid-template-columns:1fr}
+   nav a{display:none}.calc{padding:1.4rem}.result .b{padding:.8rem}}
+</style></head>
+<body>
+
+<nav><div class="wrap">
+ <div class="logo">devis&#8209;auto</div>
+ <div><a href="#rechner">ROI-Rechner</a><a href="#preis">Preis</a><a href="#faq">FAQ</a>
+   <a href="#kontakt" class="btn">Jetzt testen</a></div>
+</div></nav>
+
+<header class="hero"><div class="wrap">
+ <div>
+  <span class="pill">⏱ Devis in 3 Min. statt 3 Std.</span>
+  <span class="pill">🔗 Sorba-Import bereit</span>
+  <span class="pill">🏆 Kanton Zürich</span>
+ </div>
+ <h1>Machen Sie Schluss mit <b>Devis-Schreiben</b>.<br>Automatisch bepreist. In 3 Minuten.</h1>
+ <p class="sub">devispro liest Ihr Devis, gleicht es mit Ihren hinterlegten Stammdaten ab und
+  erzeugt die bepriesene Sorba-Datei – automatisch. Für Maler, Sanitär, Gipser, Schreiner und GU.</p>
+ <a href="#rechner" class="btn lg green">Meinen Gewinn berechnen →</a>
+ <a href="#kontakt" class="btn lg" style="background:#fff;color:#1d4ed8;border:1px solid #d8e2f5">Angebot anfragen</a>
+</div></header>
+
+<section><div class="wrap">
+ <h2><span class="bl">Das Problem kennen Sie</span></h2>
+ <p class="lead">Ein Devis von Hand kostet Zeit, die Sie lieber auf der Baustelle verdienen.
+  Und jedes vergessene Detail kostet echtes Geld.</p>
+ <div class="grid3">
+  <div class="card"><div class="n">1</div><h3>2–3 Stunden pro Devis</h3>
+   <p>Lesen, Positionen matchen, Preise tippen, prüfen. Bei 15–25 Devis/Monat sind das
+    schnell 40–60 Stunden – reine Bürozeit.</p></div>
+  <div class="card"><div class="n">2</div><h3>Fehler kosten Geld</h3>
+   <p>Vergessene Positionen, falsch abgetippte Preise, vergessene Aufschläge.
+    Still, aber teuer – oft 30–80 CHF pro Devis.</p></div>
+  <div class="card"><div class="n">3</div><h3>Wissen ist gefangen</h3>
+   <p>Ihre Stundenlöhne, Materialkosten und Aufschläge geben Sie bei jedem Devis neu ein.
+    Dabei gehören sie einmalig in ein System.</p></div>
+ </div>
+ <div class="trades">
+  <span>🎨 Maler</span><span>🔧 Sanitär</span><span>🧱 Gipser</span>
+  <span>🪵 Schreiner</span><span>🔨 GU / Totalunternehmer</span><span>⚡ Elektro</span>
+  <span>❄️ Heizung / Klima</span><span>🪟 Fensterbau</span>
+ </div>
+</div></section>
+
+<section style="background:#f7faff"><div class="wrap">
+ <h2><span class="bl">So funktioniert's</span></h2>
+ <p class="lead">Einmal Stammdaten eingeben – danach für jedes neue Devis automatisch.</p>
+ <div class="grid3">
+  <div class="card"><div class="n">①</div><h3>Stammdaten hinterlegen</h3>
+   <p>Stundenlohn, Materialkosten, Aufschläge, MwSt und Ihre Artikelpreisliste –
+    <b>einmalig</b>. Bleibt gespeichert.</p></div>
+  <div class="card"><div class="n">②</div><h3>Devis hochladen</h3>
+   <p>Sie laden die Devis-Datei (.sia). devispro gleicht jede Position mit Ihrer
+    Preisliste ab – in Sekunden.</p></div>
+  <div class="card"><div class="n">③</div><h3>Freigeben & exportieren</h3>
+   <p>Sie prüfen die automatisch bepriesenen Positionen, geben frei und exportieren
+    die Sorba-Datei direkt in Ihre Software.</p></div>
+ </div>
+</div></section>
+
+<section id="rechner"><div class="wrap">
+ <h2><span class="bl">Ihr Gewinn – live berechnet</span></h2>
+ <p class="lead">Tragen Sie Ihre Zahlen ein. Die Rechnung läuft mit demselben Modell wie in der App –
+  keine Schätzung.</p>
+ <div class="calc">
+  <h3>ROI-Rechner</h3>
+  <p class="h">Werte anpassen – das Ergebnis aktualisiert sich sofort.</p>
+  <div class="fields">
+   <div><label>Aufwand von Hand (h/Devis)</label><input id="zm" type="number" value="2.5" step="0.1" min="0"></div>
+   <div><label>Aufwand mit devispro (h/Devis)</label><input id="za" type="number" value="0.25" step="0.05" min="0"></div>
+   <div><label>Ihr Stundenlohn (CHF/h)</label><input id="sl" type="number" value="82" step="1" min="0"></div>
+   <div><label>Devis pro Monat</label><input id="dm" type="number" value="18" step="1" min="0"></div>
+   <div><label>Fehler-Ersparnis (CHF/Devis)</label><input id="fe" type="number" value="60" step="5" min="0"></div>
+   <div><label>App: Anschaffung (CHF)</label><input id="ap" type="number" value="2400" step="100" min="0"></div>
+   <div><label>Jahresgebühr (CHF)</label><input id="aj" type="number" value="990" step="50" min="0"></div>
+   <div></div><div></div>
+  </div>
+  <div class="result">
+   <div class="b"><div class="v" id="rMonat">–</div><div class="l">CHF gespart / Monat</div></div>
+   <div class="b"><div class="v" id="rJahr">–</div><div class="l">CHF gespart / Jahr</div></div>
+   <div class="b"><div class="v" id="rZeit">–</div><div class="l">Stunden gewonnen / Jahr</div></div>
+   <div class="b"><div class="v" id="rBE">–</div><div class="l">Break-even (Monat)</div></div>
+  </div>
+  <div class="be" id="rBe">Berechnung läuft…</div>
+ </div>
+</div></section>
+
+<section><div class="wrap">
+ <h2><span class="bl">Konkretes Beispiel</span></h2>
+ <p class="lead">Malergeschäft „Brunner & Söhne AG", 18 Devis/Monat, 82 CHF/h –
+  gerechnet mit dem Modell oben.</p>
+ <div class="ex"><div class="row">
+  <div>
+   <div class="grid3" style="gap:.8rem">
+    <div class="card" style="padding:1rem"><div class="n" style="margin-bottom:.4rem">⏱</div>
+     <h3 style="font-size:1rem">2,25 h</h3><p>gespart pro Devis</p></div>
+    <div class="card" style="padding:1rem"><div class="n" style="margin-bottom:.4rem">💰</div>
+     <h3 style="font-size:1rem">244 CHF</h3><p>gespart pro Devis</p></div>
+    <div class="card" style="padding:1rem"><div class="n" style="margin-bottom:.4rem">📅</div>
+     <h3 style="font-size:1rem">486 h</h3><p>Zeit/Jahr (= 61 Tage)</p></div>
+   </div>
+   <div style="margin-top:1rem">
+    <div class="card" style="padding:1.1rem"><h3 style="font-size:1rem">52'812 CHF</h3>
+     <p>Ersparnis pro Jahr · Break-even nach <b>Monat 1</b> · ROI <b>1'458 %</b></p></div>
+   </div>
+  </div>
+  <div style="background:#fff;border:1px solid #e6ebf2;border-radius:14px;padding:1.4rem">
+   <h3 style="margin-bottom:.6rem">Investition</h3>
+   <p><b>2'400 CHF</b> einmalig (Einrichtung Stammdaten)</p>
+   <p style="margin-top:.4rem"><b>990 CHF</b> pro Jahr (Updates, Support, Sorba-Pflege)</p>
+   <p class="small" style="margin-top:.8rem">Netto-Gewinn nach 12 Monaten: <b>~49'400 CHF</b></p>
+  </div>
+ </div></div>
+</div></section>
+
+<section id="preis" style="background:#f7faff"><div class="wrap">
+ <h2><span class="bl">Preis – einmalig & fair</span></h2>
+ <p class="lead">Transparent. Kein Abo-Zwang, keine versteckten Kosten. Break-even für Sie: Monat 1.</p>
+ <div class="price">
+  <div class="plan"><div class="p">2'400 CHF</div><div class="pl">Einmalige Anschaffung</div>
+   <ul><li>✓ Lizenz</li><li>✓ Einrichtung Ihrer Stammdaten</li><li>✓ 1 Jahr Support</li></ul></div>
+  <div class="plan feat"><div class="p">990 CHF<span style="font-size:1rem">/Jahr</span></div>
+   <div class="pl">Laufende Gebühr</div>
+   <ul><li>✓ Alle Updates</li><li>✓ Sorba-Format-Pflege</li><li>✓ E-Mail-Support</li><li>✓ Cloud/Self-Host</li></ul>
+   <a href="#kontakt" class="btn green" style="margin-top:.6rem;width:100%">Anfragen</a></div>
+  <div class="plan"><div class="p">Pilot</div><div class="pl">Erstes Halbjahr</div>
+   <ul><li>✓ 3 Monate kostenlos testen</li><li>✓ Danach 500 CHF Rabatt auf Einrichtung</li><li>✓ Nur heute im Gespräch</li></ul></div>
+ </div>
+</div></section>
+
+<section><div class="wrap">
+ <div class="quote">„Bei uns verbringen die Mitarbeiter jeden Monat viel Zeit mit Devis-Schreiben.
+  Ein Tool, das das in Minuten erledigt und unsere Preise kennt, wäre ein echter Gewinn."
+  <div class="a">– Aus einem Gespräch mit einem Maler- und einem Sanitärbetrieb, Zürich</div></div>
+</div></section>
+
+<section id="faq"><div class="wrap">
+ <h2><span class="bl">Häufige Fragen</span></h2>
+ <div class="faq">
+  <details open><summary>Funktioniert das mit meiner Software?</summary>
+   <p>Ja. devispro exportiert das bepriesene Devis als .sia (Sorba-Importformat, Kanton Zürich).
+    Die Datei laden Sie direkt in Ihre Kalkulationssoftware.</p></details>
+  <details><summary>Wo liegen meine Daten?</summary>
+   <p>Sie entscheiden: Self-Host auf Ihrem Rechner/Server oder gehostet. Ihre Stammdaten
+    bleiben Ihre – einmal eingeben, für immer nutzen.</p></details>
+  <details><summary>Was, wenn eine Position unsicher ist?</summary>
+   <p>devispro markiert Positionen, die nicht eindeutig zugeordnet werden können.
+    Diese sperren den Export, bis Sie als Fachkraft manuell freigeben. Kein Blindflug.</p></details>
+  <details><summary>Ist die Bepreisung rechtsverbindlich?</summary>
+   <p>Die App ist Tempo-Geber, keine Kalkulatorin. Die Preise stammen aus Ihrer eigenen
+    Liste. Vor Offertabgabe gibt eine berechtigte Fachkraft frei (Human-in-the-Loop).</p></details>
+  <details><summary>Wie schnell bin ich startklar?</summary>
+   <p>Nach der Einrichtung Ihrer Stammdaten (ca. 30 Min.) läuft jedes Devis in Minuten.
+    Die Einrichtung übernehme ich im Anschaffungspreis.</p></details>
+ </div>
+</div></section>
+
+<section id="kontakt" class="cta"><div class="wrap">
+ <h2>Testen Sie devispro – 3 Monate kostenlos</h2>
+ <p class="lead" style="margin:0 auto 1.8rem">Schreiben Sie mir Ihr Gewerk und Ihre Devis-Anzahl.
+  Ich richte Ihre Stammdaten ein und Sie sehen Ihren Gewinn live.</p>
+ <a href="mailto:info@devispro.de?subject=devispro%20Pilot%20anfragen&body=Hallo%2C%0A%0Aich%20m%C3%B6chte%20devispro%20testen.%0A%0AGewerk%3A%0ADevis%20pro%20Monat%3A%0A%0AViele%20Gr%C3%BCsse"
+  class="btn lg green">✉ Jetzt Pilot anfragen</a>
+ <p class="small" style="margin-top:1rem">Oder rufen Sie an · Antwort i. d. R. am selben Werktag</p>
+</div></section>
+
+<footer><div class="wrap">
+ <div style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:1rem">
+  <div><b style="color:#fff">devis&#8209;pro</b><br>Devis automatisch bepreisen · Sorba-Import · Kanton Zürich</div>
+  <div>© 2026 · <a href="mailto:info@devispro.de">info@devispro.de</a></div>
+ </div>
+</div></footer>
+
+<script>
+ function fmt(n){ return Math.round(n).toLocaleString('de-CH').replace(/,/g,"'"); }
+ function calc(){
+  var zm=+document.getElementById('zm').value||0;
+  var za=+document.getElementById('za').value||0;
+  var sl=+document.getElementById('sl').value||0;
+  var dm=+document.getElementById('dm').value||0;
+  var fe=+document.getElementById('fe').value||0;
+  var ap=+document.getElementById('ap').value||0;
+  var aj=+document.getElementById('aj').value||0;
+  var te=Math.max(0,zm-za);
+  var gpd=te*sl+fe;
+  var mon=gpd*dm;
+  var jahr=mon*12;
+  var kum=0,be=null;
+  for(var m=1;m<=12;m++){
+   kum+=(mon-aj/12);
+   if(m===1) kum-=ap;
+   if(be===null && kum>=0) be=m;
+  }
+  var roi1=kum;
+  var roip=((roi1)/(ap+aj))*100;
+  var zj=te*dm*12;
+  document.getElementById('rMonat').textContent=fmt(mon);
+  document.getElementById('rJahr').textContent=fmt(jahr);
+  document.getElementById('rZeit').textContent=fmt(zj);
+  document.getElementById('rBE').textContent=be?("Break-even nach Monat "+be+" – die App hat sich bezahlt, bevor die erste Jahresrechnung kommt.")
+     :("Break-even > 12 Monate");
+  var beEl=document.getElementById('rBE');
+  beEl.innerHTML=(be?("Break-even nach <b>Monat "+be+"</b> – die App hat sich bezahlt, bevor die erste Jahresrechnung kommt.")
+     :("Break-even > 12 Monate")) + " · <b>ROI Jahr 1: "+(roip?fmt(roip):0)+" %</b>";
+  document.getElementById('rBE').innerHTML=(be?("Break-even nach <b>Monat "+be+"</b> – die App hat sich bezahlt, bevor die erste Jahresrechnung kommt.")
+     :("Break-even > 12 Monate")) + " &middot; <b>ROI Jahr 1: "+(roip?fmt(roip):0)+" %</b>";
+ }
+ ['zm','za','sl','dm','fe','ap','aj'].forEach(function(id){
+  document.getElementById(id).addEventListener('input',calc);
+ });
+ calc();
+</script>
+</body></html>

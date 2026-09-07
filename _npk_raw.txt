@@ -1,0 +1,78 @@
+Normpositionenkatalog (NPK)
+2023: NPK Kapitel für Baumeisterarbeiten
+Schweizerischer Baumeisterverband
+CRB VSS
+102 2015 Besondere Bestimmungen VSS X X
+103 2015 Kostengrundlagen SBV X X
+111 2022 Regiearbeiten SBV X X
+112 2023 Prüfungen VSS X X
+113 2014 Baustelleneinrichtungen SBV X X X
+114 2012 Arbeitsgerüste SBV X X X
+116 2011 Holzen und Roden SBV X X
+117 2019 Abbrüche und Demontagen SBV / ARV X X X
+121 2012 Sichern, unterfangen, verstärken, verschieben SBV X X X
+131 2014 Instandsetzung und Schutz von Betonbauten VSS X X
+132 2023 Bohren und Trennen von Beton und Mauerwerk SVBS X X X
+133 2012 Instandsetzung und Schutz von Mauerwerk aus Natursteinen SBV X X
+135 2016 Instandhaltung und Sanierung von Abwassersystemen VSS/KSV X X
+151 2023 Bauarbeiten für Werkleitungen VSS X X X
+152 2020 Rohrvortrieb SBV X X
+161 2010 Wasserhaltung SBV X X X
+162 2013 Baugrubenabschlüsse und Aussteifungen SBV X X
+164 2017 Verankerungen und Nagelwände SBV X X
+171 2010 Pfähle SBV X X
+172 2014 Abdichtungen für Bauwerke unter Terrain und für Brücken SBV X X
+173 2022 Baugrundverbesserungen SBV X X
+181 2021 Garten- und Landschaftsbau Jardin Suisse X X X
+183 2012 Zäune und Arealeingänge Jardin Suisse X X
+187 2018 Sportböden für Freianlagen und Hallen VSS X X
+188 2011 Lärmschutzwände VSS X
+211 2011 Baugruben und Erdbau SBV X X X
+213 2011 Wasserbau SBV X
+214 2012 Lawinen- und Steinschlagverbau VSS X
+216 2011 Altlasten, belastete Standorte und Entsorgung SBV/ARV X X
+221 2010 Fundationsschichten für Verkehrsanlagen SBV/ARV X X
+222 2018 Abschlüsse, Pflästerungen, Plattendecken und Treppen VSP/NVS X X X
+223 2018 Belagsarbeiten VSS X X X
+225 2017 Gleisbau, Sicherungsanlagen und Weichenheizungen SBB/VöV/VSG X X
+226 2010 Materialaufbereitung VSS X X
+228 2006 Zusammengefasste Leistungen im Strassen- und Leitungsbau CRB X X
+237 2020 Kanalisationen und Entwässerungen SBV X X
+241 2019 Ortbetonbau SBV X X X
+244 2011 Lager- und Fahrbahnübergänge für Brücken VSS X
+246 2016 Spannsysteme SBV/VSV X X
+247 2012 Lehr-, Schutz- und Montagegerüste SBV X X
+261 2015 Sprengvortrieb im Fels SPV SBV X
+262 2015 Tunnelbohrmaschinen-Vortrieb im Fels TBM SBV X
+263 2015 Maschinenunterstützter Vortrieb im Fels MUF SBV X
+264 2015 Maschinenunterstützter Vortrieb im Lockergestein MUL SBV X
+265 2015 Schildmaschinen-Vortrieb im Lockergestein SM SBV X
+266 2015 Ausbruchsicherungen im Untertagbau SBV X
+267 2015 Bauhilfsmassnahmen im Untertagbau SBV X
+268 2015 Wasserhaltung im Untertagbau SBV X
+271 2015 Abdichtungen im Untertagbau SBV X
+272 2015 Entwässerungen im Untertagbau SBV X
+273 2015 Verkleidungen im Untertagbau SBV X
+274 2015 Innenausbau imUntertagbau SBV X
+275 2015 Kabelrohrleitungen im Untertagbau SBV X
+276 2015 Vorauserkundungen und Überwachungen im UT SBV X
+281 2016 Fahrzeug-Rückhaltesysteme und Geländer VSS X
+314 2013 Maurerarbeiten SBV X X
+315 2021 Vorgefertigte Elemente aus Beton und künstlichen Steinen SBV/Xella/SwissbetonX
+342 2016 Verputzte Aussenwärmedämmung SBV/SMGV/EPS X X
+345 2023 Natursteinarbeiten NVS X
+348 2014 Aussenputze SBV/SMGV X
+643 2014 Trockenbauarbeiten: Wände SMGV X
+661 2015 Estriche schwimmend oder im Verbund VSIU X
+662 2015 Bodenbeläge aus Zement, Magnesia, Kunstharz und Bitumen VSIU/VERAS X
+671 2019 Gipserarbeiten: Innenputze und Stukkaturen SMGV X X
+681 2011 Bauheizung, Bautrocknung und Baulüftung SBV X
+Analysen 
+SBV
+Kapitel
+NPK
+Ausgabe
+Jahr      Kapitelbezeichnung Fachliche 
+Verantwortun
+Herausgeber
+ © SBV / SSE / SSIC

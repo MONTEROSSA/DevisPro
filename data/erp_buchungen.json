@@ -1,0 +1,12 @@
+[
+  {
+    "nr": "BH-00001",
+    "datum": "2026-08-13",
+    "konto": "1200",
+    "gegenkonto": "4000",
+    "betrag": 360.0,
+    "text": "rechnung RECH-00001",
+    "beleg_nr": "RECH-00001",
+    "mwst": 29.16
+  }
+]
