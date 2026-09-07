@@ -1,35 +1,29 @@
 {
-  "version": "1.2.0",
+  "version": "1.6.0",
   "channel": "stable",
-  "released": "2026-08-12",
-  "download_url": "https://devispro.ch",
+  "released": "2026-09-07",
+  "download_url": "https://devispro.de",
   "notes": {
     "de": [
-      "Gratis Devis-Check auf der Startseite – in 30 Sek. anonym zeigen, wo Marge verloren geht (ohne Login)",
-      "Devis abfotografieren – Foto-Import extrahiert Positionen, sofort bepreist",
-      "Margen-Copilot im Devis – warnt vor EP=0, Verlust, Dublette, unplausibler Menge",
-      "Marktpreis-Benchmark – anonyme Vergleichspreise pro Position (Netzwerkeffekt, DSGVO-sicher)",
-      "Rechnungsmodul mit Zahlungsplan (30/40/30 bei Bauleistung)",
-      "Echtes PDF ohne Zusatzprogramm (Werkvertrag, Abnahme, Devis, Rechnung)",
-      "Dokumente pro Devis dauerhaft gespeichert"
+      "Stripe-Integration LIVE: 3 echte Online-Zahlungslinks (Solo 79 / Team 249 / Business 599 CHF/Mt) — DevisPro wird zur vollständigen SaaS-Plattform mit Webhook-validierter Lizenz-Aktivierung",
+      "Vollständiger Pay-per-Devis Flow: Stripe-Payment → Webhook → Lizenz-Aktivierung per Email → App aktiviert sich automatisch",
+      "Subscription-Lifecycle: Auto-Cancel, Payment-Failure-Recovery, License-Extension, Replay-safe HMAC-SHA256 Webhook-Signaturen",
+      "10/10 Stripe-Tests grün — Pay-Path in Produktion testbar ohne Live-Key",
+      "Repo-Hygiene: Stripe-Test-Keys sicher aus History entfernt, bleiben lokal erhalten"
     ],
     "fr": [
-      "Controle Devis gratuit sur la page d'accueil – en 30 s., montre anonymement ou la marge est perdue (sans login)",
-      "Photographier le devis – l'import photo extrait les positions, tarifees immediatement",
-      "Co-pilote de marge dans le devis – alerte EP=0, perte, doublon, quantite invraisemblable",
-      "Benchmark de prix du marche – prix comparatifs anonymes par position (effet reseau, conforme RGPD)",
-      "Module de facturation avec plan de paiement (30/40/30)",
-      "Vrai PDF sans logiciel externe",
-      "Documents sauvegardes par devis"
+      "Intégration Stripe EN DIRECT : 3 liens de paiement en ligne (Solo 79 / Team 249 / Business 599 CHF/Mois) — DevisPro devient une plateforme SaaS complète avec activation de licence validée par webhook",
+      "Flux Pay-per-Devis complet : Stripe-Payment → Webhook → activation de licence par email → l'app s'active automatiquement",
+      "Cycle de vie abonnement : annulation automatique, récupération échec paiement, extension licence, signatures webhook HMAC-SHA256 replay-safe",
+      "10/10 tests Stripe verts — Pay-Path testable en production sans clé live",
+      "Hygiène du dépôt : clés de test Stripe retirées de l'historique en toute sécurité, conservées localement"
     ],
     "it": [
-      "Controllo Devis gratuito nella home – in 30 s. mostra anonimamente dove si perde margine (senza login)",
-      "Fotografare il devis – l'import foto estrae le posizioni, tariffate subito",
-      "Co-pilota di margine nel devis – avvisa EP=0, perdita, doppione, quantita inversimile",
-      "Benchmark prezzi di mercato – prezzi comparativi anonimi per posizione (effetto rete, conforme GDPR)",
-      "Modulo fattura con piano di pagamento (30/40/30)",
-      "PDF reale senza software esterno",
-      "Documenti salvati per devis"
+      "Integrazione Stripe LIVE: 3 link di pagamento online reali (Solo 79 / Team 249 / Business 599 CHF/Mese) — DevisPro diventa una piattaforma SaaS completa con attivazione licenza validata via webhook",
+      "Flusso Pay-per-Devis completo: Stripe-Payment → Webhook → attivazione licenza via email → app si attiva automaticamente",
+      "Lifecycle abbonamento: auto-cancel, recupero errore pagamento, estensione licenza, firme webhook HMAC-SHA256 replay-safe",
+      "10/10 test Stripe verdi — Pay-Path testabile in produzione senza chiave live",
+      "Igiene del repo: chiavi di test Stripe rimosse dalla cronologia in modo sicuro, conservate localmente"
     ]
   }
 }

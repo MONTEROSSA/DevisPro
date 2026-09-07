@@ -5,8 +5,8 @@ Der Anbieter erhoeht VERSION bei jeder Veroeffentlichung ueber
 wird auf devispro.de hochgeladen; die lokale App prueft beim Oeffnen
 darauf und informiert KMU-Kunden ueber verfuegbare Updates.
 """
-VERSION = "1.3.1"
-RELEASED = "2026-08-13"
+VERSION = "1.6.0"
+RELEASED = "2026-09-07"
 CHANNEL = "stable"
 
 # Changelog der installierten Version (nur Info, das live-Banner nutzt
