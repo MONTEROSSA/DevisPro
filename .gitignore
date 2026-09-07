@@ -6,3 +6,10 @@ _signFIX/
 __pycache__/
 *.pyc
 *.pyo
+
+# Test artifacts and Stripe test keys (live + test)
+devispro/_test_*.py
+devispro/_solo_test*.py
+_test_*.py
+_solo_test.py
+_solo_test2.py
