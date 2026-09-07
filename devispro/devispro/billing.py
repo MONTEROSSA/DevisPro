@@ -39,7 +39,7 @@ PREISE = {
         "price_chf": 79,
         "interval": "month",
         "stripe_price_id": "price_1UC0feKCyDtCv2vslncJkCt0",
-        "stripe_payment_link": "https://buy.stripe.com/test_7sY4gAb5t6kw5vc8I333W00",  # In UI erstellen
+        "stripe_payment_link": "https://buy.stripe.com/test_cNi8wQ7TheR26zgf6r33W01",  # User 2026-09-07 (Dashboard-verified)
         "features": ["5 Devis/Mt inklusive", "Sorba-Import", "PDF + QR-Rechnung", "E-Mail-Support"],
     },
     "team": {
@@ -47,7 +47,7 @@ PREISE = {
         "price_chf": 249,
         "interval": "month",
         "stripe_price_id": "price_1UCOlHKCyDtCv2vsr8wJHjc",
-        "stripe_payment_link": "https://buy.stripe.com/test_fZu3cw1uT24g5vc2jf33W03",  # In UI erstellen
+        "stripe_payment_link": "https://buy.stripe.com/test_fZu3cw1uT24g5vc2jF33W03",  # User 2026-09-07 (Dashboard-verified)
         "features": ["25 Devis/Mt inklusive", "3 User", "KI-Agent", "Cloud-Sync", "Priority-Support"],
     },
     "business": {
