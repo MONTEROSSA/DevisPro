@@ -55,7 +55,7 @@ PREISE = {
         "price_chf": 599,
         "interval": "month",
         "stripe_price_id": "price_1UCOmmKCyDtCv2vsD9iz4URv",
-        "stripe_payment_link": "https://buy.stripe.com/test_00wfZic9xbEQe1IcYj33W02",  # In UI erstellen
+        "stripe_payment_link": "https://buy.stripe.com/test_00wfZic9xbEQe1IcYj33W02",  # User 2026-09-07 (Dashboard-verified)
         "features": ["Unbegrenzte Devis", "5 User", "10 ERP-Anbindungen", "API-Zugang", "Account-Manager"],
     },
 }
