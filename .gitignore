@@ -2,6 +2,11 @@ DevisPro.app/
 _signFIX/
 /tmp/*.log
 
+# Local signed/notarized bundles (45 MB, regenerated on every sign-fix run)
+DevisPro_Mac_notarized.zip
+DevisPro_Mac_signed.zip
+DevisPro_Mac.zip.bak
+
 # Python Cache
 __pycache__/
 *.pyc
