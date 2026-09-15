@@ -325,19 +325,28 @@ class DevisProApp(ctk.CTk):
             self.tree.delete(iid)
         if not self.devis:
             return
-        for p in self.devis.positionen:
-            self.tree.insert("", "end", values=(p.pos, p.bezeichnung, p.menge, p.einheit, p.ep, p.betrag))
+        for p in self.devis.positions:
+            self.tree.insert("", "end", values=(p.pos_nr, p.text, p.menge, p.einheit, p.ep, p.betrag))
         # Kacheln
-        if hasattr(self.devis, "netto"):
-            self._refresh_kacheln()
+        self._refresh_kacheln()
 
     def _refresh_kacheln(self):
         # wir bauen kacheln neu auf
         for c in self.kachel_frame.winfo_children():
             c.destroy()
-        netto = getattr(self.devis, "netto", 0.0)
-        mwst  = getattr(self.devis, "mwst", 0.0)
-        brutto = getattr(self.devis, "brutto", 0.0)
+        netto = 0.0
+        if self.devis:
+            netto = sum((p.betrag or 0.0) for p in self.devis.positions)
+        mwst_satz = 7.7
+        try:
+            if self.devis and self.devis.meta and self.devis.meta.get("mwst"):
+                mwst_satz = float(self.devis.meta.get("mwst"))
+            else:
+                mwst_satz = float(load_profile().get("mwst", 7.7))
+        except Exception:
+            pass
+        mwst = round(netto * mwst_satz / 100.0, 2)
+        brutto = round(netto + mwst, 2)
         self._kachel(self.kachel_frame, "Netto",  f"{netto:,.2f}",  "#3B82C4")
         self._kachel(self.kachel_frame, "MWST",   f"{mwst:,.2f}",   ACCENT)
         self._kachel(self.kachel_frame, "Brutto", f"{brutto:,.2f}", "#1F8A4C")
@@ -410,8 +419,10 @@ class DevisProApp(ctk.CTk):
                      font=FONT_H2, text_color=ACCENT).pack(pady=10)
         txt = scrolledtext.ScrolledText(win, bg=BG_PANEL, fg=TXT_MAIN, insertbackground=TXT_MAIN, font=("Menlo", 10))
         txt.pack(fill="both", expand=True, padx=14, pady=10)
-        for p in self.devis.positionen:
-            txt.insert("end", f"{p.pos:>6}  {p.bezeichnung:<40}  {p.menge:>8.2f} {p.einheit:<4}  EP {p.ep:>8.2f}  = {p.betrag:>10.2f}\n")
+        for p in self.devis.positions:
+            ep = p.ep if p.ep is not None else 0.0
+            betrag = p.betrag if p.betrag is not None else 0.0
+            txt.insert("end", f"{p.pos_nr:>6}  {p.text:<40}  {p.menge:>8.2f} {p.einheit:<4}  EP {ep:>8.2f}  = {betrag:>10.2f}\n")
 
     def _export(self, kind):
         """Echter Export (M26: Trust-Bug-Fix) — schreibt echte Dateien statt nur Status-Meldungen.
@@ -450,11 +461,16 @@ class DevisProApp(ctk.CTk):
                 from devispro.pdf_export import write_pdf
                 write_pdf(self.devis, out)
             elif kind == "sia":
-                from devispro.parsers.devispro_sia import export as sia_export
-                sia_export(self.devis, out)
-            elif kind == "csv" or kind == "buchhaltung":
-                from devispro.exporter import export
-                export(self.devis, out, fmt="csv")
+                from devispro.exporter import export as devis_export
+                devis_export(self.devis, out, fmt="crb")
+            elif kind == "csv" or kind == "buchhaltung" or kind == "fibu":
+                import csv
+                with open(out, "w", newline="", encoding="utf-8-sig") as f:
+                    w = csv.writer(f, delimiter=";")
+                    w.writerow(["Pos", "Bezeichnung", "Menge", "Einheit", "EP CHF", "Betrag CHF"])
+                    for p in self.devis.positions:
+                        w.writerow([p.pos_nr, p.text, p.menge, p.einheit,
+                                    p.ep if p.ep is not None else "", p.betrag if p.betrag is not None else ""])
             elif kind == "json":
                 import json
                 with open(out, "w", encoding="utf-8") as f:
