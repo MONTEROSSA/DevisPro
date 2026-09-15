@@ -313,7 +313,7 @@ class DevisProApp(ctk.CTk):
         if not f:
             return
         try:
-            self.devis = import_devis(f, kind)
+            self.devis = import_devis(f)
             self._refresh_tree()
             self._status(f"Import OK: {os.path.basename(f)}")
         except Exception as e:
