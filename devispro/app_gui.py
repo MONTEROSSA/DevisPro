@@ -121,6 +121,30 @@ class DevisProApp(ctk.CTk):
         FONT_BTN  = ctk.CTkFont(*FONT_BTN)
         FONT_MONO = ctk.CTkFont(*FONT_MONO)
 
+        # GLOBAL-FIX: Dark-Mode (ctk) laesst klassische tk/ttk-Felder (Entry, Text,
+        # Combobox) in Sub-Dialogen (ERP, Marketplace, CloudSync, ...) sonst mit
+        # weisser Schrift auf weissem Feld rendern (System-Dark-Text auf hartem
+        # weissem Feld-Hintergrund). Einmal zentral hier erzwingen -> gilt fuer
+        # ALLE spaeter erzeugten Toplevel-Fenster/Dialoge der ganzen App.
+        self.option_add("*Entry*foreground", "black")
+        self.option_add("*Entry*background", "white")
+        self.option_add("*Text*foreground", "black")
+        self.option_add("*Text*background", "white")
+        self.option_add("*Listbox*foreground", "black")
+        self.option_add("*Listbox*background", "white")
+        try:
+            _fix_style = ttk.Style()
+            _fix_style.map(
+                "TCombobox",
+                fieldbackground=[("readonly", "white"), ("!disabled", "white")],
+                foreground=[("readonly", "black"), ("!disabled", "black")],
+                selectforeground=[("readonly", "black")],
+                selectbackground=[("readonly", "white")],
+            )
+            _fix_style.configure("TCombobox", foreground="black", fieldbackground="white")
+        except Exception:
+            pass
+
         self.devis = None
         self._katalog_importer = None
 
