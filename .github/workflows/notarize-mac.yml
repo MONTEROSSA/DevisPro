@@ -1,0 +1,117 @@
+name: Notarize existing Mac build (Developer ID)
+
+on:
+  workflow_dispatch:
+
+jobs:
+  notarize:
+    runs-on: macos-14
+    timeout-minutes: 60
+    defaults:
+      run:
+        shell: bash
+
+    steps:
+      - name: Import Developer ID certificate
+        env:
+          MAC_CERT_P12_BASE64: ${{ secrets.MAC_CERT_P12_BASE64 }}
+          MAC_CERT_P12_PASSWORD: ${{ secrets.MAC_CERT_P12_PASSWORD }}
+          KEYCHAIN_PASSWORD: devpro-build-key
+        run: |
+          set -e
+          KEYCHAIN_PATH="$RUNNER_TEMP/devispro_keychain-db"
+          security create-keychain -p "$KEYCHAIN_PASSWORD" "$KEYCHAIN_PATH"
+          security set-keychain-settings -lut 21600 "$KEYCHAIN_PATH"
+          security unlock-keychain -p "$KEYCHAIN_PASSWORD" "$KEYCHAIN_PATH"
+          security list-keychains -d user -s "$KEYCHAIN_PATH" $(security list-keychains -d user | xargs)
+          echo "$MAC_CERT_P12_BASE64" | base64 --decode > "$RUNNER_TEMP/devispro.p12"
+          security import "$RUNNER_TEMP/devispro.p12" \
+            -k "$KEYCHAIN_PATH" \
+            -P "$MAC_CERT_P12_PASSWORD" \
+            -T /usr/bin/codesign \
+            -T /usr/bin/security
+          security set-key-partition-list -S apple-tool:,apple: -s -k "$KEYCHAIN_PASSWORD" "$KEYCHAIN_PATH"
+          echo "IDENT=$(security find-identity -v -p codesigning "$KEYCHAIN_PATH" | head -1)" >> "$GITHUB_ENV"
+          echo "Certificate imported"
+
+      - name: Download current DevisPro build
+        run: |
+          set -e
+          curl -sL -o DevisPro_Mac.zip https://devispro.de/DevisPro_Mac.zip
+          ls -la DevisPro_Mac.zip
+          ditto -x -k DevisPro_Mac.zip .
+          test -d DevisPro.app || (echo "DevisPro.app fehlt nach Entpacken" && exit 1)
+          xattr -cr DevisPro.app
+          find DevisPro.app -name "__pycache__" -type d -exec rm -rf {} + 2>/dev/null || true
+
+      - name: Real Developer ID sign (hardened runtime + timestamp)
+        env:
+          KEYCHAIN_PASSWORD: devpro-build-key
+        run: |
+          set -e
+          CERT="Developer ID Application: Ferdinand Ferdinand Röthlisberger (T3VS7P5X5D)"
+          KEYCHAIN_PATH="$RUNNER_TEMP/devispro_keychain-db"
+          /usr/libexec/PlistBuddy -c "Set :CFBundlePackageType APPL" DevisPro.app/Contents/Info.plist || \
+            /usr/libexec/PlistBuddy -c "Add :CFBundlePackageType string APPL" DevisPro.app/Contents/Info.plist
+          find DevisPro.app -type f \( -name "*.dylib" -o -name "*.so" \) -print0 | while IFS= read -r -d '' f; do
+            codesign --force --options runtime --timestamp --keychain "$KEYCHAIN_PATH" -s "$CERT" "$f" || echo "WARN: sign fehlgeschlagen fuer $f"
+          done
+          codesign --force --deep --options runtime --timestamp --keychain "$KEYCHAIN_PATH" -s "$CERT" DevisPro.app
+          echo "=== Verify ==="
+          codesign --verify --deep --strict --verbose=2 DevisPro.app
+
+      - name: Submit for Apple notarization
+        env:
+          APPLE_ID: ${{ secrets.APPLE_ID }}
+          APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
+          APPLE_APP_PASSWORD: ${{ secrets.APPLE_APP_PASSWORD }}
+        run: |
+          set -e
+          ditto -c -k --keepParent DevisPro.app DevisPro_notarize_submit.zip
+          xcrun notarytool submit DevisPro_notarize_submit.zip --wait \
+            --apple-id "$APPLE_ID" --password "$APPLE_APP_PASSWORD" --team-id "$APPLE_TEAM_ID" | tee notary_out.txt
+          grep -q "status: Accepted" notary_out.txt
+
+      - name: Staple ticket + verify with spctl
+        run: |
+          set -e
+          xcrun stapler staple DevisPro.app
+          spctl -a -vv DevisPro.app 2>&1 | tee spctl_out.txt
+          grep -qi "accepted" spctl_out.txt
+
+      - name: Package final notarized build
+        run: |
+          set -e
+          rm -f DevisPro_Mac_notarized.zip
+          ditto -c -k --keepParent DevisPro.app DevisPro_Mac_notarized.zip
+          ls -la DevisPro_Mac_notarized.zip
+
+      - name: Upload notarized artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: DevisPro-macOS-notarized
+          path: DevisPro_Mac_notarized.zip
+          retention-days: 30
+
+      - name: Deploy notarized build to VPS
+        env:
+          VPS_SSH_KEY: ${{ secrets.VPS_SSH_KEY }}
+          VPS_HOST: ${{ secrets.VPS_HOST }}
+        run: |
+          set -e
+          mkdir -p ~/.ssh
+          echo "$VPS_SSH_KEY" > ~/.ssh/vps_key
+          chmod 600 ~/.ssh/vps_key
+          ssh-keyscan -H "$VPS_HOST" >> ~/.ssh/known_hosts 2>/dev/null || true
+          scp -i ~/.ssh/vps_key -o StrictHostKeyChecking=no -o BatchMode=yes \
+            DevisPro_Mac_notarized.zip "root@${VPS_HOST}:/opt/devispro_app/DevisPro_Mac.zip"
+          ssh -i ~/.ssh/vps_key -o StrictHostKeyChecking=no -o BatchMode=yes \
+            "root@${VPS_HOST}" "
+              set -e
+              cp /opt/devispro_app/DevisPro_Mac.zip /var/www/devispro/DevisPro_Mac.zip
+              chmod 644 /var/www/devispro/DevisPro_Mac.zip
+              systemctl reload nginx
+              echo DEPLOYED
+            "
+          sleep 3
+          curl -sI "https://devispro.de/DevisPro_Mac.zip" | head -2
