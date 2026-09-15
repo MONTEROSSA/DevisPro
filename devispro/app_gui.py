@@ -19,6 +19,7 @@ from devispro import history as history_mod, firmen_preise, ch_preise
 from devispro.stammdaten import load_profile, save_profile
 from devispro.importers import import_devis
 from devispro.models import Devis, Position
+from devispro import preise_gui
 
 FONT = ("Helvetica", 10)
 
@@ -90,6 +91,7 @@ class DevisProApp(tk.Tk):
         self._btn(side, "Verlauf", self._verlauf, "gray")
         self._btn(side, "Setup / Stammdaten", self._setup, "gray")
         self._btn(side, "Neues Devis", self._neu, "gray")
+        self._btn(side, "Preisliste pflegen", self._preisliste_pflegen, "gray")
 
         # ---- Rechte Seite ----
         right = tk.Frame(main)

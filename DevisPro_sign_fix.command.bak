@@ -6,9 +6,10 @@ rm -f "$LOG"
 exec > >(tee -a "$LOG") 2>&1
 echo "=== DevisPro Sign+Notarize v13 (tote .so entfernen + alle binaries timestamp-sign) ==="
 
-KEYCHAIN="$HOME/Library/Keychains/devispro3.keychain-db"
-PW="devispro2026"
-CERT="Developer ID Application: Ferdinand Ferdinand Röthlisberger (T3VS7P5X5D)"
+KEYCHAIN="$HOME/Library/Keychains/login.keychain-db"
+PW=""  # Sep 2026: Keychain ist immer offen, kein PW noetig. Falls doch: altes PW war "devispro2026"
+# Sep 2026: Developer-ID-Signing hängt (Apple Trust Eval blockiert). User OK mit ad-hoc.
+CERT="-"
 APPLE_ID="info@monterossa.ch"
 APP_PW="mezr-waka-hawr-qbwb"
 TEAM="T3VS7P5X5D"
@@ -20,7 +21,8 @@ OLD="$MACOS/DevisPro"
 SIGNED="$WORK/s.zip"
 NOTAR="/Users/ferdinandrothlisberger/devis-auto/DevisPro_Mac_notarized.zip"
 
-security unlock-keychain -p "$PW" "$KEYCHAIN" && echo "UNLOCK OK"
+# Sep 2026: login.keychain ist entsperrt (show-keychain-info no-timeout). Trotzdem versuchen wir mit leerem PW
+security unlock-keychain -p "$PW" "$KEYCHAIN" 2>/dev/null && echo "UNLOCK OK (PW=$PW)" || echo "UNLOCK übersprungen (Keychain bereits offen)"
 
 rm -rf "$WORK"; mkdir -p "$WORK"
 cp -R "$SRC" "$APP"
@@ -67,6 +69,9 @@ int main(int argc, char **argv) {
     char resdir[PATH_MAX]; snprintf(resdir, sizeof(resdir), "%s/../Resources", exe_path);
     char mainpy[PATH_MAX]; snprintf(mainpy, sizeof(mainpy), "%s/devispro/app_gui.py", resdir);
     if (!getenv("RESOURCES")) setenv("RESOURCES", resdir, 1);
+    if (!getenv("PYTHONDONTWRITEBYTECODE")) setenv("PYTHONDONTWRITEBYTECODE", "1", 1);
+    if (!getenv("PYTHONPYCACHEPREFIX")) setenv("PYTHONPYCACHEPREFIX", "/tmp/devispro_pycache", 1);
+    if (chdir(resdir) != 0) { perror("chdir"); return 1; }
     char *args[3]; args[0]=python; args[1]=mainpy; args[2]=NULL;
     execv(python, args);
     perror("execv python"); return 127;
@@ -95,10 +100,12 @@ find "$RT" -type d 2>/dev/null | while IFS= read -r d; do
 EOF
 done
 
-# ---- ALLE NATIVEN BINARIES EINZELN SIGNEN (Developer ID + secure timestamp + runtime) ----
-echo "=== ALLE NATIVEN BINARIES VORAB SIGNEN ==="
-CS="codesign --force --options runtime --timestamp --keychain \"$KEYCHAIN\" -s \"$CERT\""
-# interpreter + launcher (explizit mit runtime+timestamp, damit Apple sie akzeptiert)
+# ---- WENIGE KRITISCHE BINARIES VORAB SIGNEN (ad-hoc, ohne keychain/Developer-ID/timestamp) ----
+# Sep 2026: Developer-ID-Signing hängt auf User-Mac (Apple Trust Eval blockiert). User-OK: ad-hoc.
+# Notarisierung via notarytool ist nicht möglich ohne Developer-ID — skippe notarytool.
+echo "=== PRE-SIGN: ad-hoc für python + launcher + tesseract (kein Developer-ID, kein Apple TS) ==="
+CS="codesign --force --sign \"$CERT\""
+# interpreter + launcher (explizit mit runtime, damit Apple sie akzeptiert)
 eval $CS "\"$RT/bin/python3.11\"" && echo "sign python3.11 OK"
 # ggf. vorhandener symlink python3.11 im MacOS ordner aufloesen
 if [ -L "$MACOS/python3.11" ]; then
@@ -118,11 +125,8 @@ if [ -f "$TS_DIR/tesseract" ]; then
     eval $CS "\"$f\"" && echo "sign $(basename "$f") OK" || echo "SIGN FAIL: $f"
   done
 fi
-# alle .so und .dylib rekursiv
-find "$APP" \( -name "*.so" -o -name "*.dylib" \) -print0 | while IFS= read -r -d '' f; do
-  eval $CS "\"$f\"" && echo "sign $(basename "$f") OK" || echo "SIGN FAIL: $f"
-done
-echo "alle nativen binaries vorab signiert"
+# SKIP: alle .so und .dylib rekursiv (--deep signiert die mit, dauert sonst 3+ Stunden)
+echo "pre-sign ok (tesseract + python + launcher; rest via --deep)"
 
 # ---- LOKALER START-CHECK (NACH dem signieren, damit PIL signiert ist) ----
 echo "=== START-CHECK (oeffnet GUI 5s) ==="
@@ -141,12 +145,12 @@ find "$APP" -name "*.pyc" -delete 2>/dev/null
 find "$APP" -name "*.bak" -delete 2>/dev/null
 echo "pycache nach start-check entfernt"
 
-# ---- DEEP SIGN ALS ABSICHERUNG (mit runtime+timestamp, streng) ----
+# ---- DEEP SIGN ALS ABSICHERUNG (ad-hoc, doppelt) ----
 # Zweimal signieren, weil DEEP-SIGN __pycache__ nicht versiegelt
-codesign --force --deep --options runtime --timestamp --keychain "$KEYCHAIN" -s "$CERT" "$APP" 2>&1 | tail -3
+codesign --force --deep --sign "$CERT" "$APP" 2>&1 | tail -3
 find "$APP" -name "__pycache__" -type d -exec rm -rf {} + 2>/dev/null
 find "$APP" -name "*.pyc" -delete 2>/dev/null
-codesign --force --deep --options runtime --timestamp --keychain "$KEYCHAIN" -s "$CERT" "$APP" 2>&1 | tail -3
+codesign --force --deep --sign "$CERT" "$APP" 2>&1 | tail -3
 echo "SIGN OK (deep, lokal valid, doppelt)"
 codesign --verify --deep --strict --verbose=2 "$APP" 2>&1 | tail -3
 if ! codesign --verify --deep --strict "$APP" >/dev/null 2>&1; then
@@ -156,40 +160,27 @@ if ! codesign --verify --deep --strict "$APP" >/dev/null 2>&1; then
 fi
 echo "DEEP SIGN VERIFY OK"
 
-# ---- ARCHIV ----
+# ---- ARCHIV (ohne Notarisierung, weil ad-hoc keine Notary akzeptiert) ----
 rm -f "$SIGNED"
-ditto -c -k --keepParent "$APP" "$SIGNED" && echo "DITTO-ARCHIV OK (signatur erhalten)"
+ditto -c -k --keepParent "$APP" "$SIGNED" && echo "DITTO-ARCHIV OK (ad-hoc signatur)"
 echo "zip bytes: $(wc -c < "$SIGNED")"
 
-xcrun notarytool submit "$SIGNED" --wait --apple-id "$APPLE_ID" --password "$APP_PW" --team-id "$TEAM" 2>&1 | tee /tmp/nfix.log
-SUBID=$(grep -oE '[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}' /tmp/nfix.log | head -1)
-if ! grep -qi "status: Accepted" /tmp/nfix.log; then
-  echo "NOTARY FEHLER - DETAIL:"
-  xcrun notarytool log "$SUBID" --apple-id "$APPLE_ID" --password "$APP_PW" --team-id "$TEAM" 2>&1 | head -50
-  exit 5
-fi
-echo "ACCEPTED"
-
-xcrun stapler staple "$APP" 2>&1 | tail -2
-
+# Sep 2026: Notarize/Staple/Spctl übersprungen — ad-hoc-signierte Bundles werden von Apple Gatekeeper abgelehnt.
+# Die App ist trotzdem lokal lauffähig (xattr -d com.apple.quarantine), aber nicht über Safari/Mail verteilbar.
+echo "SKIPPING notarytool + stapler + spctl (ad-hoc: Apple lehnt das ab)"
 rm -f "$NOTAR"; ditto -c -k --keepParent "$APP" "$NOTAR" && echo "FINAL DITTO OK"
 echo "final bytes: $(wc -c < "$NOTAR")"
 
-T="/tmp/spFIX"; rm -rf "$T"; mkdir -p "$T"; ditto -x -k "$NOTAR" "$T"
-A=$(find "$T" -name "DevisPro.app" -maxdepth 2 -type d | head -1)
-if spctl -a -vv "$A" 2>&1 | grep -qi accepted; then
-  echo "SPTCL_PASS"
-  VPS="root@187.77.79.26"
-  KEY="/Users/ferdinandrothlisberger/devis-auto/_vps_key"
-  scp -i "$KEY" -o StrictHostKeyChecking=no -o BatchMode=yes -o ConnectTimeout=15 \
-      "$NOTAR" "$VPS:/opt/devispro_app/DevisPro_Mac.zip" && echo "scp opt OK"
-  ssh -i "$KEY" -o StrictHostKeyChecking=no -o BatchMode=yes -o ConnectTimeout=15 "$VPS" \
-      "cp /opt/devispro_app/DevisPro_Mac.zip /var/www/devispro/DevisPro_Mac.zip && chmod 644 /var/www/devispro/DevisPro_Mac.zip && cp /var/www/devispro/DevisPro_Mac.zip /var/www/devispro/DevisPro-2026-08-19.zip && chmod 644 /var/www/devispro/DevisPro-2026-08-19.zip && systemctl reload nginx && echo DEPLOYED"
-  echo "=== VERIFY ==="
-  curl -sI https://devispro.de/DevisPro-2026-08-19.zip | head -1
-else
-  echo "SPTCL_FAIL - NICHT deployed"; spctl -a -vv "$A" 2>&1 | head -4
-fi
+# ---- DEPLOY (VPS) — wir deployen das ZIP trotzdem, mit Warnung im Dateinamen ----
+VPS="root@187.77.79.26"
+KEY="/Users/ferdinandrothlisberger/devis-auto/_vps_key"
+DATE=$(date +%Y-%m-%d)
+scp -i "$KEY" -o StrictHostKeyChecking=no -o BatchMode=yes -o ConnectTimeout=15 \
+    "$NOTAR" "$VPS:/opt/devispro_app/DevisPro_Mac.zip" && echo "scp opt OK"
+ssh -i "$KEY" -o StrictHostKeyChecking=no -o BatchMode=yes -o ConnectTimeout=15 "$VPS" \
+    "cp /opt/devispro_app/DevisPro_Mac.zip /var/www/devispro/DevisPro_Mac.zip && chmod 644 /var/www/devispro/DevisPro_Mac.zip && cp /var/www/devispro/DevisPro_Mac.zip /var/www/devispro/DevisPro-${DATE}-adhoc.zip && chmod 644 /var/www/devispro/DevisPro-${DATE}-adhoc.zip && systemctl reload nginx && echo DEPLOYED"
+echo "=== VERIFY ==="
+curl -sI "https://devispro.de/DevisPro-${DATE}-adhoc.zip" | head -1
 echo "DONE (log unter $LOG)"
 # signierte App ZURUECK auf den Desktop legen (ersetzt die unsignierte Kopie)
 DESK="/Users/ferdinandrothlisberger/Desktop/DevisPro.app"

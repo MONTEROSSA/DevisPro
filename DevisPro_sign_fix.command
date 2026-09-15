@@ -69,6 +69,9 @@ int main(int argc, char **argv) {
     char resdir[PATH_MAX]; snprintf(resdir, sizeof(resdir), "%s/../Resources", exe_path);
     char mainpy[PATH_MAX]; snprintf(mainpy, sizeof(mainpy), "%s/devispro/app_gui.py", resdir);
     if (!getenv("RESOURCES")) setenv("RESOURCES", resdir, 1);
+    if (!getenv("PYTHONDONTWRITEBYTECODE")) setenv("PYTHONDONTWRITEBYTECODE", "1", 1);
+    if (!getenv("PYTHONPYCACHEPREFIX")) setenv("PYTHONPYCACHEPREFIX", "/tmp/devispro_pycache", 1);
+    if (chdir(resdir) != 0) { perror("chdir"); return 1; }
     char *args[3]; args[0]=python; args[1]=mainpy; args[2]=NULL;
     execv(python, args);
     perror("execv python"); return 127;
@@ -127,6 +130,7 @@ echo "pre-sign ok (tesseract + python + launcher; rest via --deep)"
 
 # ---- LOKALER START-CHECK (NACH dem signieren, damit PIL signiert ist) ----
 echo "=== START-CHECK (oeffnet GUI 5s) ==="
+export PYTHONPATH="$APP/Contents/Resources/devispro:$PYTHONPATH"
 "$OLD" > /tmp/launchcheck.log 2>&1 &
 LPID=$!
 sleep 5

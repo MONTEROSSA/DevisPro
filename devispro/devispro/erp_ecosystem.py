@@ -801,6 +801,7 @@ class ERPManager:
         win = tk.Toplevel()
         win.title("ERP-Ökosystem")
         win.geometry("1000x700")
+        win.option_add("*Entry*foreground", "black")
 
         # Toolbar
         toolbar = tk.Frame(win)
