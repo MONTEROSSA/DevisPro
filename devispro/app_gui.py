@@ -489,11 +489,82 @@ class DevisProApp(ctk.CTk):
             messagebox.showerror("Export fehlgeschlagen", f"Fehler beim {kind}-Export:\n{e}\n\nBitte erneut versuchen oder Support kontaktieren.")
 
     def _kataloge_laden(self):
-        self._status("Verbandskataloge werden geladen…")
-        messagebox.showinfo("Verbandskataloge", "Funktion aktiv – Beispiel-Daten werden im Hintergrund verarbeitet.")
+        f = filedialog.askopenfilename(
+            title="Verbandskatalog-CSV waehlen",
+            filetypes=[("CSV", "*.csv"), ("Alle Dateien", "*.*")],
+        )
+        if not f:
+            self._status("Katalog-Import abgebrochen")
+            return
+
+        win = ctk.CTkToplevel(self)
+        win.title("Verbandskatalog importieren")
+        win.geometry("360x220")
+        win.configure(fg_color=BG_DARK)
+        ctk.CTkLabel(win, text=f"Datei: {os.path.basename(f)}", font=FONT_SM, text_color=TXT_DIM).pack(pady=(14, 10))
+        ctk.CTkLabel(win, text="Katalog-Typ:", font=FONT).pack()
+        typ_var = tk.StringVar(value="npk")
+        tk.OptionMenu(win, typ_var, "npk", "bks", "hlks", "crb").pack(pady=6)
+        ctk.CTkLabel(win, text="Jahr:", font=FONT).pack()
+        jahr_entry = tk.Entry(win, width=8)
+        jahr_entry.insert(0, "2024")
+        jahr_entry.pack(pady=6)
+
+        def do_import():
+            try:
+                if self._katalog_importer is None:
+                    self._katalog_importer = KatalogImporter()
+                jahr = int(jahr_entry.get() or 2024)
+                result = self._katalog_importer.import_katalog(f, typ_var.get(), jahr)
+                anzahl = result.get("imported", len(self._katalog_importer.positionen)) if isinstance(result, dict) else len(self._katalog_importer.positionen)
+                fehler = result.get("errors", []) if isinstance(result, dict) else []
+                self._status(f"✓ Katalog importiert: {anzahl} Positionen ({typ_var.get().upper()})")
+                msg = f"{anzahl} Positionen aus {os.path.basename(f)} importiert."
+                if fehler:
+                    msg += f"\n\n{len(fehler)} Zeilen mit Fehlern uebersprungen."
+                messagebox.showinfo("Import erfolgreich", msg)
+                win.destroy()
+            except Exception as e:
+                messagebox.showerror("Import-Fehler", f"Katalog-Import fehlgeschlagen:\n{e}")
+                self._status(f"❌ Katalog-Import fehlgeschlagen: {e}")
+
+        tk.Button(win, text="Importieren", command=do_import, bg="darkgreen", fg="black").pack(pady=16)
 
     def _kataloge_suchen(self):
-        self._status("Katalog-Suche…")
+        if self._katalog_importer is None or not self._katalog_importer.positionen:
+            messagebox.showinfo("Kataloge durchsuchen", "Noch kein Katalog geladen. Bitte zuerst 'Verbandskataloge laden' nutzen.")
+            return
+
+        win = ctk.CTkToplevel(self)
+        win.title("Kataloge durchsuchen")
+        win.geometry("720x480")
+        win.configure(fg_color=BG_DARK)
+
+        search_frame = ctk.CTkFrame(win, fg_color=BG_PANEL)
+        search_frame.pack(fill="x", padx=14, pady=10)
+        entry = ctk.CTkEntry(search_frame, placeholder_text="Suchbegriff (Titel, Nummer, Kategorie)...")
+        entry.pack(side="left", fill="x", expand=True, padx=(8, 8), pady=8)
+
+        cols = ("nummer", "titel", "einheit", "preis", "katalog")
+        tree = ttk.Treeview(win, columns=cols, show="headings", height=16)
+        for c, w in [("nummer", 100), ("titel", 320), ("einheit", 60), ("preis", 80), ("katalog", 70)]:
+            tree.heading(c, text=c.capitalize())
+            tree.column(c, width=w)
+        tree.pack(fill="both", expand=True, padx=14, pady=(0, 10))
+
+        def do_search(event=None):
+            for iid in tree.get_children():
+                tree.delete(iid)
+            q = entry.get().strip()
+            results = self._katalog_importer.search(q, limit=200) if q else self._katalog_importer.positionen[:200]
+            for pos in results:
+                tree.insert("", "end", values=(pos.nummer, pos.titel, pos.einheit, f"{pos.preis:.2f}", pos.katalog))
+            self._status(f"Katalog-Suche: {len(results)} Treffer")
+
+        entry.bind("<Return>", do_search)
+        ctk.CTkButton(search_frame, text="Suchen", command=do_search, fg_color=ACCENT, hover_color=ACCENT_HV, width=90).pack(side="right", padx=8, pady=8)
+        do_search()
+        entry.focus_set()
 
     def _verlauf(self):
         win = ctk.CTkToplevel(self)
