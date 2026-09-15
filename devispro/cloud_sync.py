@@ -783,8 +783,12 @@ class CloudSyncManager:
     def _toggle_auto_sync(self):
         import tkinter as tk
         from tkinter import messagebox
-        # TODO: Auto-Sync Toggle implementieren
-        messagebox.showinfo("Info", "Auto-Sync Toggle: Noch nicht implementiert.\nAktiviert in Provider-Einstellungen.")
+        if getattr(self, "_running", False):
+            self.stop_auto_sync()
+            messagebox.showinfo("Auto-Sync", "Automatische Synchronisation gestoppt.")
+        else:
+            self.start_auto_sync()
+            messagebox.showinfo("Auto-Sync", "Automatische Synchronisation gestartet (prüft alle 60s alle aktivierten Provider).")
     
     def _browse_local(self, entry_widget):
         import tkinter as tk

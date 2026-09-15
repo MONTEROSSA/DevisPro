@@ -363,7 +363,7 @@ class DevisProApp(ctk.CTk):
             messagebox.showerror("Preise-Fehler", str(e))
             self._status(f"Preise-FEHLER: {e}")
 
-    def _agent(self):
+    def _agent(self, initial_prompt=None):
         """Echter KI-Agent: öffnet Chat-Dialog mit DevisPro-Assistent."""
         from tkinter import scrolledtext
         win = ctk.CTkToplevel(self)
@@ -404,6 +404,9 @@ class DevisProApp(ctk.CTk):
         btn = ctk.CTkButton(entry_frame, text="Senden", command=ask, fg_color=ACCENT, hover_color=ACCENT_HV, width=100)
         btn.pack(side="right")
         ent.bind("<Return>", ask)
+        if initial_prompt:
+            ent.insert(0, initial_prompt)
+            win.after(200, ask)
         ent.focus_set()
         self._status("KI-Agent geöffnet")
 

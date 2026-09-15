@@ -683,11 +683,9 @@ class MarketplaceGUI:
             self.parent.clipboard_append(entry.content)
     
     def _open_in_agent(self, prompt: str):
-        """Öffnet Prompt im KI-Agent Fenster"""
-        # Nutzt existierende _agent Methode der Haupt-App
+        """Öffnet Prompt im KI-Agent Fenster und sendet ihn direkt"""
         if hasattr(self.parent, '_agent'):
-            self.parent._agent()
-            # TODO: Prompt in Agent-Eingabe einfügen
+            self.parent._agent(initial_prompt=prompt)
         else:
             import tkinter.messagebox as messagebox
             messagebox.showinfo("Prompt", f"Prompt kopiert:\n{prompt[:200]}...")
