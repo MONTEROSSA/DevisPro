@@ -219,42 +219,45 @@ def chat(message, context=None):
         val, info = _set_mwst(m.group(2), profil, data_dir)
         return {"answer": f"✅ {info} Betroffene Offerten/Rechnungen werden beim naechsten Speichern neu berechnet.", "action": "mwst", "lang": lang}
 
-    # 2) Kanton aendern (robust: alle formulierungen)
+    # 2) Kanton aendern (robust: alle formulierungen) — ABER nur wenn nicht "währung" oder "export" erwähnt
+    is_currency = any(w in ql for w in ("waehrung", "euro", "umrechn", "franken", "chf", "eur", "usd", "gbp"))
+    is_export = any(w in ql for w in ("export", "buchhalt", "abacus", "proffix", "datev", "bmd", "banana", "sap", "lexoffice", "sevdesk", "winoffice", "ramco", "mobit", "kleinvieh", "csv"))
     from devispro import kantone as kantone_mod
-    kt_erkannt = None
-    ql2 = ql.replace(".", " ")
-    # a) "kanton/kt" + code oder name
-    m = re.search(r"(kanton|kt\.?|kant\.?)\s*(auf|in|nach|zu|an|auf den)?\s*([a-zäöü]{2,20})", ql2)
-    if m:
-        kt_erkannt = m.group(3)
-    # b) "schalte/wechsle/setze/stelle/umschalte/ander auf|zu|in X um"
-    if not kt_erkannt:
-        m2 = re.search(r"(schalt|wechsel|setz|stell|umschalt|ändere?|aendere?|umstell)\w*\s+(auf|zu|in|nach|an)\s+([a-zäöü]{2,20})", ql2)
-        if m2:
-            kt_erkannt = m2.group(3)
-    # c) "auf|zu|in|nach X (um|wechseln|schalten)"
-    if not kt_erkannt:
-        m3 = re.search(r"(auf|zu|in|nach)\s+([a-zäöü]{2,20})\s*(um|wechsel|schalt|ändere?|aendere?)?", ql2)
-        if m3:
-            kt_erkannt = m3.group(2)
-    # d) direkter Kantonsname irgendwo im text
-    if not kt_erkannt:
-        for kn in kantone_mod.KANTON_NAMEN:
-            if kn in ql:
-                kt_erkannt = kn
-                break
-    # e) nur der code (AG, ZH, ...)
-    if not kt_erkannt:
-        for code in kantone_mod.KANTONE:
-            if code.lower() in ql.split():
-                kt_erkannt = code
-                break
-    if kt_erkannt:
-        code = kantone_mod.normiere_kanton(kt_erkannt)
-        if code:
-            kt, info = _set_kanton(code, profil, data_dir)
-            return {"answer": f"✅ {info}", "action": "kanton", "lang": lang}
-        return {"answer": f"⚠️ Kanton «{kt_erkannt}» ist mir nicht bekannt. Beispiele: «Wechsle auf Kanton Aargau», «setze Kanton auf ZH».", "action": "kanton", "lang": lang}
+    if (("kanton" in ql or "kt." in ql or "kt " in ql) and not is_currency and not is_export):
+        kt_erkannt = None
+        ql2 = ql.replace(".", " ")
+        # a) "kanton/kt" + code oder name
+        m = re.search(r"(kanton|kt\.?|kant\.?)\s*(auf|in|nach|zu|an|auf den)?\s*([a-zäöü]{2,20})", ql2)
+        if m:
+            kt_erkannt = m.group(3)
+        # b) "schalte/wechsle/setze/stelle/umschalte/ander auf|zu|in X um"
+        if not kt_erkannt:
+            m2 = re.search(r"(schalt|wechsel|setz|stell|umschalt|ändere?|aendere?|umstell)\w*\s+(auf|zu|in|nach|an)\s+([a-zäöü]{2,20})", ql2)
+            if m2:
+                kt_erkannt = m2.group(3)
+        # c) "auf|zu|in|nach X (um|wechseln|schalten)"
+        if not kt_erkannt:
+            m3 = re.search(r"(auf|zu|in|nach)\s+([a-zäöü]{2,20})\s*(um|wechsel|schalt|ändere?|aendere?)?", ql2)
+            if m3:
+                kt_erkannt = m3.group(2)
+        # d) direkter Kantonsname irgendwo im text
+        if not kt_erkannt:
+            for kn in kantone_mod.KANTON_NAMEN:
+                if kn in ql:
+                    kt_erkannt = kn
+                    break
+        # e) nur der code (AG, ZH, ...)
+        if not kt_erkannt:
+            for code in kantone_mod.KANTONE:
+                if code.lower() in ql.split():
+                    kt_erkannt = code
+                    break
+        if kt_erkannt:
+            code = kantone_mod.normiere_kanton(kt_erkannt)
+            if code:
+                kt, info = _set_kanton(code, profil, data_dir)
+                return {"answer": f"✅ {info}", "action": "kanton", "lang": lang}
+            return {"answer": f"⚠️ Kanton «{kt_erkannt}» ist mir nicht bekannt. Beispiele: «Wechsle auf Kanton Aargau», «setze Kanton auf ZH».", "action": "kanton", "lang": lang}
 
     # 3) Betrieb aendern
     m = re.search(r"(betrieb|firma)\s*(auf|ist)?\s*[:\"]?\s*([A-Za-z0-9\s\.]+)", ql)
@@ -274,16 +277,41 @@ def chat(message, context=None):
             return {"answer": f"✅ {info}\n\nVorschau:\n{out[:800]}", "action": "export", "lang": lang}
 
     # 5) Waehrung umrechnen
-    if "waehrung" in ql or "euro" in ql or "umrechn" in ql or "chf" in ql:
+    if "waehrung" in ql or "euro" in ql or "umrechn" in ql or "chf" in ql or "franken" in ql:
         betrag = re.search(r"(\d+[.,]?\d*)", ql)
-        ziel = "EUR"
-        for c in ("eur", "euro", "usd", "gbp", "dollar", "pfund"):
-            if c in ql:
-                ziel = {"eur": "EUR", "euro": "EUR", "usd": "USD", "dollar": "USD", "gbp": "GBP", "pfund": "GBP"}[c]
+        CUR_WORDS = {"chf": "CHF", "franken": "CHF", "eur": "EUR", "euro": "EUR",
+                     "usd": "USD", "dollar": "USD", "gbp": "GBP", "pfund": "GBP"}
+        # Zielwaehrung: robust ueber "in X (um)?" erkennen (z.B. "in chf um", "in EUR")
+        ziel_m = re.search(r"\bin\s+(chf|franken|eur|euro|usd|dollar|gbp|pfund)\b", ql)
+        quelle_m = None
+        if ziel_m:
+            ziel = CUR_WORDS[ziel_m.group(1)]
+            # Quellwaehrung: erstes Waehrungswort VOR dem "in ..."-Teil
+            vor_text = ql[:ziel_m.start()]
+            for w, code in CUR_WORDS.items():
+                if re.search(rf"\b{w}\b", vor_text):
+                    quelle_m = code
+                    break
+        else:
+            # Fallback (alte Logik): kein "in X" gefunden -> nimm erste erkannte Fremdwaehrung als Ziel
+            ziel = "EUR"
+            for w, code in CUR_WORDS.items():
+                if w in ql and code != "CHF":
+                    ziel = code
+                    break
+        quelle = quelle_m or "CHF"
         if betrag:
             b = float(betrag.group(1).replace(",", "."))
-            umg = mc_mod.umrechnen(b, ziel)
-            return {"answer": f"💱 {b:,.2f} CHF = {mc_mod.format(ziel, umg)} (Kurs 1 CHF = {mc_mod.kurs_chf_nach(ziel):.4f} {ziel}).", "action": "waehrung", "lang": lang}
+            if quelle == ziel:
+                return {"answer": f"💱 {mc_mod.format(ziel, b)} entspricht sich selbst (gleiche Waehrung).", "action": "waehrung", "lang": lang}
+            if quelle == "CHF":
+                umg = mc_mod.umrechnen(b, ziel)
+            elif ziel == "CHF":
+                umg = round(b / mc_mod.kurs_chf_nach(quelle), 2)
+            else:
+                chf_zw = b / mc_mod.kurs_chf_nach(quelle)
+                umg = mc_mod.umrechnen(chf_zw, ziel)
+            return {"answer": f"💱 {mc_mod.format(quelle, b)} = {mc_mod.format(ziel, umg)} (Kurs 1 CHF = {mc_mod.kurs_chf_nach(ziel if ziel != 'CHF' else quelle):.4f} {ziel if ziel != 'CHF' else quelle}).", "action": "waehrung", "lang": lang}
         return {"answer": "💱 Geben Sie einen Betrag an, z.B. «rechne 5000 CHF in EUR um». Verfuegbare Zielwaehrungen: " + ", ".join(mc_mod.verfuegbare()), "action": "waehrung", "lang": lang}
 
     # 6) Margen / Copilot
@@ -365,9 +393,20 @@ def chat(message, context=None):
 
 
 def _load_devis(did, data_dir):
+    """Lädt ein Devis — versucht zuerst den DevisPro-Parser, dann CRB-SIA als Fallback."""
     if not did:
         return None
+    sia_path = history_mod.path_of(did, "bepreist.sia")
+    # Primär: DevisPro-Format (M16)
     try:
-        return crb.parse(history_mod.path_of(did, "bepreist.sia"))
+        from .parsers.devispro_sia import parse as devispro_parse
+        dev = devispro_parse(sia_path)
+        if dev and dev.positions:
+            return dev
+    except Exception:
+        pass
+    # Fallback: CRB-SIA-Standard-Format
+    try:
+        return crb.parse(sia_path)
     except Exception:
         return None

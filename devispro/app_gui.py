@@ -381,7 +381,7 @@ class DevisProApp(ctk.CTk):
             ent.delete(0, "end")
             txt.insert("end", f"\n👤 Sie: {q}\n")
             try:
-                from agent import chat as agent_chat
+                from devispro.agent import chat as agent_chat
                 r = agent_chat(q)
                 answer = r.get("answer", "Keine Antwort")
                 action = r.get("action", "")
