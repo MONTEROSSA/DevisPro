@@ -457,8 +457,8 @@ class MarketplaceGUI:
     def _create_entry(self):
         """Erstellt neuen Marketplace-Eintrag"""
         import tkinter as tk
-        from tkinter import messagebox
-        
+        from tkinter import messagebox, ttk
+
         win = tk.Toplevel(self.parent)
         win.title("Neuen Marketplace-Eintrag erstellen")
         win.geometry("700x600")
@@ -583,7 +583,7 @@ class MarketplaceGUI:
     def _edit_entry(self, entry: MarketplaceEntry):
         """Bearbeitet eigenen Eintrag"""
         import tkinter as tk
-        from tkinter import messagebox
+        from tkinter import messagebox, ttk
         
         win = tk.Toplevel(self.parent)
         win.title(f"Bearbeiten: {entry.title}")
