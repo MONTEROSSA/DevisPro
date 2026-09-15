@@ -676,34 +676,36 @@ class CloudSyncManager:
         
         # Manueller Eintrag
         tk.Label(win, text="--- Oder manuell ---").pack(pady=8)
-        
+
         fields = {}
-        
-        tk.Label(win, text="Name:").grid(row=10, column=0, sticky="w", padx=8, pady=4)
-        fields['name'] = tk.Entry(win, width=40)
-        fields['name'].grid(row=10, column=1, padx=8, pady=4, sticky="ew")
-        
-        tk.Label(win, text="Provider:").grid(row=11, column=0, sticky="w", padx=8, pady=4)
-        fields['provider'] = ttk.Combobox(win, 
+        form = tk.Frame(win)
+        form.pack(fill="x", padx=8, pady=4)
+
+        tk.Label(form, text="Name:").grid(row=0, column=0, sticky="w", padx=8, pady=4)
+        fields['name'] = tk.Entry(form, width=40)
+        fields['name'].grid(row=0, column=1, padx=8, pady=4, sticky="ew")
+
+        tk.Label(form, text="Provider:").grid(row=1, column=0, sticky="w", padx=8, pady=4)
+        fields['provider'] = ttk.Combobox(form,
             values=[p.value for p in SyncProvider], width=30, state="readonly")
-        fields['provider'].grid(row=11, column=1, padx=8, pady=4, sticky="w")
-        
-        tk.Label(win, text="Lokaler Pfad:").grid(row=12, column=0, sticky="w", padx=8, pady=4)
-        local_frame = tk.Frame(win)
-        local_frame.grid(row=12, column=1, padx=8, pady=4, sticky="ew")
+        fields['provider'].grid(row=1, column=1, padx=8, pady=4, sticky="w")
+
+        tk.Label(form, text="Lokaler Pfad:").grid(row=2, column=0, sticky="w", padx=8, pady=4)
+        local_frame = tk.Frame(form)
+        local_frame.grid(row=2, column=1, padx=8, pady=4, sticky="ew")
         fields['local_path'] = tk.Entry(local_frame, width=30)
         fields['local_path'].pack(side="left", fill="x", expand=True)
         fields['local_path'].insert(0, str(Path.home() / "DevisPro_Sync"))
         tk.Button(local_frame, text="...", command=lambda: self._browse_local(fields['local_path'])).pack(side="left", padx=4)
-        
-        tk.Label(win, text="Remote Pfad:").grid(row=13, column=0, sticky="w", padx=8, pady=4)
-        remote_frame = tk.Frame(win)
-        remote_frame.grid(row=13, column=1, padx=8, pady=4, sticky="ew")
+
+        tk.Label(form, text="Remote Pfad:").grid(row=3, column=0, sticky="w", padx=8, pady=4)
+        remote_frame = tk.Frame(form)
+        remote_frame.grid(row=3, column=1, padx=8, pady=4, sticky="ew")
         fields['remote_path'] = tk.Entry(remote_frame, width=30)
         fields['remote_path'].pack(side="left", fill="x", expand=True)
         tk.Button(remote_frame, text="...", command=lambda: self._browse_remote(fields['remote_path'])).pack(side="left", padx=4)
-        
-        win.columnconfigure(1, weight=1)
+
+        form.columnconfigure(1, weight=1)
         
         def save():
             name = fields['name'].get().strip()
