@@ -37,15 +37,16 @@ from . import erp_api as erp_mod
 
 FAQ = {
     "trial": (
-        "DevisPro bietet einen 3-monatigen Pilot (Trial) – erst NACH Eingabe von "
-        "Firma und E-Mail. Danach 500 CHF Rabatt auf die Jahreslizenz. "
-        "Preismodell: 2'400 CHF + 990 CHF/Jahr. Lizenz ist lokal beim KMU, "
-        "Freischalt-Code jaehrlich vom Anbieter."
+        "DevisPro bietet 5 Devis kostenlos zum Testen — ganz ohne Kreditkarte, "
+        "sofort nutzbar. Danach Abo waehlen: Solo 79 CHF/Monat, Team 249 CHF/Monat "
+        "(3 User inkl., je weiterer +99 CHF), Business 599 CHF/Monat. Bei "
+        "Jahreszahlung 20% Rabatt (758 / 2'390 / 5'750 CHF/Jahr). Jederzeit kuendbar."
     ),
     "preis": (
-        "DevisPro kostet 2'400 CHF einmalig plus 990 CHF pro Jahr (Wartung, "
-        "Updates, Benchmark-Netzwerk). Der 3-Monats-Pilot ist gratis, danach "
-        "500 CHF Rabatt. Anbieter: Monterossa AG, info@monterossa.ch."
+        "DevisPro-Preise (Stripe-Abo, monatlich kuendbar): Solo 79 CHF/Monat, "
+        "Team 249 CHF/Monat (3 User inkl.), Business 599 CHF/Monat. Bei "
+        "Jahreszahlung 20% Rabatt (758 / 2'390 / 5'750 CHF/Jahr). 5 Devis vorher "
+        "gratis testen, keine Kreditkarte noetig. Kontakt: info@devispro.de."
     ),
     "formate": (
         "DevisPro liest: SIA-451/Sorba, Bauweb/Daedalus, generisches CSV/Excel, "
@@ -55,9 +56,9 @@ FAQ = {
         "Kleinvieh und generisches CSV."
     ),
     "lizenz": (
-        "Die Lizenz ist lokal beim KMU installiert und ohne jaehrlichen "
-        "Freischalt-Code unbrauchbar (RSA-signiert). Nach Zahlung bestaetigt der "
-        "Anbieter und der Code wird automatisch ausgestellt."
+        "DevisPro laeuft als Online-Abo (Stripe) — Solo/Team/Business, monatlich "
+        "kuendbar. Die Lizenzpruefung erfolgt automatisch nach Zahlungseingang, "
+        "kein manueller Freischalt-Code mehr noetig."
     ),
     "kanton": (
         "DevisPro deckt alle 26 Kantone mit kantonalen Aufschlaegen (Baukosten-Index "
@@ -82,16 +83,15 @@ FAQ = {
         "data/smtp.json (nicht im Code)."
     ),
     "support": (
-        "Support: info@monterossa.ch (Monterossa AG). Die Dokumentation liegt im "
-        "Paket (README.txt, LIZENZ_MONTEROSSA.txt). Der KI-Agent hilft sofort zu "
-        "jeder Frage."
+        "Support: info@devispro.de. Die Dokumentation liegt im Paket "
+        "(README.txt, LIZENZ.txt). Der KI-Agent hilft sofort zu jeder Frage."
     ),
     "erp": (
         "DevisPro + ERP ist die integrierte Erweiterung: Lager & Stuecklisten, "
         "Einkauf/Bestellung, Verkauf (Offerte->Auftrag->Rechnung), Buchhaltung "
         "(Journal, KMU-Kontenrahmen, MWST-Abrechnung) und ein Live-Dashboard "
         "(Umsatz, offene Posten, Lagerwert). 13 Schnittstellen zu Abacus, Proffix, "
-        "BMD, DATEV, Banana, SAP. Preis: 8'900 CHF + 3'490 CHF/Jahr."
+        "BMD, DATEV, Banana, SAP. Im Business-Abo (599 CHF/Monat) enthalten."
     ),
 }
 
