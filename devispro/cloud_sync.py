@@ -440,12 +440,25 @@ class CloudSyncManager:
             if selection:
                 name = tree.item(selection[0])['tags'][0]
                 self._sync_provider_gui(name)
-        
+
+        def remove_selected():
+            selection = tree.selection()
+            if not selection:
+                messagebox.showinfo("Entfernen", "Bitte zuerst einen Provider in der Liste auswählen.")
+                return
+            name = tree.item(selection[0])['tags'][0]
+            if messagebox.askyesno("Entfernen", f"Provider '{name}' wirklich entfernen?"):
+                self.remove_provider(name)
+                refresh_tree()
+                self._status_label.configure(text=f"Status: Provider '{name}' entfernt")
+
         # Buttons unter Treeview
         btn_frame = tk.Frame(win)
         btn_frame.pack(fill="x", padx=8, pady=8)
         tk.Button(btn_frame, text="Ausgewählten syncen", command=sync_selected, 
                   bg="darkblue", fg="black").pack(side="left", padx=4)
+        tk.Button(btn_frame, text="Ausgewählten entfernen", command=remove_selected,
+                  bg="darkred", fg="black").pack(side="left", padx=4)
         tk.Button(btn_frame, text="Aktualisieren", command=refresh_tree).pack(side="left", padx=4)
         
         tree.bind("<Double-1>", on_double_click)
@@ -748,21 +761,39 @@ class CloudSyncManager:
         from tkinter import messagebox
         win = tk.Toplevel()
         win.title("Provider verwalten")
-        win.geometry("400x300")
-        
-        for name in self.configs:
-            frame = tk.Frame(win)
-            frame.pack(fill="x", padx=8, pady=4)
-            config = self.configs[name]
-            provider = self.providers.get(name)
-            available = provider.is_available() if provider else False
-            status = "✓" if available else "✗"
-            tk.Label(frame, text=f"{name} ({config.provider}) {status}").pack(side="left", padx=8)
-            tk.Button(frame, text="Testen", 
-                     command=lambda n=name: self._test_provider_gui(n)).pack(side="right", padx=4)
-        
-        if not self.configs:
-            tk.Label(win, text="Keine Provider konfiguriert.", fg="gray").pack(pady=20)
+        win.geometry("460x300")
+
+        def refresh():
+            for w in list(rows_frame.winfo_children()):
+                w.destroy()
+            if not self.configs:
+                tk.Label(rows_frame, text="Keine Provider konfiguriert.", fg="gray").pack(pady=20)
+                return
+            for name in list(self.configs):
+                frame = tk.Frame(rows_frame)
+                frame.pack(fill="x", padx=8, pady=4)
+                config = self.configs[name]
+                provider = self.providers.get(name)
+                available = provider.is_available() if provider else False
+                status = "✓" if available else "✗"
+                tk.Label(frame, text=f"{name} ({config.provider}) {status}").pack(side="left", padx=8)
+                tk.Button(frame, text="Entfernen", bg="darkred", fg="black",
+                         command=lambda n=name: remove(n)).pack(side="right", padx=4)
+                tk.Button(frame, text="Testen",
+                         command=lambda n=name: self._test_provider_gui(n)).pack(side="right", padx=4)
+
+        def remove(name):
+            if messagebox.askyesno("Entfernen", f"Provider '{name}' wirklich entfernen?"):
+                self.remove_provider(name)
+                refresh()
+                try:
+                    self._gui_refresh()
+                except Exception:
+                    pass
+
+        rows_frame = tk.Frame(win)
+        rows_frame.pack(fill="both", expand=True)
+        refresh()
     
     def _test_provider_gui(self, name: str):
         import tkinter as tk
