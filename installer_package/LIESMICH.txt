@@ -1,0 +1,15 @@
+DevisPro installieren
+======================
+
+1. Doppelklick auf "DevisPro_Installieren.command"
+   (macOS fragt eventuell "Bist du sicher?" - dann auf "Öffnen" klicken)
+2. DevisPro startet automatisch.
+
+Ab dem zweiten Mal reicht ein Doppelklick direkt auf DevisPro.app.
+
+Hinweis: Beim ersten Start zeigt macOS eventuell einen Hinweis, dass der
+Entwickler nicht verifiziert werden konnte. Das ist normal bei Software,
+die (noch) nicht über den Mac App Store vertrieben wird. Einfach auf
+"Fertig" klicken - die App funktioniert trotzdem einwandfrei.
+
+Support: info@devispro.de
