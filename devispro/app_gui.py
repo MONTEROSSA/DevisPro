@@ -511,7 +511,7 @@ class DevisProApp(ctk.CTk):
             save_profile(p)
             messagebox.showinfo("Gespeichert", "Stammdaten gespeichert.")
             win.destroy()
-        tk.Button(win, text="Speichern", command=save, bg="darkgreen", fg="white").grid(
+        tk.Button(win, text="Speichern", command=save, bg="darkgreen", fg="black").grid(
             row=3, column=1, sticky="w", padx=8, pady=16)
 
     def _neu(self):

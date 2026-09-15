@@ -312,8 +312,16 @@ class CloudSyncManager:
     
     def _save_configs(self):
         config_file = self.config_dir / "configs.json"
+        # Konvertiere Enums zu Strings für JSON-Serialisierung
+        def _serialize(cfg):
+            d = asdict(cfg)
+            if isinstance(d.get('provider'), SyncProvider):
+                d['provider'] = d['provider'].value
+            if isinstance(d.get('conflict_strategy'), str):
+                pass  # bereits str
+            return d
         data = {
-            'configs': {name: asdict(cfg) for name, cfg in self.configs.items()}
+            'configs': {name: _serialize(cfg) for name, cfg in self.configs.items()}
         }
         with open(config_file, 'w', encoding='utf-8') as f:
             json.dump(data, f, ensure_ascii=False, indent=2)
@@ -363,11 +371,11 @@ class CloudSyncManager:
         toolbar.pack(fill="x", padx=8, pady=8)
         
         tk.Button(toolbar, text="Alle synchronisieren", command=self._sync_all_gui, 
-                  bg="darkgreen", fg="white").pack(side="left", padx=4)
+                  bg="darkgreen", fg="black").pack(side="left", padx=4)
         tk.Button(toolbar, text="Provider hinzufügen", command=self._add_provider_gui, 
-                  bg="darkblue", fg="white").pack(side="left", padx=4)
+                  bg="darkblue", fg="black").pack(side="left", padx=4)
         tk.Button(toolbar, text="Auto-Sync starten", command=self._toggle_auto_sync, 
-                  bg="darkorange", fg="white").pack(side="left", padx=4)
+                  bg="darkorange", fg="black").pack(side="left", padx=4)
         tk.Button(toolbar, text="Provider verwalten", command=self._manage_providers_gui, 
                   bg="gray").pack(side="left", padx=4)
         
@@ -437,7 +445,7 @@ class CloudSyncManager:
         btn_frame = tk.Frame(win)
         btn_frame.pack(fill="x", padx=8, pady=8)
         tk.Button(btn_frame, text="Ausgewählten syncen", command=sync_selected, 
-                  bg="darkblue", fg="white").pack(side="left", padx=4)
+                  bg="darkblue", fg="black").pack(side="left", padx=4)
         tk.Button(btn_frame, text="Aktualisieren", command=refresh_tree).pack(side="left", padx=4)
         
         tree.bind("<Double-1>", on_double_click)
@@ -610,9 +618,9 @@ class CloudSyncManager:
         btn_frame = tk.Frame(win)
         btn_frame.grid(row=9, column=0, columnspan=2, pady=16)
         tk.Button(btn_frame, text="Speichern", command=save, 
-                  bg="darkblue", fg="white").pack(side="left", padx=8)
+                  bg="darkblue", fg="black").pack(side="left", padx=8)
         tk.Button(btn_frame, text="Löschen", command=lambda: self._delete_provider_gui(name, win), 
-                  bg="darkred", fg="white").pack(side="left", padx=8)
+                  bg="darkred", fg="black").pack(side="left", padx=8)
     
     def _delete_provider_gui(self, name: str, parent_win):
         import tkinter as tk
@@ -661,7 +669,7 @@ class CloudSyncManager:
             tk.Label(frame, text=f"→ {cfg.remote_path}").pack(side="left", padx=8)
             tk.Button(frame, text="Hinzufügen", 
                      command=lambda c=cfg: self._add_discovered_provider(c, win),
-                     bg="darkgreen", fg="white").pack(side="right", padx=8)
+                     bg="darkgreen", fg="black").pack(side="right", padx=8)
         
         if not discovered:
             tk.Label(win, text="Keine Cloud-Dienste automatisch gefunden.", fg="gray").pack(padx=8, pady=8)
@@ -721,7 +729,7 @@ class CloudSyncManager:
             win.destroy()
         
         tk.Button(win, text="Hinzufügen", command=save, 
-                  bg="darkgreen", fg="white").pack(pady=16)
+                  bg="darkgreen", fg="black").pack(pady=16)
     
     def _add_discovered_provider(self, config: SyncConfig, parent_win):
         self.add_provider(config.name, config)

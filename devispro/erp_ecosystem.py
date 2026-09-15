@@ -716,10 +716,19 @@ class ERPManager:
         data = {
             "version": "1.0",
             "updated_at": datetime.now().isoformat(),
-            "configs": {name: asdict(cfg) for name, cfg in self.configs.items()}
+            "configs": {name: self._serialize_config(cfg) for name, cfg in self.configs.items()}
         }
         with open(config_file, "w", encoding="utf-8") as f:
             json.dump(data, f, ensure_ascii=False, indent=2)
+
+    def _serialize_config(self, cfg) -> dict:
+        """Konvertiert ERPConfig zu JSON-kompatiblem dict (Enums → Strings)."""
+        d = asdict(cfg)
+        if hasattr(d.get('erp_type'), 'value'):
+            d['erp_type'] = d['erp_type'].value
+        if hasattr(d.get('sync_direction'), 'value'):
+            d['sync_direction'] = d['sync_direction'].value
+        return d
 
     def _create_plugin(self, name: str, config: ERPConfig):
         plugin_class = ERP_PLUGIN_REGISTRY.get(config.erp_type, CustomPlugin)
@@ -792,19 +801,20 @@ class ERPManager:
         win = tk.Toplevel()
         win.title("ERP-Ökosystem")
         win.geometry("1000x700")
+        win.option_add("*Entry*foreground", "black")
 
         # Toolbar
         toolbar = tk.Frame(win)
         toolbar.pack(fill="x", padx=8, pady=8)
 
         tk.Button(toolbar, text="ERP hinzufügen", command=self._add_erp_gui,
-                  bg="darkgreen", fg="white").pack(side="left", padx=4)
+                  bg="darkgreen", fg="black").pack(side="left", padx=4)
         tk.Button(toolbar, text="Alle testen", command=self._test_all_gui,
-                  bg="darkblue", fg="white").pack(side="left", padx=4)
+                  bg="darkblue", fg="black").pack(side="left", padx=4)
         tk.Button(toolbar, text="Projekte importieren", command=self._import_projects_gui,
-                  bg="darkorange", fg="white").pack(side="left", padx=4)
+                  bg="darkorange", fg="black").pack(side="left", padx=4)
         tk.Button(toolbar, text="Kunden importieren", command=self._import_customers_gui,
-                  bg="purple", fg="white").pack(side="left", padx=4)
+                  bg="purple", fg="black").pack(side="left", padx=4)
         tk.Button(toolbar, text="Aktualisieren", command=self._refresh_erp_gui,
                   bg="gray").pack(side="left", padx=4)
 
@@ -857,7 +867,7 @@ class ERPManager:
         btn_frame = tk.Frame(win)
         btn_frame.pack(fill="x", padx=8, pady=8)
         tk.Button(btn_frame, text="Bearbeiten", command=lambda: self._edit_erp_gui_selected(tree)).pack(side="left", padx=4)
-        tk.Button(btn_frame, text="Löschen", command=lambda: self._delete_erp_gui_selected(tree), bg="darkred", fg="white").pack(side="left", padx=4)
+        tk.Button(btn_frame, text="Löschen", command=lambda: self._delete_erp_gui_selected(tree), bg="darkred", fg="black").pack(side="left", padx=4)
         tk.Button(btn_frame, text="Testen", command=lambda: self._test_erp_gui_selected(tree)).pack(side="left", padx=4)
 
         self._refresh_erp_gui()
@@ -952,7 +962,7 @@ class ERPManager:
             self._refresh_erp_gui()
             win.destroy()
 
-        tk.Button(win, text="Hinzufügen", command=save, bg="darkgreen", fg="white").grid(row=9, column=0, columnspan=2, pady=16)
+        tk.Button(win, text="Hinzufügen", command=save, bg="darkgreen", fg="black").grid(row=9, column=0, columnspan=2, pady=16)
 
     def _edit_erp_gui_selected(self, tree):
         selection = tree.selection()
@@ -1035,7 +1045,7 @@ class ERPManager:
             messagebox.showinfo("Gespeichert", "ERP-Konfiguration gespeichert.")
             win.destroy()
 
-        tk.Button(win, text="Speichern", command=save, bg="darkblue", fg="white").grid(row=9, column=0, columnspan=2, pady=16)
+        tk.Button(win, text="Speichern", command=save, bg="darkblue", fg="black").grid(row=9, column=0, columnspan=2, pady=16)
 
     def _delete_erp_gui_selected(self, tree):
         import tkinter.messagebox as messagebox
@@ -1116,7 +1126,7 @@ class ERPManager:
                 total += 1
 
         tk.Button(win, text=f"{total} Projekte importiert - Schliessen", command=win.destroy,
-                  bg="darkgreen", fg="white").pack(pady=8)
+                  bg="darkgreen", fg="black").pack(pady=8)
 
     def _import_customers_gui(self):
         import tkinter as tk
@@ -1157,7 +1167,7 @@ class ERPManager:
                 total += 1
 
         tk.Button(win, text=f"{total} Kunden importiert - Schliessen", command=win.destroy,
-                  bg="darkgreen", fg="white").pack(pady=8)
+                  bg="darkgreen", fg="black").pack(pady=8)
 
 
 # Demo / Test

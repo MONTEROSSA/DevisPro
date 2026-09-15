@@ -84,7 +84,15 @@ class MarketplaceEntry:
     
     @classmethod
     def from_dict(cls, data: Dict) -> 'MarketplaceEntry':
-        return cls(**data)
+        # Defaults für Pflichtfelder, falls im JSON fehlend
+        defaults = {
+            'description': '',
+            'author_id': '',
+            'content': '',
+            'content_type': 'prompt',
+        }
+        merged = {**defaults, **data}
+        return cls(**merged)
 
 
 class MarketplaceStore:
@@ -115,10 +123,17 @@ class MarketplaceStore:
         data = {
             'version': '1.0',
             'updated_at': datetime.now().isoformat(),
-            'entries': [e.to_dict() for e in self.entries.values()]
+            'entries': [self._serialize_entry(e) for e in self.entries.values()]
         }
         with open(self.entries_file, 'w', encoding='utf-8') as f:
             json.dump(data, f, ensure_ascii=False, indent=2)
+
+    def _serialize_entry(self, entry) -> dict:
+        """Konvertiert MarketplaceEntry zu JSON-kompatiblem dict."""
+        d = asdict(entry)
+        if hasattr(d.get('status'), 'value'):
+            d['status'] = d['status'].value
+        return d
         
         # Index für schnelle Suche
         index = {}
@@ -321,11 +336,11 @@ class MarketplaceGUI:
         toolbar.pack(fill="x", padx=8, pady=8)
         
         tk.Button(toolbar, text="Neu erstellen", command=self._create_entry, 
-                  bg="darkgreen", fg="white").pack(side="left", padx=4)
+                  bg="darkgreen", fg="black").pack(side="left", padx=4)
         tk.Button(toolbar, text="Meine Einträge", command=self._show_my_entries, 
-                  bg="darkblue", fg="white").pack(side="left", padx=4)
+                  bg="darkblue", fg="black").pack(side="left", padx=4)
         tk.Button(toolbar, text="Sync", command=self._do_sync, 
-                  bg="darkorange", fg="white").pack(side="left", padx=4)
+                  bg="darkorange", fg="black").pack(side="left", padx=4)
         tk.Button(toolbar, text="Einstellungen", command=self._show_settings, 
                   bg="gray").pack(side="left", padx=4)
         
@@ -521,7 +536,7 @@ class MarketplaceGUI:
         tk.Button(btn_frame, text="Als Entwurf speichern", command=save_draft, 
                   bg="gray").pack(side="left", padx=8)
         tk.Button(btn_frame, text="Veröffentlichen", command=publish, 
-                  bg="darkgreen", fg="white").pack(side="left", padx=8)
+                  bg="darkgreen", fg="black").pack(side="left", padx=8)
     
     def _show_my_entries(self):
         """Zeigt nur eigene Einträge"""
@@ -635,9 +650,9 @@ class MarketplaceGUI:
         btn_frame = tk.Frame(win)
         btn_frame.grid(row=7, column=0, columnspan=2, pady=16)
         tk.Button(btn_frame, text="Speichern", command=save, 
-                  bg="darkblue", fg="white").pack(side="left", padx=8)
+                  bg="darkblue", fg="black").pack(side="left", padx=8)
         tk.Button(btn_frame, text="Löschen", command=lambda: self._delete_entry(entry, win), 
-                  bg="darkred", fg="white").pack(side="left", padx=8)
+                  bg="darkred", fg="black").pack(side="left", padx=8)
     
     def _delete_entry(self, entry: MarketplaceEntry, parent_win):
         import tkinter as tk
@@ -765,7 +780,7 @@ class MarketplaceGUI:
             win.destroy()
         
         tk.Button(win, text="Speichern", command=save_settings, 
-                  bg="darkgreen", fg="white").grid(row=3, column=1, sticky="e", padx=8, pady=16)
+                  bg="darkgreen", fg="black").grid(row=3, column=1, sticky="e", padx=8, pady=16)
     
     def _get_current_user(self) -> str:
         """Holt aktuellen User aus Profil"""
